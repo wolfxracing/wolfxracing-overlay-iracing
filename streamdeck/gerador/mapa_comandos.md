@@ -1,9 +1,9 @@
 # Mapa de comandos × ícones — Overlay iRacing (Stream Deck XL)
 
-Fonte dos comandos: tabela `ATALHOS` do `ov_nucleo.py` v20.2.2 (22 atalhos). Nenhum comando novo foi inventado.
+Fonte dos comandos: tabela `ATALHOS` do `ov_nucleo.py` (26 atalhos: 22 da fase 20.2.2 + 4 da v1.3.0). Nenhum comando novo foi inventado.
 Chave de posição no Stream Deck = **coluna,linha** (0,0 = canto superior esquerdo; XL: 0..7 × 0..3).
 
-## 1. Janelas (12) — um único comando cada: alternar mostrar/ocultar
+## 1. Janelas (16) — um único comando cada: alternar mostrar/ocultar
 | Pos. | Janela | Atalho | Ícone (ligado) | Ícone (desligado, opcional) |
 |---|---|---|---|---|
 | 0,0 | Telemetria | Ctrl+Alt+Shift+F13 | janela_telemetria | janela_telemetria_desligada |
@@ -18,6 +18,10 @@ Chave de posição no Stream Deck = **coluna,linha** (0,0 = canto superior esque
 | 1,1 | Danos | Ctrl+Alt+Shift+F22 | janela_danos | janela_danos_desligada |
 | 2,1 | Combustível | Ctrl+Alt+Shift+F23 | janela_combustivel | janela_combustivel_desligada |
 | 3,1 | Força G | Ctrl+Alt+Shift+F24 | janela_forca_g | janela_forca_g_desligada |
+| 3,3 | Luz ABS | Alt+F13 | janela_luz_abs | janela_luz_abs_desligada |
+| 4,3 | Luz TC (estimada) | Alt+F14 | janela_luz_tc | janela_luz_tc_desligada |
+| 5,3 | Retorno à pista | Alt+F15 | janela_retorno | janela_retorno_desligada |
+| 6,3 | Estratégia de pneus | Alt+F16 | janela_estrategia | janela_estrategia_desligada |
 
 **Limite técnico:** o Stream Deck não lê o estado do overlay. O botão alterna (liga/desliga), mas não muda de ícone sozinho. Os ícones "desligada" ficam na biblioteca para uso manual ou para uma fase futura (exigiria sincronismo de estado, fora do escopo atual). Não existem comandos separados "mostrar" e "ocultar".
 

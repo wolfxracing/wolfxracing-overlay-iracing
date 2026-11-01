@@ -142,7 +142,7 @@ TESTE 13 - STREAM DECK: TECLAS DE ATALHO (FASE 20.2.2)                (15 min; n
  Preparacao: copie os arquivos da 20.2.2 (overlay_iracing.py, ov_nucleo.py, fechar_overlay.bat, ATALHOS_STREAM_DECK.txt),
    abra o overlay e importe "streamdeck\Overlay iRacing.streamDeckProfile" no Stream Deck. Pode usar "testar_demo.bat".
  Faca e anote PASSOU/FALHOU:
- (a) No log, logo apos abrir: "atalhos globais: 22 de 22 registrados". Se vier menos, o log lista quais e por que.
+ (a) No log, logo apos abrir: "atalhos globais: 26 de 26 registrados". Se vier menos, o log lista quais e por que.
  (b) Botao "Radar": a janela some; toque de novo: volta. Repita com 2 ou 3 outras janelas (cada botao mexe so na sua).
  (c) Botoes de Perfil (Treino, Classif., Corrida, Auto): o rotulo do menu da bandeja muda ("Perfil ativo: ...") e o
      layout de cada perfil e respeitado.
@@ -150,6 +150,8 @@ TESTE 13 - STREAM DECK: TECLAS DE ATALHO (FASE 20.2.2)                (15 min; n
  (e) Botao "Suporte": abre a pasta; os botoes abrem os arquivos; "Voltar" retorna a pagina principal.
  (f) COM O iRACING EM PRIMEIRO PLANO, numa sessao: aperte os botoes de janela. As janelas devem reagir e o jogo NAO deve
      reagir (nenhuma camera, mapa ou ajuste mudou no iRacing). Se mudar algo no jogo, anote qual botao.
+ (g2) Botoes novos da 1.3.0 (linha de baixo: LUZ ABS, LUZ TC, RETORNO, ESTRATEGIA): cada um liga/desliga so a sua janela
+     (o mesmo que o item do menu da bandeja). Se um nao reagir, veja no log a linha "atalhos globais NAO registrados" (Alt+F13..F16).
  (g) Botao "FECHAR Overlay": o icone da bandeja some e o processo termina. Abra de novo com "Iniciar Overlay".
  (h) Com o overlay TRAVADO de proposito (nao feche o Gerenciador de Tarefas): "Forcar Fechamento" deve encerrar o overlay.
  (i) Se algum botao nao funcionar: veja em "overlay_log.txt" a linha "atalhos globais NAO registrados" (combinacao em uso

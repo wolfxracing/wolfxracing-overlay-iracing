@@ -11,7 +11,8 @@ PRINCIPAL.update({
  (4,1):"perfil_auto",(5,1):"perfil_treino",(6,1):"perfil_classificacao",(7,1):"perfil_corrida",
  (0,2):"ctrl_economia_cpu",(1,2):"ctrl_aparecer_sozinho",(2,2):"ctrl_travar_posicao",(3,2):"ctrl_zerar_pico_g",
  (4,2):"ctrl_limpar_impactos",(5,2):"sup_demo",(6,2):"sup_log",(7,2):"sup_pasta_overlay",
- (0,3):"ctrl_iniciar",(1,3):"ctrl_fechar",(2,3):"ctrl_forcar_fechamento",(7,3):"sup_pasta_suporte"})
+ (0,3):"ctrl_iniciar",(1,3):"ctrl_fechar",(2,3):"ctrl_forcar_fechamento",(7,3):"sup_pasta_suporte",
+ (3,3):"janela_luz_abs",(4,3):"janela_luz_tc",(5,3):"janela_retorno",(6,3):"janela_estrategia"})
 SUP = {(0,0):"sup_voltar",(1,0):"sup_atalhos",(2,0):"sup_testes",(3,0):"sup_emblemas",(4,0):"sup_historico",
        (5,0):"sup_guia",(6,0):"sup_roteiro",(7,0):"sup_recordes",(0,1):"sup_inicio_windows_on",(1,1):"sup_inicio_windows_off"}
 def previa(lay, titulo, destino):

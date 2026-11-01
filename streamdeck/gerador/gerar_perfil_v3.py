@@ -2,7 +2,7 @@
 """Perfil Stream Deck XL 'Overlay iRacing': layout aprovado, chaves "coluna,linha", icones da biblioteca streamdeck_icons."""
 import io, json, os, random, string, sys, uuid, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from icones_base import DEVICE_UUID, MODEL
+DEVICE_UUID, MODEL = "@(1)[4057/143/A00NA6053I6336]", "20GAT9902"       # Stream Deck XL
 BIB, PACOTE, OUT_DIR = sys.argv[1], sys.argv[2], sys.argv[3]
 sys.path.insert(0, PACOTE)
 import ov_nucleo as nu
@@ -25,7 +25,8 @@ ACAO = {
  "sup_inicio_windows_on": ("abrir", "ativar_inicio_automatico.bat"), "sup_inicio_windows_off": ("abrir", "desativar_inicio_automatico.bat"),
  "sup_recordes": ("abrir", "recordes_pessoais.json"),
 }
-for n in ("telemetria","voltas","relativo","classificacao","mapa","radar","pneus","setores","clima","danos","combustivel","forca_g"):
+for n in ("telemetria","voltas","relativo","classificacao","mapa","radar","pneus","setores","clima","danos","combustivel","forca_g",
+          "luz_abs","luz_tc","retorno","estrategia"):
     ACAO[f"janela_{n}"] = ("tecla", f"janela_{n}")
 
 def rid(): return "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(26)) + "Z"

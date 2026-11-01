@@ -46,6 +46,10 @@ Isso cria `...\_ajustado.streamDeckProfile` com o seu caminho; importe esse arqu
 | `Ctrl+Alt+F20` | Zerar o pico de G |
 | `Ctrl+Alt+F21` | Limpar as marcas de impacto |
 | `Ctrl+Alt+F22` | **Fechar** o overlay |
+| `Alt+F13` | Mostrar/ocultar luz do ABS |
+| `Alt+F14` | Mostrar/ocultar luz do TC (estimada) |
+| `Alt+F15` | Mostrar/ocultar retorno à pista |
+| `Alt+F16` | Mostrar/ocultar estratégia de pneus |
 
 - A lista é gerada a partir da tabela `ATALHOS` de `overlay/ov_nucleo.py` (um teste automático avisa se divergir).
 - Os atalhos só funcionam com o **overlay aberto** e funcionam com o jogo em primeiro plano.

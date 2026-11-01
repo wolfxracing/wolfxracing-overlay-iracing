@@ -1,5 +1,8 @@
-OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.2.0, BASE FASE 20.2.2)
+OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.3.0, BASE FASE 20.2.2)
 ==============================================================
+
+NOVO NA 1.3.0: Stream Deck com botoes para Luz ABS, Luz TC, Retorno e Estrategia (Alt+F13..F16; perfil e lista de atalhos
+atualizados; importe de novo o perfil "Overlay iRacing.streamDeckProfile").
 
 O QUE E
 Dezessete janelas independentes sobre o iRacing. Cada uma pode ser movida e ligada/desligada.

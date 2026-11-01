@@ -2,6 +2,14 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [SemVer](https://semver.org/lang/pt-BR/).
 
+## [1.3.0] - 2026-11-01
+
+- **Novo:** botões de **Stream Deck** para as quatro janelas da 1.2.0: **Luz ABS**, **Luz TC**, **Retorno** e **Estratégia** (linha de baixo da página principal, posições 3,3 a 6,3). O perfil `Overlay iRacing.streamDeckProfile` foi regenerado (30 botões na página principal) e os quatro ícones ficam na biblioteca, com as variantes "desligada".
+- **Novo:** atalhos globais `Alt+F13` (Luz ABS), `Alt+F14` (Luz TC), `Alt+F15` (Retorno) e `Alt+F16` (Estratégia). Entram no fim da tabela `ATALHOS`, então os 22 atalhos antigos não mudam; são 26 no total. Não colidem com os do overlay de LMU.
+- Corrigido: `streamdeck/gerador/gerar_perfil_v3.py` importava um módulo que não vinha no repositório (`icones_base`); as constantes do Stream Deck XL agora estão no próprio script.
+- Quem já importou o perfil antigo: importe de novo (ou crie os quatro botões na mão com a ação *Hotkey*); os demais botões não mudam.
+- Sem mudança nas janelas, nos dados nem na configuração. Testes de atalhos atualizados para 26.
+
 ## [1.2.0] - 2026-11-01
 
 - **Alterado:** a janela **Telemetria** passou a ser a única janela de pedais: o gráfico agora é rolante por tempo (5 a 30 s), com degraus da marcha, marca do ABS (amarelo) e (opcional) do TC (azul), e pedais calibrados, crus ou os dois. Não existe janela Inputs separada (16 janelas no total).

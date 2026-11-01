@@ -71,23 +71,24 @@ def codigo(id_):
 # ====================================================================================================
 assert n.VERSAO_NUCLEO == "20.2.2"
 assert n.validar_atalhos() == [], n.validar_atalhos()
-assert len(n.ATALHOS) == 22 and len({a.id for a in n.ATALHOS}) == 22
-assert len({(a.mods, a.fn) for a in n.ATALHOS}) == 22                         # nenhuma combinacao repetida
+assert len(n.ATALHOS) == 26 and len({a.id for a in n.ATALHOS}) == 26
+assert len({(a.mods, a.fn) for a in n.ATALHOS}) == 26                         # nenhuma combinacao repetida
 assert all(13 <= a.fn <= 24 and n.VK_F13 <= a.vk <= 0x87 for a in n.ATALHOS)
 assert n.ATALHOS[0].nome == "Ctrl+Alt+Shift+F13" and n.atalho_por_id("perfil_treino").nome == "Ctrl+Alt+F14"
 assert n.atalho_por_id("sair").nome == "Ctrl+Alt+F22" and n.atalho_por_id("sair").vk == 0x7C + 9
 assert n.atalho_por_id("nao_existe") is None
 # as 12 janelas, os 4 perfis e os controles estao todos no mapa
 janelas = [a for a in n.ATALHOS if a.id.startswith("janela_")]
-assert len(janelas) == 12 and {a.alvo for a in janelas} == {
+assert len(janelas) == 16 and {a.alvo for a in janelas} == {
     "mostrar_telemetria", "mostrar_voltas", "mostrar_relativo", "mostrar_classificacao", "mostrar_mapa", "mostrar_radar",
-    "mostrar_pneus", "mostrar_setores", "mostrar_clima", "mostrar_danos", "mostrar_combustivel", "mostrar_forca_g"}
+    "mostrar_pneus", "mostrar_setores", "mostrar_clima", "mostrar_danos", "mostrar_combustivel", "mostrar_forca_g",
+    "mostrar_luz_abs", "mostrar_luz_tc", "mostrar_retorno", "mostrar_estrategia"}   # as 4 ultimas: 1.3.0 (Alt+F13..F16)
 assert {a.alvo for a in n.ATALHOS if a.tipo == "perfil"} == {"auto", "Treino", "Classificacao", "Corrida"}
 assert {a.alvo for a in n.ATALHOS if a.tipo == "perfil"} - {"auto"} == set(n.PERFIS)        # nomes iguais aos dos perfis reais
 assert {a.alvo for a in n.ATALHOS if a.tipo == "chamar"} == {"zerar_pico_g", "limpar_impactos", "sair"}
 # codigos: ida e volta; fora da faixa = desconhecido
 assert n.atalho_por_codigo(n.ID_BASE_TECLA) is n.ATALHOS[0]
-assert n.atalho_por_codigo(n.ID_BASE_TECLA + 21).id == "sair" and n.atalho_por_codigo(n.ID_BASE_TECLA + 22) is None
+assert n.atalho_por_codigo(n.ID_BASE_TECLA + 21).id == "sair" and n.atalho_por_codigo(n.ID_BASE_TECLA + 26) is None
 assert n.atalho_por_codigo(0) is None and n.atalho_por_codigo(-5) is None
 assert n.ID_BASE_TECLA + len(n.ATALHOS) <= 0xBFFF                                           # faixa permitida do Windows
 # o validador acusa os defeitos
@@ -102,7 +103,7 @@ cfg0 = o.carregar_config()
 for a in n.ATALHOS:
     if a.tipo == "alternar":
         assert a.alvo in cfg0, a.alvo
-print("1) mapa de teclas: 22 atalhos, sem conflito, F13..F24, alvos existentes OK")
+print("1) mapa de teclas: 26 atalhos, sem conflito, F13..F24, alvos existentes OK")
 
 # ====================================================================================================
 # 2) DESPACHANTE
@@ -132,11 +133,11 @@ print("2) despachante: repeticao, desconhecido e erro isolado OK")
 api = ApiFalsa()
 e = n.EscutaTeclas(api)
 n_ok, falhas = e.iniciar()
-assert n_ok == 22 and falhas == [] and len(api.reg) == 22
+assert n_ok == 26 and falhas == [] and len(api.reg) == 26
 assert all(m & n.MOD_NOREPEAT for m, _ in api.reg.values())                  # sem repeticao ao segurar a tecla
 assert api.reg[codigo("janela_telemetria")] == (n.MODS_JANELAS | n.MOD_NOREPEAT, 0x7C)
 assert api.reg[codigo("sair")] == (n.MODS_CONTROLES | n.MOD_NOREPEAT, 0x7C + 9)
-assert e.iniciar() == (22, [])                                              # iniciar de novo nao duplica nada
+assert e.iniciar() == (26, [])                                              # iniciar de novo nao duplica nada
 for c in (codigo("janela_radar"), codigo("perfil_treino"), codigo("janela_radar")):
     api.apertar(c)
 t0 = time.time(); recebidos = []
@@ -152,11 +153,11 @@ e.parar()                                                                       
 api = ApiFalsa(ocupados={(n.MODS_CONTROLES, 0x7C + 3)})                         # Ctrl+Alt+F16 = perfil Corrida
 e = n.EscutaTeclas(api)
 n_ok, falhas = e.iniciar()
-assert n_ok == 21 and len(falhas) == 1 and falhas[0][0].id == "perfil_corrida" and "1409" in falhas[0][1]
+assert n_ok == 25 and len(falhas) == 1 and falhas[0][0].id == "perfil_corrida" and "1409" in falhas[0][1]
 api.apertar(codigo("janela_mapa")); time.sleep(0.2)
 assert e.retirar() == [codigo("janela_mapa")]
 e.parar()
-assert codigo("perfil_corrida") not in api.liberados and len(api.liberados) == 21        # so libera o que registrou
+assert codigo("perfil_corrida") not in api.liberados and len(api.liberados) == 25        # so libera o que registrou
 
 # a API quebra ao preparar: nao derruba, registra o erro e nao fica esperando
 api = ApiFalsa(falha_preparar=True)
@@ -213,12 +214,12 @@ def cenario_integracao(self):
         cfg = salvos[-1] if salvos else None
         bombear(0.4)
         esc = estado["escuta"]
-        assert esc is not None and len(esc.registrados) == 22 and len(api_int.reg) == 22
+        assert esc is not None and len(esc.registrados) == 26 and len(api_int.reg) == 26
         # cada atalho de tipo alternar/perfil aponta para um item real do menu
         for a in n.ATALHOS:
             if a.tipo == "alternar":
                 assert a.alvo in acao_por_chave, a.alvo
-        assert "atalhos globais: 22 de 22 registrados" in log()
+        assert "atalhos globais: 26 de 26 registrados" in log()
         cfg_vivo = lambda: salvos[-1]
 
         # janela: liga/desliga como o clique no menu (menu e config andam juntos)
@@ -287,7 +288,7 @@ def cenario_integracao(self):
         # ligar de novo: registra outra vez
         api_int.reg.clear(); api_int.liberados.clear(); api_int.encerrado = False
         item.setChecked(True); bombear(0.3)
-        assert cfg_vivo()["teclas_globais"] is True and len(api_int.reg) == 22 and estado["escuta"] is not None
+        assert cfg_vivo()["teclas_globais"] is True and len(api_int.reg) == 26 and estado["escuta"] is not None
         apertar("janela_mapa"); assert not acao_por_chave["mostrar_mapa"].isChecked(); apertar("janela_mapa")
         estado["escuta"].parar()                                       # encerra a thread (o aboutToQuit faria o mesmo)
         resultado["ok"] = True
