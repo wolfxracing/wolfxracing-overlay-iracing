@@ -1,0 +1,621 @@
+OVERLAY IRACING - GUIA RAPIDO (FASE 20.2.2)
+=========================================
+
+O QUE E
+Doze janelas independentes sobre o iRacing. Cada uma pode ser movida e ligada/desligada.
+ 1. TELEMETRIA     : marcha, velocidade, RPM, pedais, VOLANTE + grafico de acelerador e freio (~10 s)
+ 2. VOLTAS         : delta, tempo de volta (atual / ultima / melhor) e combustivel
+ 3. RELATIVO       : carros a frente e atras de voce + PROJECAO DE iRATING E SR em tempo real
+ 4. CLASSIFICACAO  : posicao, carro, piloto, pais, ultima volta e melhor volta, por classe
+ 5. MAPA           : tracado da pista (aprendido na sua 1a volta) com a posicao de todos os carros
+ 6. RADAR          : carros ao seu redor, visto de cima, para evitar contato
+ 7. PNEUS          : vida util e temperatura de cada pneu, ESTIMADAS AO VIVO (reais nos boxes)
+ 8. SETORES        : tempo de cada setor, ultima volta, melhor e otima vs o seu recorde (carro + pista)
+ 9. CLIMA          : temperatura da pista e do ar, neblina, CHUVA e VENTO (bussola vista do carro)
+10. DANOS          : reparo necessario, avisos do motor e impactos detectados (frente/tras/lados)
+11. COMBUSTIVEL    : janela de pit, litros a colocar, autonomia e consumo das ultimas voltas
+12. FORCA G        : circulo de G lateral e longitudinal com rastro, G atual e pico, pista e temperatura
+
+COMO ATUALIZAR DE UMA VERSAO ANTERIOR (sem reinstalar nada)
+ 1. Feche o overlay: icone vermelho "i" perto do relogio (seta ^) > Sair.
+ 2. Copie para a pasta que voce ja usa, substituindo o que existir:
+      - o arquivo "overlay_iracing.py"
+      - o arquivo "ov_nucleo.py"  (NOVO na Fase 20: precisa ficar na MESMA pasta; sem ele o overlay avisa e nao abre)
+      - a pasta "bandeiras" (NOVA: bandeiras dos paises)
+      - a pasta "emblemas" e o arquivo "abrir_pasta_emblemas.bat" (NOVOS)
+    Suas posicoes salvas (config.json) continuam valendo. Se esquecer a pasta "bandeiras", a
+    classificacao mostra so o codigo do pais, sem bandeira.
+    NOVIDADE DA FASE 20.2.2 (STREAM DECK): copie "overlay_iracing.py" E "ov_nucleo.py" e os arquivos novos
+    "fechar_overlay.bat" e "ATALHOS_STREAM_DECK.txt" (a pasta "testes" e o "executar_testes.bat" tambem mudaram).
+    O overlay passa a aceitar TECLAS DE ATALHO GLOBAIS (Ctrl+Alt+F13...F24 e Ctrl+Alt+Shift+F13...F24) para o Stream
+    Deck trocar de perfil, ligar/desligar cada janela e FECHAR o overlay. 12 janelas, 3 perfis, layouts, calculos e
+    configuracoes: iguais. Veja "STREAM DECK: TECLAS DE ATALHO" abaixo.
+    NOVIDADE DA FASE 20.2.1 (ajustes finais): copie "overlay_iracing.py" E "ov_nucleo.py". A projecao de iRating/SR
+    passa a ter um CICLO DE VIDA (pendente > provisoria > confirmada ou expirada) e nao e mais apagada depois da
+    primeira comparacao; resultado oficial com variacao ZERO passa a ser tratado como confirmado, nao como
+    "aguardando". Veja "FASE 20.2.1: O QUE MUDOU" abaixo. 12 janelas, 3 perfis e configuracoes: iguais.
+    NOVIDADE DA FASE 20.2: copie "overlay_iracing.py" E "ov_nucleo.py". (1) A comparacao de iRating/SR passa a ser
+    marcada PROVISORIA; (2) o painel de combustivel mostra os litros da PRIMEIRA parada pela capacidade livre do
+    tanque na chegada aos boxes. Veja "FASE 20.2: O QUE MUDOU" abaixo. 12 janelas, 3 perfis e layouts: iguais.
+    NOVIDADE DA FASE 20.1 (revisao tecnica): copie "overlay_iracing.py" E "ov_nucleo.py" (os dois mudaram).
+    Corrige: radar (identidade do carro x ocupacao lateral), alerta de contato, comparacao projecao x oficial,
+    paradas de combustivel, fechamento do mapa e regra real x estimado dos pneus. Suas posicoes, tamanhos,
+    perfis e configuracoes continuam valendo. Veja a secao "FASE 20.1: O QUE MUDOU E OS LIMITES" abaixo.
+    NOVIDADE DA FASE 20: confiabilidade, perfis e desempenho (copie "overlay_iracing.py" E "ov_nucleo.py").
+    Seu layout atual e mantido: os 3 perfis (Treino, Classificacao, Corrida) comecam IGUAIS ao que voce usa hoje.
+    Veja as secoes "REAL x CALCULADO x ESTIMADO", "PERFIS DE EXIBICAO" e "DESEMPENHO E LOG" abaixo, e o arquivo
+    "ROTEIRO_VALIDACAO.txt" (testes para fazer numa sessao real do iRacing).
+    NOVIDADE DA FASE 19: janela FORCA G (so substituir o "overlay_iracing.py"). Aparece sozinha junto com as
+    outras; para desligar: bandeja > desmarque "Mostrar forca G".
+    NOVIDADE DA FASE 18: VISUAL MODERNO (so substituir o "overlay_iracing.py"). Nada muda de posicao, tamanho
+    ou configuracao; e so a aparencia. Para o visual de antes: bandeja > desmarque "Visual moderno".
+    NOVIDADE DA FASE 17: janela PAINEL DE COMBUSTIVEL E PIT (so substituir o "overlay_iracing.py"). Ela e uma
+    janela separada; a faixa pequena de combustivel na janela Voltas continua e pode ser desligada
+    (bandeja > "Calculo de combustivel (na janela Voltas)").
+    NOVIDADE DA FASE 16: RELATIVO com TIPO DE PNEU e VOLTAS DO PNEU (a janela fica mais larga; so substituir o
+    "overlay_iracing.py").
+    NOVIDADES DA FASE 15: CHUVA na janela Clima e janela nova DANOS (so substituir o "overlay_iracing.py").
+    NOVIDADE DA FASE 14: janela CLIMA E VENTO (so substituir o "overlay_iracing.py").
+    NOVIDADES DA FASE 13: (a) PNEUS ESTIMADOS AO VIVO durante a corrida; (b) o overlay APARECE
+    SOZINHO quando voce entra no carro e pode INICIAR JUNTO COM O WINDOWS. Substitua o
+    "overlay_iracing.py" e copie os arquivos novos "ativar_inicio_automatico.bat" e
+    "desativar_inicio_automatico.bat". O arquivo "calibracao_pneus.json" e criado sozinho.
+    NOVIDADES DA FASE 12: janela nova SETORES (vs melhor volta, por carro e pista). Basta
+    substituir o "overlay_iracing.py". O arquivo "recordes_pessoais.json" e criado sozinho na
+    pasta (e o seu historico de recordes: nao apague se quiser manter as referencias).
+    Suas posicoes e tamanhos salvos continuam valendo. A janela Relativo fica um pouco mais alta
+    (a faixa nova); para esconder a faixa: menu da bandeja > "Projecao de iRating e SR".
+ 3. Abra de novo com "iniciar_overlay.bat".
+
+PRIMEIRA INSTALACAO (uma unica vez)
+ 1. Instale o "Python Install Manager" (python.org/downloads).
+ 2. Extraia esta pasta e de duplo clique em "instalar.bat". Ele prepara o Python 3.12
+    e os componentes. Aguarde "Instalacao concluida".
+
+APARECER SOZINHO E INICIAR COM O WINDOWS (FASE 13)
+ Objetivo: voce liga o PC, abre o iRacing, entra no carro e as janelas ja estao la, sem abrir nada.
+ 1. INICIAR COM O WINDOWS: de duplo clique em "ativar_inicio_automatico.bat" (uma unica vez).
+    Para desfazer: "desativar_inicio_automatico.bat". (Tambem da para ligar/desligar pelo menu da
+    bandeja > "Iniciar junto com o Windows".) O overlay fica quieto, so o icone vermelho "i" perto do
+    relogio, ate voce entrar no carro.
+ 2. APARECER SOZINHO: menu da bandeja > "Aparecer sozinho ao entrar no carro" (ligado por padrao).
+    - As janelas APARECEM assim que voce esta dentro do carro (pista ou pit lane) e ESCONDEM
+      6 segundos depois de voce sair para a garagem/menu, fechar o iRacing ou entrar em replay
+      (os 6 s evitam piscar quando voce so aperta ESC rapidamente).
+    - IMPORTANTE: o automatico so funciona com "Travar posicao" MARCADO. Com a posicao destravada
+      (contorno amarelo) as janelas ficam sempre visiveis, para voce poder arrumar. Depois de
+      posicionar, marque "Travar posicao" uma vez; ele fica salvo.
+    - Quer tudo sempre visivel como antes? Desmarque "Aparecer sozinho ao entrar no carro".
+    - Se abrir o overlay duas vezes, a segunda tentativa avisa que ja esta em execucao (nao duplica).
+ 3. Cada janela continua respeitando o menu: uma janela desligada no menu nunca aparece.
+ 4. LIMITES: este recurso nao foi testado no Windows real por quem o escreveu (somente simulado).
+    O overlay so aparece sobre o jogo em "Janela sem bordas" (tela cheia exclusiva nao permite).
+    Se as janelas nao aparecerem ao entrar no carro, desmarque o modo automatico e avise o mantenedor (Issues do GitHub)
+    (a deteccao usa a variavel IsOnTrack do iRacing).
+
+POSICIONAR AS JANELAS (recomendado apos atualizar)
+ Janelas novas aparecem em uma posicao padrao. Para arrumar:
+ 1. Clique direito no icone da bandeja e DESMARQUE "Travar posicao".
+ 2. Arraste cada janela (contorno amarelo = modo mover) para onde preferir.
+ 3. Marque "Travar posicao" de novo. Os cliques passam a atravessar o overlay.
+ O menu da bandeja tambem liga/desliga cada janela:
+   - "Mostrar telemetria" liga/desliga a janela de marcha, velocidade e pedais.
+   - "Grafico de acelerador e freio" mostra/esconde so o grafico dentro da telemetria
+     (a janela diminui quando o grafico e escondido).
+   - "Mostrar delta, voltas e combustivel" liga/desliga a janela Voltas.
+   - "Mostrar mapa da pista" e "Mostrar radar de proximidade" ligam/desligam essas janelas.
+   - "Refazer o mapa desta pista" apaga o desenho guardado desta pista e aprende de novo.
+
+REDIMENSIONAR AS JANELAS (como no Windows)
+ Com "Travar posicao" DESMARCADO (contorno amarelo):
+ - Aproxime o mouse de uma BORDA ou CANTO da janela: o cursor vira uma seta dupla. Arraste:
+     * BORDA ESQUERDA ou DIREITA  -> muda SO A LARGURA (a altura nao se mexe).
+     * BORDA DE CIMA ou DE BAIXO  -> muda SO A ALTURA (a largura nao se mexe).
+     * CANTO                      -> muda as duas, mantendo a proporcao que a janela ja tinha.
+   O conteudo acompanha a janela: ao esticar so um lado, letras e desenhos (volante, radar) ficam
+   mais largos ou mais altos, como uma imagem esticada. Use com moderacao para nao deformar demais.
+ - O puxador amarelo no canto inferior direito mostra onde pegar.
+ - Alternativa: segure CTRL e gire a roda do mouse sobre a janela (amplia/reduz as duas medidas
+   juntas, sem alterar o formato).
+ - Arrastar pelo MEIO da janela continua movendo.
+ - O tamanho de cada janela fica salvo. Menu da bandeja > "Restaurar o tamanho das janelas (100%)"
+   volta tudo ao tamanho original.
+ Depois, marque "Travar posicao" de novo.
+
+OVERLAY SOBRE O JOGO EM TELA CHEIA
+ Limite tecnico: na tela cheia EXCLUSIVA o Windows nao deixa nenhuma janela de outro programa
+ aparecer sobre o jogo. A unica forma de contornar isso seria injetar codigo dentro do iRacing, o
+ que NAO fazemos (o anti-cheat do iRacing pode tratar como violacao e banir a conta).
+ O que fazemos:
+ 1. Menu da bandeja > "Manter o overlay por cima do jogo (reforcar)" (vem ligado): o overlay
+    reafirma "sempre no topo" a cada segundo, sem roubar o foco do jogo. Ajuda quando o
+    Windows coloca o jogo na frente.
+ 2. Recomendado e mais seguro: rodar o iRacing em JANELA SEM BORDA. Visualmente fica identico a
+    tela cheia (mesma resolucao, ocupa o monitor inteiro). No iRacing, aba Display (video):
+    desmarque "Full Screen" e desmarque "Border"; feche e abra o iRacing de novo.
+ 3. Se mesmo assim o overlay sumir com "Full Screen" marcado, use o item 2: nao ha outra opcao segura.
+
+USO
+ - Teste sem o iRacing: "testar_demo.bat" (dados simulados, nomes ficticios).
+ - Uso no iRacing: video em JANELA SEM BORDAS, entre em uma sessao e abra "iniciar_overlay.bat".
+
+COMO LER A CLASSIFICACAO
+ Os carros ficam agrupados por classe, da classe mais rapida para a mais lenta.
+ Cada classe mostra o nome, o SOF da classe e o numero de carros.
+ Colunas: posicao na classe | numero | marca do carro | piloto | pais | ultima volta | melhor volta.
+ - Sua linha fica em azul.
+ - Melhor volta em ROXO = a mais rapida da classe.
+ - Ultima volta em VERDE = igual a melhor volta daquele piloto (ele acabou de bater o proprio recorde).
+ - Faixa colorida a esquerda = cor da classe.
+ - Linha pontilhada = existem carros omitidos entre o topo e a vizinhanca da sua posicao.
+ - Na sua classe aparecem o topo e os carros ao redor de voce; nas outras, os primeiros colocados.
+ - Menu da bandeja > "Classificacao: mostrar todas as classes": desmarque para ver so a sua classe
+   (com mais carros na tela).
+ - Pais: codigo de 3 letras (BRA, USA, ESP...) tirado do perfil do piloto no iRacing.
+   Se aparecer "---", o iRacing nao informou o pais ou o nome dele ainda nao esta na lista do overlay.
+   Nesse caso o nome fica registrado em "overlay_log.txt": envie ao mantenedor (Issues do GitHub) para incluirmos.
+
+COMO LER A COLUNA CARRO (EMBLEMAS) E A BANDEIRA DO PAIS (janela Classificacao)
+ - PAIS: bandeira + codigo de 3 letras. As bandeiras vem no pacote (pasta "bandeiras", cerca de 100 paises).
+   Se o pais nao for reconhecido aparece "---" sem bandeira; o nome fica no "overlay_log.txt".
+ - CARRO: mostra o emblema da marca. Este pacote NAO inclui logotipos de fabricantes (sao marcas
+   registradas), entao, ate voce colocar as imagens, aparecem as INICIAIS da marca (POR, FER, AM...).
+   Para ter os emblemas: de duplo clique em "abrir_pasta_emblemas.bat" e salve la as imagens com o
+   nome da marca (porsche.png, ferrari.png, aston-martin.png...). Instrucoes completas e a lista de
+   nomes em "emblemas\LEIA-ME.txt". O arquivo "emblemas_faltando.txt" (criado enquanto voce joga) lista
+   exatamente as marcas que ainda faltam.
+
+COMO LER O CALCULO DE COMBUSTIVEL (faixa de baixo da janela Voltas)
+ VOLTAS ATE O FIM   Quanto falta para a bandeira quadriculada. Em corrida por voltas usa as voltas
+                    restantes da sessao; em corrida por TEMPO estima pelo seu ritmo (mediana das
+                    ultimas voltas limpas) e conta ate cruzar a linha depois que o tempo acabar.
+                    Em treino sem fim definido aparece "--".
+ NECESSARIO (+1 v)  Litros para terminar = (voltas ate o fim + margem) x consumo medio por volta.
+                    A margem e uma folga de seguranca em voltas; padrao 1 volta.
+ ADICIONAR          Quanto abastecer: necessario menos o que ha no tanque.
+                    "OK" (verde) = ja termina com a folga escolhida.
+                    "+x.x L" (amarelo) = abastecer essa quantidade; mostra tambem quanto cabe no tanque.
+                    "+x.x L" (vermelho) = nao cabe de uma vez; mostra quantas paradas serao necessarias.
+ - Mudar a margem: icone da bandeja > "Margem de seguranca do combustivel" (0,5 / 1 / 1,5 / 2 voltas).
+   Use 0,5 se for economizar combustivel; 1,5 a 2 em corridas longas ou com bandeira amarela frequente.
+ - O consumo e a media das ultimas voltas limpas (sem box). Depois de uma volta lenta atras do safety
+   car ou de economia de combustivel, o valor se ajusta em algumas voltas.
+ - Para esconder a faixa: bandeja > "Calculo de combustivel (na janela Voltas)".
+ - E uma estimativa: nao considera bandeiras amarelas futuras nem mudanca no seu ritmo.
+   Confira sempre antes de sair dos boxes.
+
+COMO LER O PAINEL DE COMBUSTIVEL E PIT
+ Menu da bandeja > "Mostrar painel de combustivel e pit". Precisa de uma volta limpa (sem box) para medir o consumo
+ e de uma corrida com fim definido (por voltas ou por tempo). Numeros usam virgula decimal.
+ - CAIXA COLORIDA (topo esquerdo): a JANELA DE PIT. "ABERTA V21-25" = voce pode parar nas voltas 21 a 25 e ainda
+   chegar a bandeirada com o MENOR numero de paradas (verde). "FECHADA, abre na V21" (laranja) = ainda e cedo: o
+   tanque nao comportaria o combustivel que falta. "SEM JANELA" (vermelho) = nao existe plano viavel; o texto diz
+   por que: "nao chega ao box" (o combustivel nao chega nem a proxima linha) ou "tanque insuficiente" (a margem
+   escolhida e maior que o tanque). "SEM PARADA" = o combustivel atual chega ao fim com a margem. "box AGORA" =
+   so da para parar nesta volta e ja sem a margem inteira.
+   FASE 20.1: a MARGEM vale em CADA parada (voce chega ao box com a margem de reserva), entao cada parada rende
+   "tanque - margem x consumo", nao o tanque inteiro; por isso podem ser necessarias mais paradas do que "total /
+   tanque" sugere. As paradas acontecem so ao cruzar a linha (volta inteira). Corrida por voltas E por tempo ao
+   mesmo tempo: vale o que acabar primeiro.
+ - "+67,9 L": quanto colocar na PRIMEIRA parada. FASE 20.2: o rotulo diz a volta ("COLOCAR NA V22"). Com UMA parada
+   e so o que falta para terminar com a margem. Com varias, a parada enche o tanque ("... - ATE O TOPO"): o valor e
+   a capacidade do tanque menos o combustivel PROJETADO na chegada aos boxes (nivel agora - consumo x voltas ate
+   la). Antes o painel dividia o total igualmente entre as paradas, o que podia pedir mais do que cabe no tanque.
+   A coluna REABAST. da tabela segue a mesma regra, para cada consumo (MED/MAX/MIN). A janela vai da primeira a
+   ultima volta possivel; parar mais tarde, com varias paradas, exige mais litros (chega mais vazio).
+ - BARRA DO TANQUE: "10,0 L" no tanque agora e a capacidade (ex.: 88 L). Fica amarela abaixo de 6 voltas e
+   vermelha abaixo de 3.
+ - TABELA: MED*, MAX, MIN = consumo por volta na media, no maior e no menor das ultimas voltas limpas.
+   USO (L por volta) | VOLTAS (quantas voltas o tanque dura) | PARADAS (em tanques cheios: 0,7 = uma parada) |
+   REABAST. (litros por parada) | T.REABAST. (litros no total ate o fim) | ACABA (volta em que o combustivel
+   termina). A linha com * (media) e a usada nos calculos; MAX e MIN mostram o pior e o melhor caso.
+ - PIT em barras: uma barra por volta; VERDE = voltas em que da para parar, AMARELA = volta atual.
+ - TEMPO ATE ACABAR / VOLTAS ATE ACABAR: quanto o combustivel dura (em tempo e em voltas) e, em vermelho, quanto
+   falta para chegar a bandeirada sem parar (verde = sobra).
+ - VOLTA / USO / DIF: consumo das ultimas 5 voltas e a diferenca para a media.
+ - A "margem de seguranca" do menu da bandeja (voltas de folga) entra em todos os calculos.
+ - LIMITES: e uma estimativa baseada no seu ritmo recente; nao preve bandeira amarela nem mudanca de ritmo. Em
+   corrida por tempo, o numero de voltas depende do tempo de volta estimado. Confira antes de sair dos boxes.
+   A capacidade do tanque vem do iRacing; se aparecer sem o total, a parte de paradas mostra uma parada.
+   Em corrida por TEMPO assume-se o seu tempo de volta tipico constante; um tempo de volta pior ou uma bandeira
+   amarela mudam o numero de voltas. Use a margem de seguranca para isso.
+
+VISUAL MODERNO E TRANSPARENCIA (FASE 18)
+ Aparencia inspirada em overlays de corrida atuais, SEM mexer no que voce ja configurou (posicoes, tamanhos,
+ janelas ligadas, dados e calculos continuam iguais):
+ - Fundo grafite com degrade, trama fina de fibra de carbono, borda fina e brilho no topo; cartoes com a mesma
+   linguagem (Clima, Pneus). O seu piloto fica destacado em DOURADO (Relativo e Classificacao).
+ - Fonte "Bahnschrift" (estilo painel automotivo, ja vem no Windows 10/11). Se o seu Windows nao tiver, o overlay
+   usa a "Segoe UI" sozinho.
+ - Bandeja > "Visual moderno": desmarque para voltar EXATAMENTE ao visual classico (azul, fundo liso).
+ - Bandeja > "Transparencia do fundo das janelas": 100% a 40% opaco. O padrao (80%) e o mesmo de antes. Em jogo
+   com cenario claro, 90 ou 100% ajuda a leitura; para ver mais da pista, use 50 a 60%.
+ - LIMITE: o visual foi montado e conferido so em simulacao; a fonte nova tem largura um pouco diferente da
+   anterior. Se algum texto ficar apertado ou cortado, volte ao visual classico e me avise qual janela.
+
+COMO LER OS PNEUS (FASE 13: estimativa ao vivo; FASE 20: ultima leitura real)
+ FASE 20: quando o iRacing deixa de atualizar a temperatura real, o cartao mostra a ULTIMA LEITURA REAL
+ esmaecida, com quando foi ("real, ha 4 min (15:43, boxes)"; amarelo se passar de 10 min). A estimativa ao vivo
+ fica no canto do cartao, com "~". A vida real tambem mostra "real, ha X min". As medicoes sao descartadas
+ ao trocar de sessao (pneus novos).
+ Por que mudou: o iRacing so informa o desgaste e a temperatura REAIS dos pneus quando o carro esta
+ parado no box. Durante a corrida ele nao envia nada. Por isso a janela agora ESTIMA os valores a
+ cada instante e se corrige sozinha a cada parada. O sinal "~" significa "estimado".
+ Como a estimativa funciona: o overlay mede quanto cada pneu e exigido (velocidade e forcas de curva,
+ freada e aceleracao; curva carrega o lado de fora, freada o eixo dianteiro, aceleracao o traseiro) e
+ transforma isso em perda de vida util. Na primeira volta limpa ele assume um desgaste padrao
+ (0,7% por volta, ajustavel em "pneu_desgaste_volta" no config.json). Na PRIMEIRA PARADA NOS BOXES ele
+ compara com o valor real do iRacing e se calibra para o SEU carro (fica salvo em calibracao_pneus.json).
+ Cada cartao mostra:
+ - VIDA~ (barra e %): borracha restante estimada. Depois de uma parada mostra "VIDA" (valor real do iRacing)
+   ate voce voltar a rodar. Abaixo: perda por volta e quantas voltas o pneu ja tem.
+ - TEMPERATURA: "~87 C" = estimada (sobe com o esforco, esfria devagar; referencia: temperatura da pista).
+   Se o seu carro informar as 3 zonas (E/M/I) em movimento, o overlay passa a mostrar os valores reais.
+   Cores: azul = frio | verde = 80 a 105 C | amarelo = quente | vermelho = muito quente.
+ - Contorno LARANJA = o pneu mais gasto. Rodape: pior pneu e em quantas voltas chega ao limite
+   (30%, ajustavel em "pneu_vida_minima" no config.json) no ritmo atual.
+ - LIMITES HONESTOS: e uma estimativa, nao uma medida. Antes da primeira calibracao pode errar
+   bastante (principalmente o ritmo de desgaste); depois de 1 ou 2 paradas fica bem melhor para
+   COMPARAR os pneus e acompanhar a tendencia. A temperatura estimada e so uma referencia. Pressao
+   e composto nao entram no modelo. Se a curva carregar o lado ERRADO (ex.: curvas a esquerda
+   desgastando mais o esquerdo), mude "pneu_lado_invertido" para true no config.json (com o overlay fechado).
+ - O iRacing nao informa pneus em alguns carros/series; se algo parecer estranho, envie o
+   "overlay_log.txt" (linha "Pneus (diagnostico)").
+
+COMO LER A JANELA CLIMA E VENTO
+ Quatro cartoes: TEMP. DA PISTA, TEMP. DO AR, NEBLINA e VENTO. Menu da bandeja > "Mostrar clima e vento".
+ - BUSSOLA DO VENTO: o carro fica no centro apontando sempre para CIMA; as letras N (vermelho), E, S, W
+   giram conforme o carro vira. A SETA AZUL mostra para onde o vento SOPRA, ja vista a partir do carro:
+   seta para cima = vento de cauda (empurra); seta para baixo = vento de frente; para o lado = lateral.
+ - Embaixo: velocidade do vento (km/h), o componente "de frente" ou "a favor" (km/h) e a velocidade do carro.
+ - LIMITE: o iRacing informa UM vento para a pista toda (medido na linha de largada) e so atualiza com o
+   tempo; ele nao varia curva a curva. A direcao assumida e a de ONDE o vento VEM (como na meteorologia).
+   Se a seta parecer invertida (vento de frente aparecendo como de cauda), mude "vento_invertido" para true
+   no config.json (com o overlay fechado) e avise o mantenedor (Issues do GitHub), para eu fixar o padrao certo.
+ - Variaveis do iRacing usadas: TrackTempCrew/TrackTemp, AirTemp, FogLevel, WindDir, WindVel, YawNorth.
+   Se algum valor aparecer como "--", o carro/sessao nao informa aquele dado.
+
+COMO LER A CHUVA (na janela Clima)
+ - Porcentagem = chuva AGORA, informada pelo iRacing. Ao lado: nivel de agua na pista (seca ... encharcada) e
+   a TENDENCIA dos ultimos ~10 minutos (subindo / estavel / diminuindo; "medindo" no primeiro minuto).
+ - LIMITE IMPORTANTE: o iRacing NAO entrega a PREVISAO ("chance de chuva") para programas externos. Por isso
+   a janela mostra chuva atual + tendencia, que e o mais perto disso que o jogo permite. A previsao completa
+   continua so no menu do proprio iRacing. Em clima "fixo" (estatico) a chuva nao muda ao longo da sessao.
+
+COMO LER A JANELA DANOS
+ O iRacing NAO informa dano por peca (suspensao, aerodinamica, motor...). O que ele informa, e a janela usa:
+ - FAIXA DE SITUACAO: "REPARO OBRIGATORIO 95 s" (vermelho) = tempo que o reparo vai levar nos boxes, dado pelo
+   proprio iRacing, e a melhor medida da gravidade do dano; "REPARO OPCIONAL" (laranja); "REBOQUE"; ou
+   "SEM DANO REGISTRADO" (verde). Dano pequeno pode nao exigir reparo e nao aparecer.
+ - INCIDENTES: contador do iRacing (e o limite da sessao, se houver). Amarelo a partir de 70% do limite.
+ - CARRO VISTO DE CIMA: as 4 zonas (frente, traseira, lados) acendem na hora do impacto: amarelo = leve,
+   laranja = medio, vermelho = forte. Direcao e forca (em g) sao ESTIMADAS pela aceleracao do carro no instante
+   da batida. As marcas somem sozinhas quando o reparo termina e ao mudar de sessao; ou use o menu da bandeja >
+   "Limpar as marcas de impacto".
+ - MOTOR: avisos reais do iRacing (agua, pressao de combustivel, oleo, motor parado).
+ - ULTIMOS IMPACTOS: os 3 mais recentes (ha quanto tempo, onde, tipo e forca). Tipos: contato com carro
+   (+4 incidentes), batida (+2), saida de pista (+1) e pancada forte sem incidente.
+ - LIMITES: a leitura do jogo e de ~60 vezes por segundo; uma pancada muito curta pode vir com forca
+   subestimada (o contador de incidentes confirma que houve). O lado batido segue a mesma convencao dos pneus:
+   se esquerda e direita aparecerem trocadas, mude "pneu_lado_invertido" para true no config.json.
+   Reparos feitos nos boxes zeram as marcas; batidas leves sem incidente nao sao detectadas.
+
+COMO LER A FORCA G
+ - CIRCULO: cada anel e 1 g (1 vez o seu peso). O ponto branco e a aceleracao do carro neste instante, com
+   um rastro azul dos ultimos ~1,5 s. Centro = reta em velocidade constante.
+ - DIRECAO: curva para a ESQUERDA leva o ponto para a esquerda; curva para a direita, para a direita;
+   ACELERANDO o ponto sobe; FREANDO ele desce. Um ponto perto da borda = carro no limite de aderencia.
+ - ETIQUETA "2,5 . 3,1": G TOTAL agora (lateral + longitudinal combinados) e o PICO da sessao.
+   (Suposicao: e assim que o modelo da foto deve ser lido.) O pico so conta com voce dirigindo na pista
+   (garagem e replay nao contam) e zera ao mudar de sessao, ou na bandeja > "Zerar o pico de G".
+ - ABAIXO: nome da pista e temperatura da pista (se o iRacing nao informar, usa a do ar).
+ - ALCANCE: bandeja > "Alcance da forca G (aneis)" = 2, 3, 4 ou 5 g no limite do circulo. Padrao: 4 g.
+ - LIMITES: a leitura do jogo e de ~60 vezes por segundo, entao picos muito curtos (batidas) podem vir
+   subestimados. Se esquerda e direita aparecerem trocadas, mude "pneu_lado_invertido" para true no
+   config.json (e a mesma chave dos pneus e dos danos).
+
+COMO LER O VOLANTE
+ O volante gira na tela como o seu volante real. O marcador VERMELHO fica no topo do aro:
+ com o volante reto ele aponta para cima. Abaixo do volante aparece o angulo em graus
+ (+ = esquerda, - = direita). Se na sua configuracao o desenho girar para o lado contrario,
+ avise o mantenedor (Issues do GitHub): e um ajuste de uma linha.
+
+COMO LER O MAPA DA PISTA
+ O iRacing nao entrega o desenho da pista, entao o overlay aprende o tracado SOZINHO:
+ - Na primeira vez em cada pista, dirija uma volta completa (sem pit). A janela mostra
+   "Aprendendo o tracado... xx%". Ao completar, o desenho fica guardado (arquivo
+   "mapas_pistas.json") e nas proximas vezes ja aparece pronto.
+ - Se o desenho sair estranho (rodada, atalho, saida de pista), use na bandeja
+   "Refazer o mapa desta pista" e complete outra volta limpa.
+ - FASE 20.1: a volta fecha quando nao sobra nenhum trecho sem amostra maior que 3 pontos (de 360); lacunas
+   menores sao preenchidas por interpolacao, e se o PC amostrar devagar a ponto de "pular" pontos entre duas
+   leituras seguidas, o trecho entre elas e interpolado em linha reta (so se forem leituras seguidas e proximas
+   no tempo; box, parada ou reset nunca sao interpolados). Mapas ja guardados continuam validos.
+ - Bolinhas = carros, com o numero e a cor da classe. A sua e a AMARELA, maior, com borda branca.
+   O tracinho branco atravessando a pista e a linha de largada/chegada.
+
+REAL x CALCULADO x ESTIMADO (FASE 20)
+ Regra de leitura em todas as janelas: valor SEM marca = REAL (entregue pelo iRacing).
+ "~" (til) = CALCULADO ou ESTIMADO pelo overlay. Nada disso e medida exata.
+   REAL       velocidade, marcha, RPM, pedais, volante, forca G, combustivel no tanque, delta marcado "SDK",
+              "carro ao lado" do radar, temperaturas/vento/clima, reparo e avisos do motor.
+   CALCULADO  consumo por volta, voltas/litros ate o fim, delta marcado "~ calc.", tempos de setor,
+              distancia entre carros no radar, aproximacao em km/h, voltas do pneu.
+   ESTIMADO   temperatura e vida ao vivo dos pneus, lado de carro "lembrado" ou desconhecido no radar,
+              lado e forca dos impactos, iRating e SR PROJETADOS, setores quando o iRacing nao informa os limites.
+ O iRacing NAO informa: se uma volta foi invalidada, a posicao lateral dos outros carros, a previsao de chuva,
+ dano por peca nem o iRating/SR oficial durante a sessao.
+
+PERFIS DE EXIBICAO: TREINO, CLASSIFICACAO E CORRIDA (FASE 20)
+ Cada perfil guarda, PARA CADA JANELA, a posicao, o tamanho e se ela aparece. Mude no menu da bandeja >
+ "Perfil de exibicao":
+   Automatico = troca sozinho pelo tipo da sessao (Corrida / Classificacao / Treino, teste e aquecimento).
+                So troca com 3 s de sessao estavel e NUNCA enquanto as janelas estao destravadas.
+   Treino / Classificacao / Corrida = fixa o perfil escolhido.
+ Como usar: escolha o perfil, DESTRAVE, arraste/redimensione/ligue e desligue as janelas e TRAVE. O que
+ voce fez fica salvo so naquele perfil. No primeiro uso os 3 perfis sao copias do seu layout atual.
+ "Copiar o layout atual para os outros perfis" iguala tudo de novo. Opcoes globais (tema, transparencia,
+ margem de combustivel, calibracao de pneus, alcance da forca G) valem para todos os perfis.
+
+DESEMPENHO E LOG (FASE 20)
+ - As janelas agora redesenham numa frequencia propria (ex.: Telemetria/Radar/Forca G 30 vezes por segundo,
+   Relativo e Mapa 10, Classificacao, Pneus, Clima e Combustivel 2). Na medicao de teste o custo de
+   desenho caiu cerca de 70 %. A leitura e o calculo custam menos de 1 ms por ciclo.
+ - Bandeja: "Modo economia de CPU" (metade das atualizacoes) e "Prioridade baixa do overlay" (Windows:
+   o iRacing tem preferencia na CPU). Ambos ligados/desligados sem reiniciar.
+ - "overlay_log.txt" agora tem: versoes (Python, PySide6, pyirsdk), variaveis do SDK que NAO chegaram,
+   decisoes de calculo (delta, setores, projecao x oficial, descarte de voltas e o motivo), troca de perfil e
+   resumo de desempenho a cada 10 minutos. Passa de 1 MB, vira "overlay_log.txt.1" (um backup).
+   Se algo estranho aparecer, envie esse arquivo ao mantenedor (Issues do GitHub).
+
+DELTA E SETORES: QUANDO UMA VOLTA VALE (FASE 20)
+ O iRacing NAO diz se a volta foi invalidada. O overlay usa um criterio PROPRIO e CONSERVADOR: a volta NAO vira
+ referencia de delta nem recorde de setores se houve: boxes, fora da pista, reboque, reset/teleporte
+ (salto de posicao), replay, ou tempo medido diferente do oficial. Pode descartar uma volta boa com uma
+ saida de pista longa; nunca aceita uma volta suja conhecida.
+ - A referencia do delta e a SUA melhor volta LIMPA da sessao e e descartada ao trocar de sessao, pista ou carro.
+   Abaixo do delta aparece a origem: "SDK" (delta do iRacing) ou "~ calc." (calculado pelo overlay).
+ - Os recordes de setor (arquivo) continuam por pista + carro; o andamento da volta zera ao mudar de sessao.
+ - Cada volta aceita ou descartada, e o motivo, fica no "overlay_log.txt".
+
+COMO LER O RADAR
+ Visao de cima: o seu carro e o VERDE no centro; a frente da pista e para cima. Alcance de
+ cerca de 20 metros a frente e atras. Aumente a janela para ver mais detalhe.
+ - Cores por urgencia: BRANCO = normal | AMARELO = atencao (perto ou se aproximando) |
+   VERMELHO + brilho na lateral = o iRacing AVISA carro ao lado (ocupacao lateral confirmada). Nao feche a porta.
+   FASE 20.1: nao existe mais "laranja/perigo" por aproximacao. Carro chegando por tras ou pela frente, com o lado
+   desconhecido, no maximo fica AMARELO (atencao): sem a posicao lateral nao ha como saber se vai haver contato.
+ - Setinha junto ao carro = ele esta se aproximando de voce (so ao longo da pista). Brilho amarelo na frente
+   ou atras = carro chegando naquele lado.
+ - METROS AO LADO DOS CARROS: cada carro mostra a distancia PARA-CHOQUE A PARA-CHOQUE em metros,
+   escrita a ESQUERDA dos carros da esquerda e a DIREITA dos carros da direita/centro. A setinha
+   indica se o carro esta a frente (seta para cima) ou atras (seta para baixo) de voce; "<0,5 m"
+   sem seta = lado a lado (sobreposto). Carros distantes (mais de 12 m) na sua linha nao ganham
+   rotulo (ja aparecem no rodape). Se dois rotulos se encontram, um deles sobe ou desce um pouco.
+   ATENCAO: e distancia ao longo da pista. O iRacing nao informa a distancia LATERAL (de lado) entre
+   os carros, entao nao existe "metros de lado" real a mostrar.
+ - Rodape: distancia PARA-CHOQUE A PARA-CHOQUE ao carro mais proximo a FRENTE e ATRAS, mais a
+   velocidade de aproximacao (+xx km/h) e o ALCANCE (~x.x s): quanto tempo, ao ritmo atual, ate a distancia ao
+   longo da pista chegar a zero. NAO e previsao de colisao (nao se sabe a posicao lateral).
+ - FASE 20.1 - O QUE O RADAR SABE (leia a legenda no rodape do radar):
+     OCUPACAO LATERAL = SDK (confirmada): o iRacing diz que ha carro a esquerda e/ou direita (o brilho vermelho).
+     QUAL carro e esse = INFERIDO: o overlay assume que e o mais proximo ao longo da pista, dentro de 8 m. O iRacing
+       NAO informa o numero do carro ali. Se ha mais de um candidato (ex.: um 3 m a frente e outro 5 m atras), a
+       identidade e AMBIGUA e o retangulo fica com borda tracejada-pontilhada.
+     POSICAO AO LONGO DA PISTA = CALCULADA (distancias com "~", arredondadas: 0,5 m abaixo de 10 m; 1 m acima).
+     POSICAO LATERAL dos demais carros = DESCONHECIDA: ficam na sua linha. Lado LEMBRADO (ate 3 s) = translucido
+       e tracejado. Carro muito perto, de lado desconhecido = pontilhado.
+   Se o iRacing acusa carro ao lado e nenhum carro bate com a posicao, aparece "SDK" na borda, sem inventar carro.
+ - O radar LEMBRA por cerca de 3 s de que lado um carro estava (ex.: um carro que acabou de
+   ultrapassar pela esquerda continua desenhado a esquerda e vai voltando ao centro).
+ - LIMITACAO IMPORTANTE: o iRacing informa apenas SE ha carro ao lado e de qual lado (o mesmo aviso
+   do "spotter"), e nao a posicao lateral exata dos outros carros. O radar usa esse aviso para
+   desenhar o carro a esquerda/direita; os demais aparecem alinhados com voce. Serve para
+   prevenir contato, nao para medir centimetros.
+
+COMO LER A JANELA SETORES (VS MELHOR VOLTA)
+ Compara cada volta com o SEU melhor recorde para o MESMO CARRO e a MESMA PISTA. A referencia fica
+ guardada em "recordes_pessoais.json" e vale entre sessoes (cada combinacao carro + pista tem a sua).
+ - Setor 1..N: tempo do setor e a diferenca para o mesmo setor da sua melhor volta (verde = mais
+   rapido, vermelho = mais lento). ROXO = novo melhor tempo daquele setor (de todos os tempos).
+   O setor aparece conforme voce o conclui; ate la mostra o da volta anterior.
+ - Ultima: tempo da ultima volta e a diferenca para a melhor volta (roxo = nova melhor volta).
+ - Melhor: a sua melhor volta LIMPA neste carro e pista.  Otima: soma dos melhores setores.
+ - Os setores vem da divisao que o proprio iRacing informa para a pista (numero e posicao variam).
+   Se o iRacing nao informar, usa 3 setores iguais e avisa na janela.
+ - SO ENTRAM NA REFERENCIA voltas limpas: sem passar pelos boxes, com a volta inteira medida e sem
+   saltos (reset do carro). A 1a volta depois de entrar na pista nunca vale. O iRacing nao avisa
+   quando uma volta e invalidada por cortar pista, entao uma volta com corte ainda pode entrar.
+ - Recordes de antes de usar o overlay nao existem: a referencia comeca na 1a volta limpa.
+ - Menu da bandeja: "Zerar a referencia de setores" apaga o recorde do carro e pista atuais
+   (use, por exemplo, depois de uma mudanca grande de setup ou de versao do carro).
+
+COMO LER OS SELOS ABS / TC / BB (linha de cima do grafico, na Telemetria)
+ Mostra o AJUSTE do controle de tracao do carro: "TC 3" (posicao do botao), "TC 4/7" (carros com
+ dois ajustes), "TC OFF" (desligado, em laranja) ou "TC --" (o carro nao tem TC ou o iRacing nao
+ informou). O selo do ABS acende em amarelo quando o ABS ATUA e mostra o ajuste ("ABS 4"; sem
+ numero se o carro nao tem ajuste de ABS). "BB 54.5%" e o balanco de freio (% na dianteira);
+ "BB --" = o carro nao tem balanco ajustavel ou o iRacing nao informou. Se o valor do carro nao
+ for um percentual (de 20 a 80), aparece so o numero, sem o simbolo %.
+ LIMITE: o iRacing NAO informa quando o TC esta atuando (so o ABS tem esse sinal). Por isso o selo
+ do TC mostra a configuracao, nao a intervencao. Se "TC --" aparecer num carro que tem TC, anote
+ o carro e envie o "overlay_log.txt" ao mantenedor (Issues do GitHub).
+
+COMO LER O GRAFICO DE PEDAIS (parte de baixo da janela de telemetria)
+ As barras EMB / FRE / ACE a direita mostram embreagem, freio e acelerador ao vivo.
+ Verde = acelerador. Vermelho = freio. Trechos em AMARELO = ABS atuando (o selo "ABS" acende).
+ O grafico rola da esquerda para a direita; o momento atual fica na ponta direita.
+
+PNEU E VOLTAS DO PNEU (na janela Relativo)
+ Cada linha ganhou, antes do nome: uma BARRA INCLINADA na cor do composto e um CIRCULO com as voltas que o
+ pneu ja rodou. Cores: branco = pneu de seco unico/duro | amarelo = medio | rosa/vermelho = macio |
+ azul = chuva | verde = intermediario. Se o iRacing nao informar o composto do carro, so aparece o circulo.
+ - O TIPO DE PNEU e informado pelo iRacing para todos os carros (variavel CarIdxTireCompound).
+ - AS VOLTAS DO PNEU sao CALCULADAS pelo overlay: voltas completas desde a ultima parada do carro na vaga
+   do box (o iRacing nao informa a idade do pneu dos outros pilotos). Premissa: parou no box = trocou o
+   pneu. Se o carro so reabasteceu e manteve o pneu, o numero volta a zero mesmo assim. Troca de composto
+   tambem zera. Passar pela pit lane sem parar na vaga nao zera.
+ - NUMERO CINZA/CIRCULO APAGADO = contagem aproximada: o overlay foi aberto depois da largada e ainda nao
+   viu aquele carro parar (conta as voltas desde o inicio da sessao). Fica exata depois da proxima parada dele.
+ - Para o SEU carro, a janela Pneus continua sendo a referencia (leitura real nos boxes).
+
+COMO LER O RELATIVO
+ Linhas acima da sua (azul) = carros a frente na pista. Linhas abaixo = carros atras.
+ Colunas: posicao na classe | numero | piloto | licenca | iRating | distancia em segundos.
+ - Linha apagada = outra classe. Nome em VERMELHO = uma volta (ou mais) a frente de voce.
+   Nome em AZUL = uma volta (ou mais) atras de voce. "BOX" = carro nos boxes.
+ - Cabecalho: temperatura da pista | SOF da sua classe | seus incidentes. Rodape: sua volta | tempo restante.
+
+PROJECAO DE iRATING E SR (faixa na parte de baixo do Relativo)  -  PROJETADO, NAO OFICIAL!
+ FASE 20: os rotulos agora dizem "iRATING PROJETADO" e "SR PROJETADO", mostram a BASE (valor oficial no inicio
+ da sessao) e o resultado projetado com "~". O valor OFICIAL so existe depois da corrida, no iRacing.
+ No fim da corrida o overlay guarda a projecao e, na PROXIMA sessao em que o iRacing ja mostrar o valor
+ oficial novo, compara os dois e grava em "comparacao_oficial.csv" (e no log): erro de iRating e de SR.
+ FASE 20.1 - SO COMPARA QUANDO PODE ASSOCIAR COM SEGURANCA: a projecao guarda o numero da corrida (SubSessionID do
+ iRacing), a categoria (Road, Oval...) e o seu usuario. O iRating e o SR que o iRacing mostra valem para a
+ categoria da sessao ATUAL; por isso uma sessao de outra categoria (ex.: oval depois de uma corrida de asfalto)
+ NAO e comparada (a projecao fica guardada, ate 14 dias, esperando uma sessao da mesma categoria). Nao compara
+ tambem: dentro da mesma corrida, com outro usuario, nem se o iRacing ainda nao atualizou os valores. Se a base de
+ uma corrida nasceu ANTES de o resultado da anterior aparecer, essa projecao e descartada (a base estaria
+ errada). Corrida offline, nao oficial, ou sem categoria/usuario informados pelo SDK nao gera comparacao. O motivo
+ de cada "nao comparada" fica no log. O "comparacao_oficial.csv" ganhou as colunas corrida_id e categoria (se
+ existir um arquivo no formato antigo, ele e guardado como "comparacao_oficial_formato_antigo.csv").
+ LIMITE: o overlay nao ve corridas feitas sem ele aberto (outro PC, site); se houver uma, a diferenca entre os
+ valores oficiais inclui essa corrida e a comparacao fica errada sem como detectar. Com 5 a 10 corridas da para
+ calibrar o modelo.
+ Mostra, ao vivo, quanto voce ganharia ou perderia SE A SESSAO TERMINASSE AGORA.
+ - iRATING PROJETADO: variacao e novo valor, pela sua posicao atual NA SUA CLASSE e pelo iRating de
+   todos os pilotos da classe. Cada posicao ganha ou perdida vale ~200/(numero de pilotos da classe).
+   So aparece em CORRIDA. Em treino/qualificacao mostra "--" (nao altera o iRating).
+ - SR PROJETADO: variacao e novo valor, pelas curvas que voce percorreu e pelos seus incidentes.
+   Mostra tambem quantas curvas ja fez e o CPI (curvas por incidente). Em corrida vale 100 %,
+   em qualificacao/aquecimento pesa metade, em treino "nao conta". Ja inclui o bonus/perda de
+   0,40 ao cruzar um numero inteiro de SR (ex.: 2,99 -> 3,01).
+ - Verde = ganho | vermelho = perda | "nao oficial" = sessao que nao vale iRating/SR.
+ LIMITES (leia):
+  * O iRacing NAO publica as formulas de iRating e de SR. Os calculos sao modelos aproximados,
+    baseados no que a comunidade documenta. Use como ORDEM DE GRANDEZA, nao como valor exato.
+    O iRating tende a ficar proximo do real (erro tipico de alguns pontos); o SR e bem mais
+    impreciso (depende da janela de curvas de cada licenca, que o iRacing nao divulga).
+  * O numero de curvas por volta vem da pista (WeekendInfo); o iRacing usa um multiplicador
+    proprio por pista, que pode diferir.
+  * Nao considera: promocao de licenca, equipes (revezamento), regras de pontos de cada serie.
+  * CALIBRACAO: no fim de cada corrida o overlay grava uma linha em "historico_projecoes.csv"
+    (abre no Excel) com a projecao final. Compare com o resultado real que o iRacing mostrar
+    depois da corrida e envie o arquivo ao mantenedor (Issues do GitHub): com 5 a 10 corridas da para ajustar o modelo.
+
+COMO LER A JANELA VOLTAS (DELTA / VOLTAS / COMBUSTIVEL)
+ DELTA        Diferenca para a sua melhor volta, ao vivo (verde = mais rapido, vermelho = mais lento).
+              O overlay calcula o delta sozinho: a primeira volta LIMPA da sessao (sem boxes e
+              completa, a partir da linha de largada) vira a referencia; voltas mais rapidas a
+              substituem. Ate la aparece "complete 1 volta limpa". Se o iRacing informar o proprio
+              delta antes disso, ele e usado. Se o delta continuar parado depois de 2 voltas limpas,
+              envie o "overlay_log.txt" ao mantenedor (Issues do GitHub).
+ VOLTA        Numero e tempo da volta atual, ultima e melhor volta.
+ COMBUSTIVEL  Nivel em litros, consumo medio por volta e voltas restantes (amarelo < 6, vermelho < 3).
+
+STREAM DECK: TECLAS DE ATALHO (FASE 20.2.2)
+ O overlay registra combinacoes de teclas no Windows e cada uma faz o MESMO que o item correspondente do menu da
+ bandeja (icone vermelho "i"). Usam F13 a F24, que quase nenhum teclado tem, entao nao colidem com o iRacing nem com
+ outros programas. Elas servem so para o overlay: o iRacing nao as recebe. Funcionam com o jogo em primeiro plano.
+  Ctrl+Alt+Shift+F13  Mostrar/ocultar telemetria
+  Ctrl+Alt+Shift+F14  Mostrar/ocultar voltas (delta e combustivel)
+  Ctrl+Alt+Shift+F15  Mostrar/ocultar relativo
+  Ctrl+Alt+Shift+F16  Mostrar/ocultar classificacao
+  Ctrl+Alt+Shift+F17  Mostrar/ocultar mapa da pista
+  Ctrl+Alt+Shift+F18  Mostrar/ocultar radar
+  Ctrl+Alt+Shift+F19  Mostrar/ocultar pneus
+  Ctrl+Alt+Shift+F20  Mostrar/ocultar setores
+  Ctrl+Alt+Shift+F21  Mostrar/ocultar clima e vento
+  Ctrl+Alt+Shift+F22  Mostrar/ocultar danos
+  Ctrl+Alt+Shift+F23  Mostrar/ocultar painel de combustivel e pit
+  Ctrl+Alt+Shift+F24  Mostrar/ocultar forca G
+  Ctrl+Alt+F13        Perfil: Automatico
+  Ctrl+Alt+F14        Perfil: Treino
+  Ctrl+Alt+F15        Perfil: Classificacao
+  Ctrl+Alt+F16        Perfil: Corrida
+  Ctrl+Alt+F17        Modo economia de CPU (liga/desliga)
+  Ctrl+Alt+F18        Aparecer sozinho ao entrar no carro (liga/desliga)
+  Ctrl+Alt+F19        Travar posicao das janelas (liga/desliga)
+  Ctrl+Alt+F20        Zerar o pico de G
+  Ctrl+Alt+F21        Limpar as marcas de impacto
+  Ctrl+Alt+F22        FECHAR o overlay (o mesmo que Sair no menu da bandeja)
+ - Janelas: cada toque liga ou desliga a janela, e a escolha vale para o PERFIL ativo (como no menu).
+ - Perfis: escolhe Treino / Classificacao / Corrida; "Automatico" volta a trocar sozinho pelo tipo de sessao.
+ - FECHAR o overlay (Ctrl+Alt+F22): o mesmo que "Sair" no menu da bandeja (salva tudo e encerra). Para abrir de novo
+   use "iniciar_overlay.bat". Se o overlay TRAVAR, de duplo clique em "fechar_overlay.bat": fecha a forca somente o
+   processo do overlay (nao toca no iRacing nem em outros programas Python).
+ - Desligar tudo: bandeja > desmarque "Teclas de atalho para o Stream Deck" (fica salvo).
+ - Se uma combinacao ja for usada por outro programa, o overlay avisa na bandeja e escreve em "overlay_log.txt" quais
+   atalhos nao foram registrados; os demais seguem funcionando. A lista completa tambem esta em ATALHOS_STREAM_DECK.txt.
+ - No Stream Deck: perfil "Overlay iRacing" (arquivo .streamDeckProfile na pasta "streamdeck"). Cada botao de atalho usa a
+   acao Sistema > Hotkey. Os botoes NAO mostram se a janela esta ligada ou desligada (o Stream Deck nao le o estado do
+   overlay); confira olhando a tela.
+ - LIMITES: o registro das teclas foi testado so com uma simulacao do Windows; a validacao real e o teste 13 do
+   ROTEIRO_VALIDACAO.txt. Atalhos so existem com o overlay aberto.
+
+FASE 20.2.1: O QUE MUDOU (CICLO DE VIDA DA PROJECAO DE iRATING/SR)
+ O arquivo "projecao_pendente.json" (mesmo nome) agora guarda TODAS as projecoes recentes, cada uma com um estado:
+   PENDENTE   : a corrida terminou e ainda nao houve leitura nova de iRating/SR no jogo.
+   PROVISORIA : o jogo mostrou iRating/SR diferentes dos do inicio da corrida. A comparacao entra UMA vez no
+                "comparacao_oficial.csv" (status "provisoria") e a projecao continua guardada, com a identidade
+                (SubSessionID, usuario, categoria) e os valores originais, para a confirmacao posterior.
+   CONFIRMADA : chegou o resultado oficial da MESMA corrida e usuario. A linha provisoria e SUBSTITUIDA (uma linha
+                por corrida_id, nunca duplicada) e o log mostra a diferenca entre o provisorio e o oficial.
+   EXPIRADA   : prazo vencido (pendente 14 dias; provisoria 60 dias), base de iRating/SR incerta ou outra corrida
+                da mesma categoria/usuario registrada antes de resolver. Nunca mais e comparada nem reaberta.
+ Variacao ZERO: um resultado oficial da mesma corrida com iRating e/ou SR sem mudanca CONFIRMA a comparacao (erro
+ = projetado - 0). Ja "valores iguais no jogo" NAO e resultado oficial: o log diz "sem_atualizacao_numerica", nada
+ entra no CSV e a base da proxima corrida fica marcada como incerta (como antes). Resultado sem nenhum par de
+ iRating/SR e rejeitado ("resultado_incompleto"); resultado de outra corrida ou usuario e ignorado.
+ LIMITE IMPORTANTE: o overlay ja sabe confirmar (funcao interna "confirmar_resultado_oficial", testada), mas AINDA
+ NAO ESTA LIGADO a nenhuma fonte de resultado oficial (a Data API do iRacing nao foi integrada, por decisao). Na
+ pratica, ate la, todas as linhas reais continuam "provisoria". O que mudou e que agora elas podem ser confirmadas
+ depois, sem perder dados nem duplicar registros. Arquivos da Fase 20.1/20.2 sao migrados sozinhos (aviso no log).
+ RETENCAO: o arquivo guarda no maximo 50 projecoes. Acima disso so saem automaticamente as CONFIRMADAS e EXPIRADAS
+ (as mais antigas primeiro; elas tambem saem apos 60 dias). Projecoes PENDENTES e PROVISORIAS nunca sao removidas:
+ se houver mais de 50 ativas, todas ficam e o log avisa "nenhuma foi removida" (sem perda de dados).
+ NAO mudou: janelas, perfis, layouts, configuracoes, CSVs (cabecalho igual) e o combustivel.
+
+FASE 20.2: O QUE MUDOU
+ 1. iRATING/SR: a comparacao projecao x oficial e calculada pela DIFERENCA entre o valor visto no jogo antes e depois.
+    Isso nao prova que so a corrida projetada mudou o rating (outra corrida, ajuste do iRacing, etc.). Por isso toda
+    comparacao sai marcada "provisoria" (coluna "status" do comparacao_oficial.csv e linha do log). So seria
+    "confirmada" com o resultado oficial da MESMA corrida (SubSessionID) e usuario; isso ainda NAO esta ligado a
+    nada (ver o relatorio, avaliacao da Data API do iRacing). Use as linhas provisorias como indicio, nao como
+    calibracao definitiva. O CSV no formato da Fase 20.1 e preservado como "comparacao_oficial_formato_antigo.csv".
+ 2. COMBUSTIVEL: litros da 1a parada = capacidade livre na chegada aos boxes (secao do painel, acima).
+ NAO mudou: janelas, perfis, layouts, configuracoes e arquivos de dados. Tudo continua testado so com dados
+ simulados: a homologacao real (ROTEIRO_VALIDACAO.txt) segue obrigatoria.
+
+FASE 20.1: O QUE MUDOU E OS LIMITES
+ 1. RADAR: o iRacing confirma que ha carro ao lado, nao QUAL carro. O overlay passou a marcar o carro desenhado
+    ali como INFERIDO (e AMBIGUO quando ha mais de um candidato). O perigo (vermelho) so existe com o aviso de
+    lateral do iRacing. Aproximacao ao longo da pista nunca vira alerta de colisao (maximo: amarelo).
+    O "tempo ate o contato (TTC)" virou "alcance ~x.x s" (so tempo ate a distancia longitudinal zerar).
+ 2. PROJECAO x OFICIAL: so compara com a corrida, categoria e usuario certos (secao da projecao acima).
+ 3. COMBUSTIVEL: margem vale em cada parada; paradas minimas em voltas inteiras; "SEM JANELA" com motivo; corrida
+    por tempo e por voltas+tempo tratadas. Validado contra um simulador independente (3.700 casos, 0 divergencias).
+ 4. MAPA: fecha a volta com amostragem lenta (testado de 4 a 60 Hz, 6 pistas, 4 velocidades) sem desenhar errado.
+ 5. PNEUS: a regra "real sem marca, estimado com ~" ficou numa funcao unica com testes (visual igual ao de antes).
+ NAO mudou: as 12 janelas, os 3 perfis, as configuracoes e os arquivos de dados.
+ IMPORTANTE: tudo isso foi testado SO com dados simulados. Nao ha homologacao em sessao real do iRacing ate voce
+ executar o "ROTEIRO_VALIDACAO.txt" (testes 3, 7, 10, 11 e 12 cobrem a Fase 20.1). Se o seu iRacing nao informar a
+ categoria da sessao (WeekendInfo.Category), a comparacao projecao x oficial simplesmente nao acontece (log:
+ "categoria_desconhecida").
+
+TESTES AUTOMATICOS (FASE 20 a 20.2.2)
+ Duplo clique em "executar_testes.bat": roda centenas de verificacoes dos calculos criticos (delta, setores, radar,
+ pneus, projecao x oficial, combustivel, mapa, perfis, log, desempenho; testes das fases 20, 20.1, 20.2, 20.2.1 e 20.2.2) com dados simulados, sem abrir o iRacing. Deve terminar
+ com "TODOS OS TESTES PASSARAM". Rode depois de copiar uma versao nova, antes de ir para a pista.
+ Eles NAO substituem o "ROTEIRO_VALIDACAO.txt", que confirma tudo com o iRacing de verdade.
+
+SE ALGO DER ERRADO
+ - Mensagem "Falta o arquivo ov_nucleo.py": copie TODOS os arquivos do pacote para a mesma pasta.
+ - Overlay nao abre: abra "overlay_log.txt" nesta pasta e envie o conteudo para o mantenedor (Issues do GitHub).
+ - Uma janela mostra "Sem dados ...": acontece em menus/garagem; deve voltar na pista. Se persistir na pista,
+   envie o "overlay_log.txt" (um erro em uma janela fica registrado la sem derrubar as demais).
+ - Classificacao vazia em treino: carros sem tempo valido ainda nao entram na lista.
+ - "Aguardando o iRacing...": o jogo precisa estar aberto e dentro de uma sessao.
+ - Overlay nao aparece sobre o jogo: confirme o modo janela sem bordas.
+ - Valor estranho em qualquer janela: anote qual, em que situacao (treino, corrida, carro) e envie ao mantenedor (Issues do GitHub).

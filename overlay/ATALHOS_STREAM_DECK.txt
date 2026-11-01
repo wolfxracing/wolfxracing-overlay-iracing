@@ -1,0 +1,40 @@
+ATALHOS GLOBAIS PARA O STREAM DECK (FASE 20.2.2)
+================================================
+O overlay registra estas combinacoes de teclas no Windows. Elas servem so para o overlay (o iRacing nao as
+recebe) e usam F13..F24, teclas que quase nenhum teclado tem, para nao conflitar com o jogo nem com outros programas.
+No Stream Deck, cada botao usa a acao "Hotkey" (Sistema > Hotkey) com a combinacao abaixo.
+Cada atalho faz EXATAMENTE o mesmo que o item correspondente do menu da bandeja (icone vermelho "i").
+
+  Ctrl+Alt+Shift+F13  Mostrar/ocultar telemetria
+  Ctrl+Alt+Shift+F14  Mostrar/ocultar voltas (delta e combustivel)
+  Ctrl+Alt+Shift+F15  Mostrar/ocultar relativo
+  Ctrl+Alt+Shift+F16  Mostrar/ocultar classificacao
+  Ctrl+Alt+Shift+F17  Mostrar/ocultar mapa da pista
+  Ctrl+Alt+Shift+F18  Mostrar/ocultar radar
+  Ctrl+Alt+Shift+F19  Mostrar/ocultar pneus
+  Ctrl+Alt+Shift+F20  Mostrar/ocultar setores
+  Ctrl+Alt+Shift+F21  Mostrar/ocultar clima e vento
+  Ctrl+Alt+Shift+F22  Mostrar/ocultar danos
+  Ctrl+Alt+Shift+F23  Mostrar/ocultar painel de combustivel e pit
+  Ctrl+Alt+Shift+F24  Mostrar/ocultar forca G
+  Ctrl+Alt+F13        Perfil: Automatico
+  Ctrl+Alt+F14        Perfil: Treino
+  Ctrl+Alt+F15        Perfil: Classificacao
+  Ctrl+Alt+F16        Perfil: Corrida
+  Ctrl+Alt+F17        Modo economia de CPU (liga/desliga)
+  Ctrl+Alt+F18        Aparecer sozinho ao entrar no carro (liga/desliga)
+  Ctrl+Alt+F19        Travar posicao das janelas (liga/desliga)
+  Ctrl+Alt+F20        Zerar o pico de G
+  Ctrl+Alt+F21        Limpar as marcas de impacto
+  Ctrl+Alt+F22        FECHAR o overlay (o mesmo que Sair no menu da bandeja)
+
+COMO USAR
+ - Janelas (Ctrl+Alt+Shift+F13..F24): cada toque liga ou desliga a janela, e vale para o PERFIL ativo.
+ - Perfis (Ctrl+Alt+F13..F16): escolhe o perfil. "Automatico" volta a trocar sozinho pelo tipo de sessao.
+ - Ctrl+Alt+F22 FECHA o overlay (o mesmo que "Sair" no menu da bandeja). Para abrir de novo: botao "Iniciar Overlay".
+   Se o overlay travar e nao responder, use "fechar_overlay.bat" (fecha a forca, so o overlay).
+ - Os atalhos funcionam com o overlay aberto, mesmo com o iRacing em primeiro plano.
+ - Desligar tudo: menu da bandeja > desmarque "Teclas de atalho para o Stream Deck". Fica salvo.
+ - Se alguma combinacao ja estiver em uso por outro programa (por exemplo um plugin do Stream Deck), o overlay avisa
+   na bandeja e escreve em "overlay_log.txt" quais atalhos nao foram registrados; os demais continuam funcionando.
+ - Esta lista e gerada a partir do proprio programa (ov_nucleo.py, tabela ATALHOS); se mudar la, o teste automatico avisa.

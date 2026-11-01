@@ -1,0 +1,164 @@
+OVERLAY IRACING - ROTEIRO DE VALIDACAO DAS FASES 20, 20.1, 20.2, 20.2.1 E 20.2.2 (sessao real)
+================================================================
+Objetivo: confirmar, com o iRacing de verdade, o que foi testado so com dados simulados.
+Tempo total: cerca de 90 a 120 minutos, em varias sessoes.
+AVISO: a Fase 20.1 foi testada SO com dados simulados. Ela so pode ser considerada homologada depois que os testes
+3, 7, 10, 11 e 12 abaixo forem executados no iRacing e anotados como PASSOU. A Fase 20.2.2 (Stream Deck) depende do
+teste 13. Nao precisa fazer tudo de uma vez.
+Dica: use "Teste offline" (Offline Testing) com IA para os testes 1 a 6 - nao gasta iRating.
+
+PREPARACAO
+ 1. Feche o overlay. Copie "overlay_iracing.py" E "ov_nucleo.py" para a pasta do overlay.
+ 2. APAGUE o arquivo "overlay_log.txt" antigo (para o log novo ficar limpo).
+ 3. Abra o iRacing em MODO JANELA SEM BORDAS e depois "iniciar_overlay.bat".
+ 3b. (Opcional) Duplo clique em "executar_testes.bat": deve terminar com "TODOS OS TESTES PASSARAM".
+ 4. Ao terminar cada teste, anote: PASSOU, FALHOU ou DUVIDA (e o que viu).
+
+TESTE 1 - ABRIR E LOG                                                (2 min)
+ Faca: abra o overlay, entre numa sessao, dirija 1 volta, saia do iRacing e do overlay (bandeja > Sair).
+ Esperado: o "overlay_log.txt" tem uma linha "inicio: overlay Fase 20.2.2 | nucleo 20.2.2 | python ... |
+   PySide6 ... | pyirsdk ... | modo iRacing", uma linha "conectado ao iRacing" e uma linha
+   "calculo sdk: variaveis indisponiveis agora" (lista do que o seu carro/serie NAO informa).
+ Anote: quais variaveis foram listadas como indisponiveis (envie o log ao mantenedor (Issues do GitHub)).
+
+TESTE 2 - PERFIS                                                     (10 min)
+ Faca: (a) bandeja > Perfil de exibicao > Treino. Destrave, mova o RADAR para outro canto, esconda a janela
+   CLIMA, trave. (b) Escolha Corrida: o radar deve voltar ao lugar antigo e o CLIMA reaparecer.
+   (c) Volte para Treino: o radar deve estar no canto novo e o CLIMA escondido.
+   (d) Escolha "Automatico". Entre num Treino: deve ir sozinho para Treino em ~3 s. Se puder, entre numa
+   Corrida (IA serve): deve ir para Corrida. (e) Feche e abra o overlay: tudo continua como deixou.
+ Esperado: cada perfil lembra posicao, tamanho e janelas ligadas. No log: "perfil de exibicao: ...".
+ Atencao: com as janelas DESTRAVADAS o automatico nao troca (de proposito).
+
+TESTE 3 - RADAR (REAL x ESTIMADO)                                    (10 min)
+ Faca: pista com varios carros (corrida offline com IA). Passe ao lado de um carro, ultrapasse e seja
+   ultrapassado pela esquerda e pela direita.
+ Esperado:
+  - Carro com o aviso de "carro ao lado" do iRacing: brilho vermelho na lateral e o carro mais proximo desenhado
+    la (identidade INFERIDA). Com dois carros perto (um a frente e outro atras) e o aviso de UM lado so, os dois
+    retangulos devem aparecer com borda diferente (ambiguo) e so o mais proximo no lado do aviso.
+  - FASE 20.1: carro chegando por tras na sua linha, SEM aviso de lateral: no maximo AMARELO. Nunca laranja nem
+    vermelho. O rodape mostra "~x.x s" (alcance), nao "tempo ate o contato".
+  - Logo apos a ultrapassagem: o carro fica translucido/tracejado ate ~3 s (lado LEMBRADO).
+  - Todas as distancias comecam com "~". Lado a lado mostra "<0,5 m".
+  - Se aparecer "SDK" na borda sem carro desenhado: o jogo avisou carro ao lado mas a posicao nao bateu.
+ Anote: o lado (esquerda/direita) bate com o que voce ve? A distancia "~" e coerente a olho?
+   Quando o aviso de lateral acende, o carro desenhado e mesmo o que esta ao seu lado? Houve vez em que o radar
+   desenhou o carro errado (um que estava so a frente ou atras)? Anote quantas vezes.
+
+TESTE 4 - DELTA                                                      (15 min)
+ Faca (treino, mesma pista e carro): 5 voltas limpas; depois (a) 1 volta saindo da pista (grama) com tempo
+   MAIS RAPIDO possivel; (b) 1 volta entrando nos boxes; (c) mais 3 voltas limpas; (d) troque de carro
+   (ou de pista) numa nova sessao.
+ Esperado:
+  - Sob o delta aparece "SDK . vs melhor volta" ou "~ calc. . melhor volta limpa".
+  - Log: "delta: nova referencia (melhor volta limpa)" nas voltas limpas mais rapidas.
+  - Volta fora da pista: log "delta: volta nao usada como referencia: motivo=fora da pista".
+  - Volta dos boxes: "motivo=boxes". Nova sessao/pista/carro: "delta: referencia descartada".
+  - O delta NAO usa a volta suja como base de comparacao.
+ Anote: o iRacing (marcador "SDK") e o delta calculado concordam? Quantos decimos de diferenca?
+   Alguma volta boa foi descartada sem motivo (veja o log)?
+
+TESTE 5 - SETORES                                                    (10 min)
+ Faca: na mesma sessao do teste 4, olhe a janela Setores.
+ Esperado: voltas sujas aparecem como volta final SEM roxo/recorde; log "setores: volta valida" com os tempos
+   e "setores: volta nao registrada como recorde: motivo=..." para as sujas. Ao trocar de sessao o andamento zera
+   ("setores: estado reiniciado") mas o recorde da pista + carro continua.
+ Anote: os tempos de setor batem com os do iRacing (se a pista tiver setores)? O log diz "estimado=True"?
+
+TESTE 6 - PNEUS: ULTIMA LEITURA                                      (10 min)
+ Faca: corrida ou treino longo com 1 parada nos boxes (pit stop). Pare no box, deixe trocar/inspecionar, saia.
+ Esperado: no box os valores reais aparecem; depois da saida, cada pneu mostra a ULTIMA LEITURA esmaecida e
+   "real, ha X min (HH:MM, boxes)". O canto do cartao mostra a estimativa com "~". Em nova sessao as
+   leituras antigas somem. Depois de 10 min sem leitura o texto fica amarelo.
+ Anote: o horario confere com o do relogio? Seu carro/serie informa temperatura ao vivo na pista (sem parar)?
+
+TESTE 7 - iRATING E SR PROJETADOS x OFICIAL                          (2 a 3 corridas)
+ Faca: (a) uma corrida OFICIAL: olhe a faixa "iRATING PROJETADO / SR PROJETADO" (com "base" e "~"). Ao final,
+   anote o iRating e o SR que o iRacing mostrar depois. (b) Na PROXIMA sessao (qualquer), abra o overlay.
+ Esperado: log "projecao: final da corrida (PROJETADA, nao oficial)" ao fim da corrida e, na sessao seguinte (quando
+   o iRacing ja atualizou), "projecao x OFICIAL" e uma linha nova em "comparacao_oficial.csv".
+ Anote: erro de iRating (projetado - oficial) e de SR. Envie "comparacao_oficial.csv" e "historico_projecoes.csv".
+ FASE 20.1: no log, ao fim da corrida, a linha "projecao: final da corrida" deve trazer "corrida=<numero>" e
+   "categoria=road" (ou a sua). Se aparecer "sem identificacao segura", anote: o iRacing nao informou o numero da
+   corrida, a categoria ou o usuario, e a comparacao NAO vai acontecer (envie o log). O arquivo
+   "comparacao_oficial.csv" novo tem as colunas corrida_id, categoria e status. FASE 20.2: toda linha deve vir com
+   status "provisoria" e o log deve trazer "PROVISORIA: sem confirmacao pelo SubSessionID". Confira no site do
+   iRacing (resultado da corrida, iRating antes/depois) se a diferenca bate com a do CSV, e anote se houve outra
+   corrida (mesmo fora do overlay) entre as duas sessoes: se houve, a linha NAO vale.
+   Variante (a mais importante): depois de uma corrida de asfalto, entre numa sessao de OUTRA categoria (oval, ou
+   uma serie de outra licenca) antes da comparacao. O log deve dizer "projecao x OFICIAL: NAO comparada
+   motivo=categoria_diferente" e NENHUMA linha nova deve entrar no CSV. Depois, entre numa sessao de asfalto: a
+   comparacao acontece.
+ FASE 20.2.1 (ciclo de vida): depois da comparacao, abra "projecao_pendente.json" (Bloco de Notas): a corrida deve
+   continuar la com "estado": "provisoria" (nao some mais). Abra o overlay em mais 2 sessoes: o CSV continua com UMA
+   linha para essa corrida (sem duplicar) e o arquivo continua com o estado "provisoria".
+   Se o iRacing ainda NAO tiver atualizado o rating, o log deve dizer "sem_atualizacao_numerica" (e NAO entra
+   linha no CSV): anote quanto tempo o iRacing levou para atualizar. A confirmacao pelo resultado oficial ainda NAO
+   esta ligada a nenhuma fonte: neste teste todas as linhas reais seguem "provisoria" (esperado).
+ Atencao: so e confiavel se nao houve outra corrida oficial entre as duas sessoes (inclusive fora do overlay).
+
+TESTE 8 - DESEMPENHO                                                 (15 min)
+ Faca: (a) abra o contador de FPS do iRacing (tecla F? conforme sua configuracao, ou o overlay do Windows)
+   com o overlay FECHADO e rode 3 voltas na pista mais pesada que voce usa, com grid cheio (IA); anote o FPS
+   medio e o menor. (b) Repita com o overlay ABERTO, todas as janelas. (c) Repita com "Modo economia de CPU"
+   ligado. (d) Repita com "Prioridade baixa" desligada (Windows).
+ Esperado: diferenca de FPS pequena (idealmente menos de 3 %). No log, a cada 10 min: "calculo desempenho:
+   ciclo_ms_medio=... desenho_ms_por_segundo=..." e, se alguma janela for lenta, "aviso: janelas lentas...".
+ Anote: FPS (a), (b), (c), (d) e as linhas "desempenho" do log. Se (b) cair mais de 5 %, envie o log.
+
+TESTE 9 - REPLAY E GARAGEM                                           (5 min)
+ Faca: abra um replay e depois a garagem.
+ Esperado: nenhum erro; delta/setores nao aceitam voltas do replay (motivo=replay); janelas somem/aparecem como antes.
+
+TESTE 10 - COMBUSTIVEL (FASE 20.1)                                   (corrida longa ou treino de 30+ min)
+ Faca: numa corrida/treino com fim definido (voltas, e se puder uma por TEMPO), abra a janela Combustivel. Rode as
+   voltas limpas para medir o consumo e anote o que o painel indica: numero de paradas, janela (voltas) e litros.
+   Depois siga o plano: pare na janela, abasteca o indicado e veja se termina com a margem escolhida.
+ Esperado: o combustivel que sobra na bandeirada fica perto da margem escolhida (nao muito abaixo). Com margem de 2
+   voltas e tanque pequeno, o painel indica mais paradas do que "litros / tanque". Se nao ha como chegar ao box, o
+   painel diz "SEM JANELA - nao chega ao box". Em corrida por tempo, anote quantas voltas o painel previa e quantas
+   voce fez.
+ FASE 20.2: com mais de uma parada, o painel diz "COLOCAR NA V.. - ATE O TOPO": confira se o valor e a capacidade
+   do tanque menos o que o carro tinha ao entrar nos boxes (o iRacing deve aceitar o valor sem passar do maximo).
+   Se o iRacing limitar o abastecimento a menos que o tanque (regra da serie), anote: a capacidade usada pelo painel
+   pode estar maior que a real.
+ Anote: paradas previstas x feitas; litros indicados x litros que faltaram/sobraram; voltas previstas x feitas
+   (corrida por tempo).
+
+TESTE 11 - MAPA DA PISTA (FASE 20.1)                                 (10 min)
+ Faca: apague "mapas_pistas.json" (ou bandeja > Refazer o mapa desta pista), entre numa pista nova e de UMA volta
+   limpa. Repita com o PC mais carregado (muitas janelas, replay, outro programa pesado aberto).
+ Esperado: "Aprendendo o tracado..." chega a 100% ao fechar a volta e o desenho bate com a pista, sem retas
+   cortando curvas. Veja no log se aparece algum erro de "mapa".
+ Anote: a volta fechou? O desenho esta fiel? Quantas voltas foram necessarias?
+
+TESTE 12 - PNEUS: REAL x ESTIMADO (FASE 20.1)                        (no mesmo treino do teste 6)
+ Esperado: temperatura REAL ao vivo sem "~"; estimada sempre com "~" e "temperatura estimada"; vida estimada com
+   "VIDA~"; vida real com "VIDA" e "real, ha X min". Nunca um valor estimado sem "~".
+ Anote: algum numero apareceu sem "~" e voce acha que era estimado?
+
+TESTE 13 - STREAM DECK: TECLAS DE ATALHO (FASE 20.2.2)                (15 min; nao precisa do iRacing para os itens a a e)
+ Preparacao: copie os arquivos da 20.2.2 (overlay_iracing.py, ov_nucleo.py, fechar_overlay.bat, ATALHOS_STREAM_DECK.txt),
+   abra o overlay e importe "streamdeck\Overlay iRacing.streamDeckProfile" no Stream Deck. Pode usar "testar_demo.bat".
+ Faca e anote PASSOU/FALHOU:
+ (a) No log, logo apos abrir: "atalhos globais: 22 de 22 registrados". Se vier menos, o log lista quais e por que.
+ (b) Botao "Radar": a janela some; toque de novo: volta. Repita com 2 ou 3 outras janelas (cada botao mexe so na sua).
+ (c) Botoes de Perfil (Treino, Classif., Corrida, Auto): o rotulo do menu da bandeja muda ("Perfil ativo: ...") e o
+     layout de cada perfil e respeitado.
+ (d) Economia de CPU, Travar posicao, Aparecer sozinho: o item correspondente do menu da bandeja marca/desmarca.
+ (e) Botao "Suporte": abre a pasta; os botoes abrem os arquivos; "Voltar" retorna a pagina principal.
+ (f) COM O iRACING EM PRIMEIRO PLANO, numa sessao: aperte os botoes de janela. As janelas devem reagir e o jogo NAO deve
+     reagir (nenhuma camera, mapa ou ajuste mudou no iRacing). Se mudar algo no jogo, anote qual botao.
+ (g) Botao "FECHAR Overlay": o icone da bandeja some e o processo termina. Abra de novo com "Iniciar Overlay".
+ (h) Com o overlay TRAVADO de proposito (nao feche o Gerenciador de Tarefas): "Forcar Fechamento" deve encerrar o overlay.
+ (i) Se algum botao nao funcionar: veja em "overlay_log.txt" a linha "atalhos globais NAO registrados" (combinacao em uso
+     por outro programa, como plugins do Stream Deck) e anote a combinacao.
+ Esperado: cada botao faz o mesmo que o clique no menu da bandeja. O botao nao mostra se a janela esta ligada: confira na tela.
+ Anote: qual botao falhou e a linha do log.
+
+O QUE ANEXAR NA ISSUE DO GITHUB
+ - "overlay_log.txt" (e "overlay_log.txt.1" se existir)
+ - "comparacao_oficial.csv" e "historico_projecoes.csv" (se existirem)
+ - Suas anotacoes PASSOU/FALHOU/DUVIDA de cada teste
+ - Carro, pista e tipo de sessao dos testes que falharam

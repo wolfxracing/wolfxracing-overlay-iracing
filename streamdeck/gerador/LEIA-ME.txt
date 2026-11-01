@@ -1,0 +1,14 @@
+BIBLIOTECA DE ICONES - OVERLAY IRACING (STREAM DECK XL)
+=========================================================
+Conteudo
+  png/                    39 icones 144x144 (prontos para o Stream Deck)
+  svg/                    mesmos icones em vetor (texto convertido em curvas)
+  variantes_desligado/    versoes "desligada" (esmaecidas, olho riscado) - uso opcional
+  previa_pagina_principal.png / previa_pasta_suporte.png   previa dos 32 botoes
+  layout_proposto.json    posicao (coluna,linha) de cada botao
+  mapa_comandos.md        janela -> atalho -> icone
+  inventario_pacotes.csv  inventario dos pacotes de icones instalados (somente leitura)
+  gerar_icones.py         gerador (Python + cairosvg + fontTools)
+
+Status: PROPOSTA. O perfil do Stream Deck e o codigo do overlay NAO foram alterados.
+Para aplicar: aprovar a previa; sera gerado o perfil corrigido (v3) para importar.

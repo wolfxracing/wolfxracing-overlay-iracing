@@ -1,0 +1,63 @@
+EMBLEMAS DAS MARCAS DOS CARROS
+==============================
+
+A janela de Classificacao mostra, na coluna CARRO, o emblema de cada marca.
+Por enquanto aparecem apenas as INICIAIS da marca (ex.: POR, FER, AM) porque este pacote
+nao inclui logotipos de fabricantes (sao marcas registradas). Voce mesmo coloca as imagens
+nesta pasta e o overlay passa a usa-las automaticamente.
+
+COMO COLOCAR UM EMBLEMA
+ 1. Obtenha a imagem da marca (de preferencia PNG com fundo transparente, pelo menos 64 x 64 pixels;
+    JPG, WEBP e SVG tambem funcionam). A escolha da fonte das imagens e sua.
+ 2. Salve nesta pasta com o nome da marca em minusculas, sem acentos e com hifen no lugar de espacos:
+        porsche.png        ferrari.png        aston-martin.png        mercedes-amg.png
+ 3. Nao precisa reiniciar: o overlay procura de novo a cada poucos segundos.
+ Tambem vale o nome sem hifen (astonmartin.png) ou so a primeira palavra (mercedes.png).
+
+COMO SABER QUAIS MARCAS FALTAM
+ Enquanto joga, o overlay cria na pasta principal o arquivo "emblemas_faltando.txt" com a lista exata
+ de nomes de arquivo das marcas que apareceram na sua sessao e ainda nao tem emblema.
+
+NOMES DE ARQUIVO DAS MARCAS CONHECIDAS
+   acura.png
+   alfa-romeo.png
+   aston-martin.png
+   audi.png
+   bmw.png
+   buick.png
+   cadillac.png
+   chevrolet.png
+   dallara.png
+   dodge.png
+   ferrari.png
+   ford.png
+   genesis.png
+   honda.png
+   hyundai.png
+   kia.png
+   lamborghini.png
+   lexus.png
+   ligier.png
+   lotus.png
+   mazda.png
+   mclaren.png
+   mercedes.png
+   mercedes-amg.png
+   mercedes-benz.png
+   nissan.png
+   oreca.png
+   peugeot.png
+   pontiac.png
+   porsche.png
+   radical.png
+   ray.png
+   renault.png
+   skip-barber.png
+   subaru.png
+   super-formula.png
+   toyota.png
+   volkswagen.png
+   williams.png
+
+Se o iRacing trouxer uma marca fora desta lista, o nome do arquivo sera a primeira palavra do
+nome do carro (veja "emblemas_faltando.txt").

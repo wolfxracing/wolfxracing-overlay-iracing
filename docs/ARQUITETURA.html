@@ -1,0 +1,58 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ARQUITETURA - WolfxRacing</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:32px auto;padding:0 20px;line-height:1.55;color:#1b1d22;background:#fafafa}h1,h2,h3{font-family:Bahnschrift,Segoe UI,sans-serif;text-transform:uppercase;letter-spacing:.5px}h1{border-bottom:4px solid #c8102e;padding-bottom:8px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:36px}img{max-width:100%;height:auto;background:#14161a;border-radius:8px;padding:6px}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #d5d5d5;padding:6px 10px;text-align:left;vertical-align:top}th{background:#eee}code,pre{background:#eceef1;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace}pre{padding:10px;overflow:auto}blockquote{border-left:4px solid #c8102e;margin:12px 0;padding:4px 14px;background:#fff}a{color:#b3122b}</style></head><body><h1 id="arquitetura-para-quem-vai-contribuir">Arquitetura (para quem vai contribuir)</h1>
+<h2 id="visao-geral">Visão geral</h2>
+<ul>
+<li><strong>Overlay</strong>: Python 3.12 + PySide6. Janelas transparentes e sempre no topo, desenhadas com <code>QPainter</code> (sem imagens por janela). Tudo local.</li>
+<li><strong>Fluxo</strong>: <code>iniciar_overlay.bat</code> → <code>pyw -3.12 overlay_iracing.py</code> → <code>Telemetria.ler()</code> (SDK ou demo) a até 30 Hz → <code>dados</code> (dicionário) → cada janela recebe <code>atualizar(dados)</code> e repinta numa taxa própria (<code>TAXA_HZ</code>).</li>
+<li><strong>Visual</strong>: camada central em <code>overlay_iracing.py</code> (<code>TEMA</code>, <code>fonte()</code>, <code>fonte_titulo()</code>, <code>pintar_superficie()</code>): temas <em>clássico</em>, <em>moderno</em> e <em>Sport</em>. Mudar a aparência de todas as janelas = mexer aí.</li>
+<li><strong>Dash</strong>: scripts em <code>dash/tools</code> geram o <code>.simhubdash</code> (JSON do Dash Studio + imagens + JavaScript).</li>
+<li><strong>Stream Deck</strong>: scripts em <code>streamdeck/gerador</code> geram ícones e perfil a partir da tabela de atalhos.</li>
+</ul>
+<h2 id="arquivos-do-overlay">Arquivos do overlay</h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>overlay_iracing.py</code></td>
+<td>Programa principal: leitura do iRacing (pyirsdk), cálculos (combustível, pneus, delta, setores, relativo, radar...), as 12 janelas (<code>JanelaBase</code> e derivadas), bandeja, perfis, tema</td>
+</tr>
+<tr>
+<td><code>ov_nucleo.py</code></td>
+<td>Núcleo testável sem Qt: atalhos globais (tabela <code>ATALHOS</code>), perfis, limitador de taxa, ciclo de vida da projeção de iRating/SR</td>
+</tr>
+<tr>
+<td><code>testes/teste_fase*.py</code></td>
+<td>Testes automáticos por fase (dados simulados)</td>
+</tr>
+<tr>
+<td><code>bandeiras/</code></td>
+<td>Bandeiras de países (MIT, projeto flag-icons)</td>
+</tr>
+<tr>
+<td><code>emblemas/</code></td>
+<td>Pasta para emblemas <strong>do usuário</strong> (marcas registradas não são distribuídas)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="principios-do-projeto">Princípios do projeto</h2>
+<ol>
+<li><strong>Nada é inventado.</strong> Dado ausente vira <code>None</code>/<code>--</code>; valor calculado/estimado é marcado com <code>~</code>.</li>
+<li><strong>Lógica pura separada da interface</strong> sempre que possível (testável sem Qt).</li>
+<li><strong>Sem injeção de código</strong> no jogo; só telemetria oficial (SDK / memória compartilhada).</li>
+<li><strong>Sem marcas registradas</strong> no repositório (logos de jogos e de fabricantes).</li>
+<li><strong>Sem dados pessoais</strong> em arquivos versionados (config, logs, recordes, mapas).</li>
+</ol>
+<h2 id="testes">Testes</h2>
+<p><code>overlay\executar_testes.bat</code> (ou <code>py -3.12 overlay/testes/teste_fase2022.py</code> e as demais fases). Os testes não precisam do jogo; usam um iRacing simulado.</p>
+<p>Para renderizar as janelas fora do Windows (CI ou prévias), defina <code>QT_QPA_PLATFORM=offscreen</code>. As fontes do Windows (Bahnschrift) não existem em outros sistemas; o layout cai numa fonte substituta.</p>
+<h2 id="ideias-de-contribuicao">Ideias de contribuição</h2>
+<ul>
+<li>Calibração real da temperatura dos pneus (e testes com mais carros).</li>
+<li>Novos idiomas (hoje os textos estão em pt-BR).</li>
+<li>Layouts do dash para outras telas e resoluções.</li>
+<li>Testes com mais carros/classes e relatórios de validação no jogo real.</li>
+</ul></body></html>

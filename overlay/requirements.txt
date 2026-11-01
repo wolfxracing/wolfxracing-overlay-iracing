@@ -1,0 +1,2 @@
+pyirsdk
+PySide6-Essentials

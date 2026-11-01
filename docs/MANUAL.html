@@ -1,0 +1,200 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>MANUAL - WolfxRacing</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:32px auto;padding:0 20px;line-height:1.55;color:#1b1d22;background:#fafafa}h1,h2,h3{font-family:Bahnschrift,Segoe UI,sans-serif;text-transform:uppercase;letter-spacing:.5px}h1{border-bottom:4px solid #c8102e;padding-bottom:8px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:36px}img{max-width:100%;height:auto;background:#14161a;border-radius:8px;padding:6px}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #d5d5d5;padding:6px 10px;text-align:left;vertical-align:top}th{background:#eee}code,pre{background:#eceef1;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace}pre{padding:10px;overflow:auto}blockquote{border-left:4px solid #c8102e;margin:12px 0;padding:4px 14px;background:#fff}a{color:#b3122b}</style></head><body><h1 id="manual-do-usuario-wolfxracing-overlay-para-iracing">Manual do usuário: WolfxRacing Overlay para iRacing</h1>
+<blockquote>
+<p>Versão do overlay neste pacote: <strong>Fase 20.2.2 + visual Sport</strong>. Os prints foram gerados no <strong>modo demonstração</strong> (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.</p>
+</blockquote>
+<h2 id="sumario">Sumário</h2>
+<ol>
+<li><a href="#1-o-que-é">O que é</a> · 2. <a href="#2-instalação-uma-única-vez">Instalação</a> · 3. <a href="#3-configurar-o-iracing">Configurar o jogo</a> · 4. <a href="#4-uso-diário">Uso diário</a> · 5. <a href="#5-as-janelas">As 12 janelas</a> · 6. <a href="#6-como-ler-os-números">Como ler os números</a> · 7. <a href="#7-dash-e-stream-deck">Dash e Stream Deck</a> · 8. <a href="#8-solução-de-problemas">Solução de problemas</a> · 9. <a href="#9-atualizar-para-uma-versão-nova">Atualizar</a> · 10. <a href="#10-limites-conhecidos">Limites</a></li>
+</ol>
+<h2 id="1-o-que-e">1. O que é</h2>
+<p>12 janelas independentes e transparentes, sempre por cima do jogo, que podem ser movidas, redimensionadas e ligadas/desligadas pelo menu do ícone vermelho "i" perto do relógio do Windows. Tudo roda localmente; nenhum dado seu é enviado para a internet.</p>
+<p><img alt="Visão geral" src="imagens/overlay_visao_geral.png" /></p>
+<h2 id="2-instalacao-uma-unica-vez">2. Instalação (uma única vez)</h2>
+<ol>
+<li><strong>Python 3.12.</strong> Instale o <em>Python Install Manager</em> em <a href="https://www.python.org/downloads/">python.org/downloads</a>.</li>
+<li><strong>Extraia</strong> o <code>.zip</code> dentro de <code>C:\WolfxRacing</code> (o zip já cria a pasta <code>wolfxracing-overlay-iracing</code>; o resultado é <code>C:\WolfxRacing\wolfxracing-overlay-iracing</code>). Outra pasta também funciona, mas veja o aviso do Stream Deck em <a href="STREAMDECK.html">STREAMDECK.md</a>.</li>
+<li>Dê duplo clique em <strong><code>overlay\instalar.bat</code></strong>. Ele prepara o Python 3.12 e instala <code>pyirsdk</code> e <code>PySide6-Essentials</code>. Aguarde "Instalação concluída".</li>
+<li>Teste sem o jogo: <strong><code>overlay\testar_demo.bat</code></strong> (dados simulados, nomes fictícios). Procure o ícone vermelho "i" perto do relógio do Windows (pode estar na seta <code>^</code>).</li>
+</ol>
+<p>Instalação manual (alternativa): <code>py -3.12 -m pip install pyirsdk PySide6-Essentials</code>.</p>
+<h2 id="3-configurar-o-iracing">3. Configurar o iRacing</h2>
+<ul>
+<li>Vídeo em <strong>janela sem bordas</strong>: no iRacing, aba <em>Display</em>, desmarque <em>Full Screen</em> e <em>Border</em> e reinicie o jogo. Visualmente é idêntico à tela cheia.</li>
+<li>Na tela cheia <strong>exclusiva</strong> o Windows não deixa nenhuma janela de outro programa aparecer sobre o jogo. A única forma de contornar seria injetar código no iRacing, o que <strong>este projeto não faz</strong> (poderia ser tratado como violação das regras do serviço).</li>
+<li>O overlay precisa que o iRacing esteja aberto e <strong>dentro de uma sessão</strong>; antes disso a janela mostra "Aguardando o iRacing..."</li>
+</ul>
+<h2 id="4-uso-diario">4. Uso diário</h2>
+<ol>
+<li>Abra <strong><code>overlay\iniciar_overlay.bat</code></strong> (pode ser antes ou depois do jogo).</li>
+<li><strong>Posicionar as janelas:</strong> clique com o botão direito no ícone vermelho "i" e <strong>desmarque "Travar posição"</strong>. Janelas destravadas ganham contorno amarelo: arraste para onde quiser. Ao terminar, marque "Travar posição" (os cliques passam a atravessar o overlay).</li>
+<li><strong>Redimensionar:</strong> com a posição destravada, arraste uma <strong>borda</strong> (muda só largura ou só altura) ou um <strong>canto</strong> (muda as duas, mantendo a proporção); ou segure <strong>Ctrl</strong> e gire a roda do mouse. <em>Restaurar o tamanho das janelas (100%)</em> volta ao padrão.</li>
+<li><strong>Aparecer sozinho:</strong> com a posição travada, as janelas aparecem quando você entra no carro e somem 6 s depois de sair (garagem, menu, replay). Para ficarem sempre visíveis, desmarque <em>Aparecer sozinho ao entrar no carro</em>.</li>
+<li><strong>Iniciar com o Windows:</strong> <code>ativar_inicio_automatico.bat</code> (e <code>desativar_inicio_automatico.bat</code> para desfazer).</li>
+<li><strong>Perfis de exibição</strong> (menu da bandeja &gt; <em>Perfil de exibição</em>): <strong>Treino</strong>, <strong>Classificação</strong> e <strong>Corrida</strong> guardam, para cada janela, posição, tamanho e se aparece. <em>Automático</em> troca sozinho pelo tipo de sessão (só depois de 3 s estáveis e nunca com as janelas destravadas).</li>
+<li><strong>Visual:</strong> <em>Visual moderno</em> (carbono, Bahnschrift), <strong>Estilo Sport</strong> (itálico, cantos cortados e detalhes vermelhos, igual ao dash) e <em>Transparência do fundo</em> (40 a 100%). Desmarcar <em>Visual moderno</em> volta ao visual clássico.</li>
+<li><strong>Desempenho:</strong> <em>Modo economia de CPU</em> (metade das atualizações) e <em>Prioridade baixa do overlay</em> (o jogo tem preferência).</li>
+<li><strong>Fechar:</strong> <em>Sair</em> no menu da bandeja, <code>Ctrl+Alt+F22</code> (Stream Deck) ou, se travar, <code>overlay\fechar_overlay.bat</code>.</li>
+</ol>
+<h2 id="5-as-janelas">5. As janelas</h2>
+<h3 id="1-telemetria">1. Telemetria</h3>
+<p><img alt="Telemetria" src="imagens/overlay_telemetria.png" /></p>
+<p>Marcha, velocidade, RPM, pedais (embreagem, freio, acelerador), volante girando como o real (marcador vermelho no topo; ângulo em graus: + esquerda, - direita) e gráfico de acelerador e freio dos últimos ~10 s.</p>
+<ul>
+<li>O gráfico pode ser escondido pelo menu da bandeja (a janela diminui).</li>
+<li>Barra superior = RPM em relação ao limite do carro.</li>
+</ul>
+<h3 id="2-voltas-delta-tempos-e-combustivel">2. Voltas (delta, tempos e combustível)</h3>
+<p><img alt="Voltas (delta, tempos e combustível)" src="imagens/overlay_voltas.png" /></p>
+<p>Delta para a melhor volta, tempos atual / última / melhor e uma faixa de cálculo de combustível.</p>
+<ul>
+<li><strong>Voltas até o fim</strong>: em corrida por tempo, estima pelo ritmo (mediana das últimas voltas limpas).</li>
+<li><strong>Necessário (+1 v)</strong> = (voltas até o fim + margem) x consumo médio. <strong>Adicionar</strong>: "OK" = termina com a folga; "+x,x L" amarelo = abastecer; vermelho = não cabe de uma vez.</li>
+<li>A margem (0,5 / 1 / 1,5 / 2 voltas) muda em <em>bandeja &gt; Margem de segurança do combustível</em>.</li>
+</ul>
+<h3 id="3-relativo">3. Relativo</h3>
+<p><img alt="Relativo" src="imagens/overlay_relativo.png" /></p>
+<p>Carros à frente e atrás de você na pista, com classe, licença, iRating e distância em segundos, mais a projeção de iRating e SR.</p>
+<ul>
+<li>Sua linha fica em destaque. Linha apagada = outra classe; nome em vermelho = uma volta ou mais à frente; azul = uma volta ou mais atrás; "BOX" = nos boxes.</li>
+<li>A projeção de iRating/SR é <strong>projetada, não oficial</strong>, e é marcada como provisória até a confirmação.</li>
+</ul>
+<h3 id="4-classificacao">4. Classificação</h3>
+<p><img alt="Classificação" src="imagens/overlay_classificacao.png" /></p>
+<p>Carros agrupados por classe (da mais rápida para a mais lenta), com SOF da classe, número, marca, piloto, país, última e melhor volta.</p>
+<ul>
+<li>Melhor volta em <strong>roxo</strong> = a mais rápida da classe. Última volta em <strong>verde</strong> = igualou a melhor do piloto.</li>
+<li>Na sua classe aparecem o topo e os carros ao seu redor; nas outras, os primeiros. Linha pontilhada = carros omitidos.</li>
+<li>Emblemas de marcas <strong>não vêm no pacote</strong> (marcas registradas): mostra as iniciais até você colocar suas próprias imagens em <code>overlay/emblemas/</code>.</li>
+</ul>
+<h3 id="5-mapa-da-pista">5. Mapa da pista</h3>
+<p><img alt="Mapa da pista" src="imagens/overlay_mapa.png" /></p>
+<p>Traçado da pista com a posição de todos os carros (bolinhas com número e cor da classe; a sua é amarela e maior).</p>
+<ul>
+<li>O traçado é <strong>aprendido na sua primeira volta limpa</strong> em cada pista e fica salvo localmente.</li>
+<li>Se sair estranho: <em>bandeja &gt; Refazer o mapa desta pista</em>.</li>
+</ul>
+<h3 id="6-radar-de-proximidade">6. Radar de proximidade</h3>
+<p><img alt="Radar de proximidade" src="imagens/overlay_radar.png" /></p>
+<p>Visão de cima com seu carro no centro e os carros ao redor (alcance de ~20 m à frente e atrás).</p>
+<ul>
+<li>Branco = normal; amarelo = atenção; vermelho com brilho lateral = o iRacing avisa carro ao lado.</li>
+<li>O iRacing só informa <strong>se</strong> há carro ao lado, não a posição lateral exata; o radar é para prevenir contato, não para medir centímetros.</li>
+</ul>
+<h3 id="7-pneus">7. Pneus</h3>
+<p><img alt="Pneus" src="imagens/overlay_pneus.png" /></p>
+<p>Vida útil e temperatura de cada pneu. O iRacing só informa valores reais com o carro parado no box; durante a corrida o overlay <strong>estima</strong>.</p>
+<ul>
+<li>Valor com "~" = estimado. A estimativa se calibra sozinha a cada parada nos boxes.</li>
+<li>Cores de temperatura: azul = frio; verde = ideal; amarelo = quente; vermelho = muito quente. Contorno laranja = pneu mais gasto.</li>
+</ul>
+<h3 id="8-setores-vs-melhor-volta">8. Setores (vs melhor volta)</h3>
+<p><img alt="Setores (vs melhor volta)" src="imagens/overlay_setores.png" /></p>
+<p>Compara cada setor com o <strong>seu</strong> melhor tempo para o mesmo carro e a mesma pista.</p>
+<ul>
+<li>Verde = mais rápido; vermelho = mais lento; roxo = novo melhor setor.</li>
+<li>A referência fica em <code>recordes_pessoais.json</code> (local).</li>
+</ul>
+<h3 id="9-clima-e-vento">9. Clima e vento</h3>
+<p><img alt="Clima e vento" src="imagens/overlay_clima.png" /></p>
+<p>Temperatura da pista e do ar, neblina, chuva (atual + tendência) e bússola do vento vista do carro.</p>
+<ul>
+<li>A seta azul mostra para onde o vento sopra, relativo ao carro (para cima = vento de cauda).</li>
+<li>O iRacing <strong>não</strong> entrega previsão de chuva para programas externos.</li>
+</ul>
+<h3 id="10-danos">10. Danos</h3>
+<p><img alt="Danos" src="imagens/overlay_danos.png" /></p>
+<p>Reparo obrigatório/opcional (tempo informado pelo iRacing), incidentes, carro visto de cima com as zonas de impacto, avisos de motor e os últimos impactos.</p>
+<ul>
+<li>O iRacing não informa dano por peça. Direção e força dos impactos são <strong>estimadas</strong>.</li>
+</ul>
+<h3 id="11-painel-de-combustivel-e-pit">11. Painel de combustível e pit</h3>
+<p><img alt="Painel de combustível e pit" src="imagens/overlay_combustivel.png" /></p>
+<p>Janela de pit, litros a colocar, tabela de consumo (média, máximo, mínimo), barras de voltas possíveis para parar e tempo/voltas até acabar.</p>
+<ul>
+<li>Caixa colorida: <strong>ABERTA</strong> (verde) = pode parar nessas voltas; <strong>FECHADA</strong> (laranja) = cedo demais; <strong>SEM JANELA</strong> (vermelho) = sem plano viável.</li>
+<li>Estimativa baseada no seu ritmo recente; não prevê bandeira amarela.</li>
+</ul>
+<h3 id="12-forca-g">12. Força G</h3>
+<p><img alt="Força G" src="imagens/overlay_forca_g.png" /></p>
+<p>Círculo de G lateral e longitudinal com rastro, G atual e pico, nome e temperatura da pista.</p>
+<ul>
+<li>Cada anel = 1 g (alcance configurável de 2 a 5 g). Curva à esquerda leva o ponto para a esquerda; freando, o ponto desce.</li>
+</ul>
+<h2 id="6-como-ler-os-numeros-real-calculado-estimado">6. Como ler os números: real, calculado, estimado</h2>
+<ul>
+<li><strong>Sem marca</strong> = <strong>real</strong>, entregue pelo iRacing (velocidade, marcha, RPM, pedais, volante, força G, combustível no tanque, clima, reparo e avisos do motor).</li>
+<li><strong>"~"</strong> = <strong>calculado ou estimado</strong> pelo overlay (consumo por volta, voltas/litros até o fim, tempos de setor, distâncias no radar, temperatura e vida dos pneus durante a corrida, lado e força dos impactos, iRating e SR projetados).</li>
+<li>O iRacing <strong>não informa</strong>: se uma volta foi invalidada, a posição lateral dos outros carros, a previsão de chuva, dano por peça e o iRating/SR oficial durante a sessão. Nada disso é inventado pelo overlay.</li>
+<li><strong>Delta e setores:</strong> o iRacing não diz se a volta foi invalidada; o overlay usa um critério próprio e conservador.</li>
+</ul>
+<h2 id="7-dash-e-stream-deck">7. Dash e Stream Deck</h2>
+<ul>
+<li><strong>Dash MagicDash 4 Sport</strong> (3 telas): veja <a href="DASH.html">DASH.md</a>.</li>
+<li><strong>Perfil de Stream Deck XL</strong> (janelas, controles, iniciar/fechar, pasta Suporte): veja <a href="STREAMDECK.html">STREAMDECK.md</a>.</li>
+</ul>
+<p><img alt="Dash" src="imagens/dash_visao_geral.png" /></p>
+<h2 id="8-solucao-de-problemas">8. Solução de problemas</h2>
+<table>
+<thead>
+<tr>
+<th>Sintoma</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Falta o arquivo ov_nucleo.py"</td>
+<td>Copie <strong>todos</strong> os arquivos de <code>overlay/</code> para a mesma pasta.</td>
+</tr>
+<tr>
+<td>O overlay não abre</td>
+<td>Abra <code>overlay\overlay_log.txt</code> e anexe-o em uma Issue.</td>
+</tr>
+<tr>
+<td>"Aguardando o iRacing..."</td>
+<td>O jogo precisa estar aberto e dentro de uma sessão.</td>
+</tr>
+<tr>
+<td>Não aparece sobre o jogo</td>
+<td>Use <strong>janela sem bordas</strong> (seção 3).</td>
+</tr>
+<tr>
+<td>Uma janela mostra "Sem dados"</td>
+<td>Normal em menus/garagem. Se persistir na pista, anexe o log em uma Issue.</td>
+</tr>
+<tr>
+<td>Classificação vazia em treino</td>
+<td>Carros sem tempo válido ainda não entram na lista.</td>
+</tr>
+<tr>
+<td>Esquerda e direita trocadas (pneus, danos, força G)</td>
+<td>Com o overlay fechado, ponha <code>"pneu_lado_invertido": true</code> no <code>config.json</code>.</td>
+</tr>
+<tr>
+<td>Seta do vento invertida</td>
+<td><code>"vento_invertido": true</code> no <code>config.json</code>.</td>
+</tr>
+<tr>
+<td>Um atalho do Stream Deck não funciona</td>
+<td>Outro programa pode estar usando a combinação; veja o log (<code>overlay_log.txt</code>).</td>
+</tr>
+<tr>
+<td>Valor estranho</td>
+<td>Anote a janela e a situação (treino/corrida/carro) e abra uma Issue com o log.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-atualizar-para-uma-versao-nova">9. Atualizar para uma versão nova</h2>
+<ol>
+<li>Feche o overlay (<em>Sair</em> na bandeja).</li>
+<li>Baixe o novo <code>.zip</code> e <strong>copie por cima</strong> da pasta atual (o <code>config*.json</code>, recordes, mapas e logs ficam e continuam valendo, pois não vêm no pacote).</li>
+<li>Leia o <a href="../CHANGELOG.html">CHANGELOG</a> para ver o que mudou. Reabra o overlay.</li>
+</ol>
+<h2 id="10-limites-conhecidos">10. Limites conhecidos</h2>
+<ul>
+<li>A estimativa de temperatura e vida dos pneus é uma <strong>estimativa</strong>: antes da primeira calibração (1ª parada nos boxes) pode errar bastante; depois serve bem para comparar e acompanhar a tendência.</li>
+<li>O radar não conhece a posição lateral dos outros carros (limitação do iRacing).</li>
+<li>Em tela cheia exclusiva nenhum overlay aparece (limitação do Windows).</li>
+<li>Os testes automáticos usam dados simulados; a validação real depende do uso em sessões do iRacing (veja <code>overlay/ROTEIRO_VALIDACAO.txt</code>).</li>
+</ul>
+<p>Mais detalhes técnicos de cada recurso: <a href="referencia/GUIA_ORIGINAL.txt"><code>referencia/GUIA_ORIGINAL.txt</code></a> (guia completo escrito durante o desenvolvimento).</p></body></html>

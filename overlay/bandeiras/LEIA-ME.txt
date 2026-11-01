@@ -1,0 +1,3 @@
+Bandeiras dos paises (imagens 64x48) geradas a partir do projeto flag-icons
+(https://github.com/lipis/flag-icons), licenca MIT (veja LICENSE-flag-icons.txt).
+O nome de cada arquivo e o codigo de 2 letras do pais (br.png = Brasil).

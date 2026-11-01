@@ -1,0 +1,42 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>DASH - WolfxRacing</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:32px auto;padding:0 20px;line-height:1.55;color:#1b1d22;background:#fafafa}h1,h2,h3{font-family:Bahnschrift,Segoe UI,sans-serif;text-transform:uppercase;letter-spacing:.5px}h1{border-bottom:4px solid #c8102e;padding-bottom:8px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:36px}img{max-width:100%;height:auto;background:#14161a;border-radius:8px;padding:6px}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #d5d5d5;padding:6px 10px;text-align:left;vertical-align:top}th{background:#eee}code,pre{background:#eceef1;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace}pre{padding:10px;overflow:auto}blockquote{border-left:4px solid #c8102e;margin:12px 0;padding:4px 14px;background:#fff}a{color:#b3122b}</style></head><body><h1 id="dash-magicdash-4-sport-para-iracing">Dash MagicDash 4 Sport para iRacing</h1>
+<p>Dash para o <strong>Simagic MagicDash 4</strong> (800x480, tela de toque) feito no SimHub (Dash Studio), em estilo de painel de carro esportivo: fundo de fibra de carbono, fonte inclinada <strong>Sui Generis</strong> (já vem com o SimHub), detalhes vermelhos e luzes de aviso dentro do tacômetro.</p>
+<p><img alt="Visão geral" src="imagens/dash_visao_geral.png" /></p>
+<blockquote>
+<p>O cabeçalho traz o emblema <strong>WolfxRacing</strong> e o nome do jogo em texto. Os prints são <strong>prévias com dados de exemplo</strong>, geradas fora do SimHub; o dash real pode ter pequenas diferenças. Os logos oficiais do jogo <strong>não</strong> são distribuídos (marcas registradas): no lugar fica o emblema WolfxRacing, com o nome do jogo em texto.</p>
+</blockquote>
+<h2 id="instalacao">Instalação</h2>
+<ol>
+<li>Requisitos: SimHub 9.x (testado com 9.13) e o MagicDash 4 configurado no SimHub.</li>
+<li>Dê <strong>duplo clique</strong> em <code>dash/MagicDash4 iRacing Sport.simhubdash</code>: o SimHub importa o dash (ou: <em>Dash Studio &gt; Import/Add dashboard</em>).</li>
+<li>Em <em>Dash Studio</em>, selecione <strong>MagicDash4 iRacing Sport</strong> como <em>Main dashboard</em> do MagicDash 4.</li>
+<li>Reimportar sobrescreve a versão anterior.</li>
+</ol>
+<h2 id="navegacao">Navegação</h2>
+<p>O SimHub não tem gesto de deslizar: toque na <strong>metade esquerda do cabeçalho</strong> para a tela anterior e na <strong>metade direita</strong> para a próxima (com volta ao início). Os pontos no cabeçalho indicam a tela atual.</p>
+<h2 id="telas">Telas</h2>
+<h3 id="tela-1-corrida">Tela 1: Corrida</h3>
+<p><img alt="Corrida" src="imagens/dash_tela1.png" /></p>
+<p>Tacômetro central com marcha, velocidade e RPM x1000 (faixa vermelha perto do corte), <strong>6 luzes de aviso</strong> dentro do mostrador (farol, motor, temperatura, limitador de boxes, ABS e TC), pneus (temperatura e vida), combustível (litros, barra, voltas restantes), delta/melhor, tempos atual/última/melhor, posição, volta e ajustes de TC, ABS e balanço de freio.</p>
+<h3 id="tela-2-estrategia">Tela 2: Estratégia</h3>
+<p><img alt="Estratégia" src="imagens/dash_tela2.png" /></p>
+<p>Combustível, consumo médio, voltas restantes, fim da corrida (em voltas), quanto abastecer para terminar e número estimado de paradas.</p>
+<h3 id="tela-3-sessao">Tela 3: Sessão</h3>
+<p><img alt="Sessão" src="imagens/dash_tela3.png" /></p>
+<p>Tempo restante, volta atual/total, incidentes e o gap para o carro à frente e o de trás.</p>
+<h2 id="notas">Notas</h2>
+<ul>
+<li>O dial acompanha o limite de giros do carro (escala dinâmica; funciona também com mais de 8.000 rpm).</li>
+<li>A temperatura dos pneus no iRacing é <strong>estimada</strong> pelo script <code>MD4_iracing_pneus.js</code> (o iRacing só informa valores reais com o carro parado nos boxes). Há uma calibração em andamento; contribuições são bem-vindas.</li>
+<li>Valores com <code>~</code> são calculados/estimados; sem <code>~</code> são medidos pelo jogo.</li>
+<li>Em itens sem dado do jogo o dash mostra <code>--</code> (nada é inventado).</li>
+</ul>
+<h2 id="alterar-ou-gerar-o-dash">Alterar ou gerar o dash</h2>
+<p>O <code>.simhubdash</code> é gerado por scripts Python em <a href="../dash/tools"><code>dash/tools</code></a> (requer <code>pillow</code>, <code>numpy</code>; <code>playwright</code> só para as prévias):</p>
+<pre><code class="language-text">cd dash/tools
+python bg_sport.py &amp;&amp; python bg_sport2.py   # fundos (opcional: já vêm em assets_sport/)
+python icons_sport.py                       # ícones das luzes (opcional)
+python build_sport.py --so iracing              # gera out_sport/MagicDash4 iRacing Sport.simhubdash
+python check_sport.py                       # valida o resultado
+</code></pre>
+<p>Opções do <code>build_sport.py</code>: <code>--so iracing|lmu|todos</code> e <code>--com-logos</code> (somente para <strong>uso pessoal</strong>: troca o emblema WolfxRacing pelo logo do jogo; coloque o seu <code>MD4_logo_&lt;jogo&gt;.png</code> em <code>assets_sport/</code>; não publique o resultado). As expressões (JavaScript do SimHub) ficam em <code>js_sport/</code>: <code>MD4_alertas.js</code> (luzes, posição, energia), <code>MD4_iracing_pneus.js</code> (pneus).</p>
+<p>Dicas de desenvolvimento: abra o dash no navegador em <code>http://127.0.0.1:8888/Dash?r=1#&lt;NomeDoDash&gt;</code> (SimHub em execução) para ver as telas ao vivo e testar <code>$prop(...)</code> nas expressões.</p></body></html>
