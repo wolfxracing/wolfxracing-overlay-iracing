@@ -1,6 +1,6 @@
 # Manual do usuário: WolfxRacing Overlay para iRacing
 
-> Versão do overlay neste pacote: **Fase 20.2.2 + visual Sport**. Os prints foram gerados no **modo demonstração** (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.
+> Versão do overlay neste pacote: **Fase 20.2.2 + estilos Glass Fumê e Sport (1.1.0)**. Os prints foram gerados no **modo demonstração** (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.
 
 ## Sumário
 
@@ -35,9 +35,15 @@ Instalação manual (alternativa): `py -3.12 -m pip install pyirsdk PySide6-Esse
 4. **Aparecer sozinho:** com a posição travada, as janelas aparecem quando você entra no carro e somem 6 s depois de sair (garagem, menu, replay). Para ficarem sempre visíveis, desmarque *Aparecer sozinho ao entrar no carro*.
 5. **Iniciar com o Windows:** `ativar_inicio_automatico.bat` (e `desativar_inicio_automatico.bat` para desfazer).
 6. **Perfis de exibição** (menu da bandeja > *Perfil de exibição*): **Treino**, **Classificação** e **Corrida** guardam, para cada janela, posição, tamanho e se aparece. *Automático* troca sozinho pelo tipo de sessão (só depois de 3 s estáveis e nunca com as janelas destravadas).
-7. **Visual:** *Visual moderno* (carbono, Bahnschrift), **Estilo Sport** (itálico, cantos cortados e detalhes vermelhos, igual ao dash) e *Transparência do fundo* (40 a 100%). Desmarcar *Visual moderno* volta ao visual clássico.
+7. **Visual:** *Visual moderno* (carbono, Bahnschrift), **Estilo Glass Fumê** (vidro escuro translúcido, padrão), **Estilo Sport** (itálico, cantos cortados e detalhes vermelhos, igual ao dash Sport) e *Transparência do fundo* (40 a 100%). Desmarcar *Visual moderno* volta ao visual clássico.
 8. **Desempenho:** *Modo economia de CPU* (metade das atualizações) e *Prioridade baixa do overlay* (o jogo tem preferência).
 9. **Fechar:** *Sair* no menu da bandeja, `Ctrl+Alt+F22` (Stream Deck) ou, se travar, `overlay\fechar_overlay.bat`.
+
+### Estilos visuais
+
+Os dois estilos usam a tipografia esportiva (itálico; títulos em Sui Generis, se o SimHub estiver instalado). Glass Fumê e Sport não se combinam: ao marcar um, o outro desmarca. A *Transparência do fundo* vale para os dois (no Glass Fumê, valores entre 60% e 80% deixam o vidro mais evidente). O vidro é simulado com transparência e reflexos; o overlay não borra o que está atrás da janela.
+
+![Overlay em Glass Fumê](imagens/estilo_glass_overlay.png)
 
 ## 5. As janelas
 
@@ -159,7 +165,7 @@ Círculo de G lateral e longitudinal com rastro, G atual e pico, nome e temperat
 
 ## 7. Dash e Stream Deck
 
-- **Dash MagicDash 4 Sport** (3 telas): veja [DASH.md](DASH.md).
+- **Dash MagicDash 4 Glass Fumê ou Sport** (3 telas): veja [DASH.md](DASH.md).
 - **Perfil de Stream Deck XL** (janelas, controles, iniciar/fechar, pasta Suporte): veja [STREAMDECK.md](STREAMDECK.md).
 
 ![Dash](imagens/dash_visao_geral.png)

@@ -7,7 +7,7 @@ Este projeto é **independente** e **não é afiliado, aprovado ou patrocinado**
 | Componente | Licença | Onde |
 |---|---|---|
 | [flag-icons](https://github.com/lipis/flag-icons) (bandeiras de países) | MIT | `overlay/bandeiras/` (texto da licença em `LICENSE-flag-icons.txt`) |
-| Ícones do Stream Deck, fundos e ícones do dash | MIT (desenhos originais do projeto) | `streamdeck/`, `dash/tools/assets_sport/` |
+| Ícones do Stream Deck, fundos e ícones do dash | MIT (desenhos originais do projeto) | `streamdeck/`, `dash/tools/assets_sport/`, `dash/tools/assets_vidro/` |
 
 ## Instalados à parte (não distribuídos aqui)
 

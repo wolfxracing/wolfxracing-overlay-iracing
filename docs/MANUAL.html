@@ -1,6 +1,6 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>MANUAL - WolfxRacing</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:32px auto;padding:0 20px;line-height:1.55;color:#1b1d22;background:#fafafa}h1,h2,h3{font-family:Bahnschrift,Segoe UI,sans-serif;text-transform:uppercase;letter-spacing:.5px}h1{border-bottom:4px solid #c8102e;padding-bottom:8px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:36px}img{max-width:100%;height:auto;background:#14161a;border-radius:8px;padding:6px}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #d5d5d5;padding:6px 10px;text-align:left;vertical-align:top}th{background:#eee}code,pre{background:#eceef1;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace}pre{padding:10px;overflow:auto}blockquote{border-left:4px solid #c8102e;margin:12px 0;padding:4px 14px;background:#fff}a{color:#b3122b}</style></head><body><h1 id="manual-do-usuario-wolfxracing-overlay-para-iracing">Manual do usuário: WolfxRacing Overlay para iRacing</h1>
 <blockquote>
-<p>Versão do overlay neste pacote: <strong>Fase 20.2.2 + visual Sport</strong>. Os prints foram gerados no <strong>modo demonstração</strong> (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.</p>
+<p>Versão do overlay neste pacote: <strong>Fase 20.2.2 + estilos Glass Fumê e Sport (1.1.0)</strong>. Os prints foram gerados no <strong>modo demonstração</strong> (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.</p>
 </blockquote>
 <h2 id="sumario">Sumário</h2>
 <ol>
@@ -31,10 +31,13 @@
 <li><strong>Aparecer sozinho:</strong> com a posição travada, as janelas aparecem quando você entra no carro e somem 6 s depois de sair (garagem, menu, replay). Para ficarem sempre visíveis, desmarque <em>Aparecer sozinho ao entrar no carro</em>.</li>
 <li><strong>Iniciar com o Windows:</strong> <code>ativar_inicio_automatico.bat</code> (e <code>desativar_inicio_automatico.bat</code> para desfazer).</li>
 <li><strong>Perfis de exibição</strong> (menu da bandeja &gt; <em>Perfil de exibição</em>): <strong>Treino</strong>, <strong>Classificação</strong> e <strong>Corrida</strong> guardam, para cada janela, posição, tamanho e se aparece. <em>Automático</em> troca sozinho pelo tipo de sessão (só depois de 3 s estáveis e nunca com as janelas destravadas).</li>
-<li><strong>Visual:</strong> <em>Visual moderno</em> (carbono, Bahnschrift), <strong>Estilo Sport</strong> (itálico, cantos cortados e detalhes vermelhos, igual ao dash) e <em>Transparência do fundo</em> (40 a 100%). Desmarcar <em>Visual moderno</em> volta ao visual clássico.</li>
+<li><strong>Visual:</strong> <em>Visual moderno</em> (carbono, Bahnschrift), <strong>Estilo Glass Fumê</strong> (vidro escuro translúcido, padrão), <strong>Estilo Sport</strong> (itálico, cantos cortados e detalhes vermelhos, igual ao dash Sport) e <em>Transparência do fundo</em> (40 a 100%). Desmarcar <em>Visual moderno</em> volta ao visual clássico.</li>
 <li><strong>Desempenho:</strong> <em>Modo economia de CPU</em> (metade das atualizações) e <em>Prioridade baixa do overlay</em> (o jogo tem preferência).</li>
 <li><strong>Fechar:</strong> <em>Sair</em> no menu da bandeja, <code>Ctrl+Alt+F22</code> (Stream Deck) ou, se travar, <code>overlay\fechar_overlay.bat</code>.</li>
 </ol>
+<h3 id="estilos-visuais">Estilos visuais</h3>
+<p>Os dois estilos usam a tipografia esportiva (itálico; títulos em Sui Generis, se o SimHub estiver instalado). Glass Fumê e Sport não se combinam: ao marcar um, o outro desmarca. A <em>Transparência do fundo</em> vale para os dois (no Glass Fumê, valores entre 60% e 80% deixam o vidro mais evidente). O vidro é simulado com transparência e reflexos; o overlay não borra o que está atrás da janela.</p>
+<p><img alt="Overlay em Glass Fumê" src="imagens/estilo_glass_overlay.png" /></p>
 <h2 id="5-as-janelas">5. As janelas</h2>
 <h3 id="1-telemetria">1. Telemetria</h3>
 <p><img alt="Telemetria" src="imagens/overlay_telemetria.png" /></p>
@@ -129,7 +132,7 @@
 </ul>
 <h2 id="7-dash-e-stream-deck">7. Dash e Stream Deck</h2>
 <ul>
-<li><strong>Dash MagicDash 4 Sport</strong> (3 telas): veja <a href="DASH.html">DASH.md</a>.</li>
+<li><strong>Dash MagicDash 4 Glass Fumê ou Sport</strong> (3 telas): veja <a href="DASH.html">DASH.md</a>.</li>
 <li><strong>Perfil de Stream Deck XL</strong> (janelas, controles, iniciar/fechar, pasta Suporte): veja <a href="STREAMDECK.html">STREAMDECK.md</a>.</li>
 </ul>
 <p><img alt="Dash" src="imagens/dash_visao_geral.png" /></p>
