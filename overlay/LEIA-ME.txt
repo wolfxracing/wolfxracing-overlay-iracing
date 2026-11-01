@@ -1,8 +1,8 @@
-OVERLAY IRACING - GUIA RAPIDO (FASE 20.2.2)
-=========================================
+OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.2.0, BASE FASE 20.2.2)
+==============================================================
 
 O QUE E
-Doze janelas independentes sobre o iRacing. Cada uma pode ser movida e ligada/desligada.
+Dezessete janelas independentes sobre o iRacing. Cada uma pode ser movida e ligada/desligada.
  1. TELEMETRIA     : marcha, velocidade, RPM, pedais, VOLANTE + grafico de acelerador e freio (~10 s)
  2. VOLTAS         : delta, tempo de volta (atual / ultima / melhor) e combustivel
  3. RELATIVO       : carros a frente e atras de voce + PROJECAO DE iRATING E SR em tempo real
@@ -25,6 +25,10 @@ COMO ATUALIZAR DE UMA VERSAO ANTERIOR (sem reinstalar nada)
       - a pasta "emblemas" e o arquivo "abrir_pasta_emblemas.bat" (NOVOS)
     Suas posicoes salvas (config.json) continuam valendo. Se esquecer a pasta "bandeiras", a
     classificacao mostra so o codigo do pais, sem bandeira.
+    NOVIDADE DA VERSAO 1.2.0: copie TODOS os arquivos de "overlay": "overlay_iracing.py", "ov_nucleo.py" e o NOVO
+    "ov_v12.py" (sem ele o overlay avisa e nao abre), alem de "testes" e "executar_testes.bat". As 5 janelas novas aparecem
+    sozinhas (menu da bandeja: ligue/desligue e ajuste cada uma). Veja docs\MANUAL.html (secoes 13 a 17) e o teste 14 do
+    "ROTEIRO_VALIDACAO.txt". As posicoes e configuracoes que voce ja tinha continuam valendo.
     NOVIDADE DA FASE 20.2.2 (STREAM DECK): copie "overlay_iracing.py" E "ov_nucleo.py" e os arquivos novos
     "fechar_overlay.bat" e "ATALHOS_STREAM_DECK.txt" (a pasta "testes" e o "executar_testes.bat" tambem mudaram).
     O overlay passa a aceitar TECLAS DE ATALHO GLOBAIS (Ctrl+Alt+F13...F24 e Ctrl+Alt+Shift+F13...F24) para o Stream

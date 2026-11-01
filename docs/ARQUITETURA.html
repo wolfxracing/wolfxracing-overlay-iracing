@@ -18,14 +18,18 @@
 <tbody>
 <tr>
 <td><code>overlay_iracing.py</code></td>
-<td>Programa principal: leitura do iRacing (pyirsdk), cálculos (combustível, pneus, delta, setores, relativo, radar...), as 12 janelas (<code>JanelaBase</code> e derivadas), bandeja, perfis, tema</td>
+<td>Programa principal: leitura do iRacing (pyirsdk), cálculos (combustível, pneus, delta, setores, relativo, radar...), as 16 janelas (<code>JanelaBase</code> e derivadas), bandeja, perfis, tema</td>
 </tr>
 <tr>
 <td><code>ov_nucleo.py</code></td>
 <td>Núcleo testável sem Qt: atalhos globais (tabela <code>ATALHOS</code>), perfis, limitador de taxa, ciclo de vida da projeção de iRating/SR</td>
 </tr>
 <tr>
-<td><code>testes/teste_fase*.py</code></td>
+<td><code>ov_v12.py</code></td>
+<td>Lógica pura da 1.2.0 (sem Qt e sem SDK): <code>PiscaLuz</code>, <code>DetectorPatinagem</code> (Luz do TC), <code>CalculadorRetorno</code>, <code>EstrategiaPneus</code>, <code>RitmoPorPneu</code>, <code>HistoricoInputs</code></td>
+</tr>
+<tr>
+<td><code>testes/teste_fase*.py</code>, <code>testes/teste_v12.py</code></td>
 <td>Testes automáticos por fase (dados simulados)</td>
 </tr>
 <tr>

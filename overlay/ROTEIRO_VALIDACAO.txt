@@ -157,6 +157,23 @@ TESTE 13 - STREAM DECK: TECLAS DE ATALHO (FASE 20.2.2)                (15 min; n
  Esperado: cada botao faz o mesmo que o clique no menu da bandeja. O botao nao mostra se a janela esta ligada: confira na tela.
  Anote: qual botao falhou e a linha do log.
 
+TESTE 14 - NOVOS OVERLAYS DA VERSAO 1.2.0                          (30 min; os itens (e) e (f) precisam de chuva ou de uma sessao com pista molhada)
+ Preparacao: copie TODOS os arquivos da pasta overlay (inclui o novo ov_v12.py). Use "testar_demo.bat" para ver as 5 janelas com dados simulados.
+ Faca e anote PASSOU/FALHOU/DUVIDA:
+ (a) GRAFICO DE PEDAIS (janela Telemetria), numa volta real: o grafico acompanha seus pedais sem atraso perceptivel; o volante gira para o lado certo (esquerda = anti-horario);
+     numa freada forte com ABS o trecho amarelo aparece no freio; mude "de onde vem os pedais" e confira que o cru difere do calibrado.
+ (b) LUZ DO ABS: acende so durante a freada com ABS; num carro sem ABS nunca acende; "Testar a Luz do ABS (5 s)" pisca.
+ (c) LUZ DO TC (estimativa): rode algumas voltas sem acelerar nem frear forte em cada marcha (para aprender); acelere forte no pneu frio:
+     a luz deve acender na patinada real e NAO ficar acesa na reta. Anote carro, marcha e a sensibilidade que ficou boa (fina/normal/grossa).
+ (d) RETORNO A PISTA: rode para a brita com outro carro vindo atras: LIVRE/CEDA/PARE mudam conforme ele se aproxima; confira os segundos
+     contra o relativo/radar. Nunca deve aparecer no box. Teste "Testar o aviso de Retorno (9 s)".
+ (e) ESTRATEGIA DE PNEUS, com chuva: o nivel da pista bate com o do iRacing; o aviso TROCAR vem no momento em que os rivais da sua classe trocam
+     (anote a diferenca em voltas); PEDIDO NOS BOXES aparece depois de pedir o pneu no menu de boxes.
+ (f) LARGADA: antes da corrida com pista molhada e pneu de seco montado deve dizer "PARA A LARGADA: TROQUE PARA CHUVA" (vermelho) e aparecer na garagem.
+ (g) DESEMPENHO: com as 16 janelas abertas, veja "desempenho" no overlay_log.txt e se o FPS do jogo caiu; se sim, reduza o tempo do grafico da Telemetria ou desligue a Estrategia.
+ Esperado: nada inventado: a Luz do TC e a vantagem dos pneus sao estimativas e so mostram o que o iRacing permite deduzir.
+ Anote: o que falhou, carro, pista, sessao e a linha do log.
+
 O QUE ANEXAR NA ISSUE DO GITHUB
  - "overlay_log.txt" (e "overlay_log.txt.1" se existir)
  - "comparacao_oficial.csv" e "historico_projecoes.csv" (se existirem)

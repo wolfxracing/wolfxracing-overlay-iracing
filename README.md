@@ -2,7 +2,7 @@
 
 # WolfxRacing Overlay para iRacing
 
-Overlay gratuito e de código aberto para **iRacing** no Windows, com **12 janelas** independentes, **dash para o Simagic MagicDash 4** (SimHub) e **perfil de Stream Deck XL**.
+Overlay gratuito e de código aberto para **iRacing** no Windows, com **16 janelas** independentes, **dash para o Simagic MagicDash 4** (SimHub) e **perfil de Stream Deck XL**.
 
 ![Visão geral do overlay](docs/imagens/overlay_visao_geral.png)
 
@@ -12,10 +12,16 @@ Overlay gratuito e de código aberto para **iRacing** no Windows, com **12 janel
 
 | Pasta | Conteúdo |
 |---|---|
-| [`overlay/`](overlay) | O overlay (Python + PySide6): 12 janelas, perfis, atalhos globais, testes automáticos |
+| [`overlay/`](overlay) | O overlay (Python + PySide6): 16 janelas, perfis, atalhos globais, testes automáticos |
 | [`dash/`](dash) | Dash **MagicDash 4** nos estilos **Glass Fumê** e **Sport** (`.simhubdash`, 3 telas, 800x480) + ferramentas para gerar/alterar |
 | [`streamdeck/`](streamdeck) | Perfil para **Stream Deck XL**, biblioteca de ícones e gerador |
 | [`docs/`](docs) | Manual, guia do dash, guia do Stream Deck, arquitetura e histórico |
+
+## Novidades da 1.2.0: quatro overlays novos e a Telemetria unificada
+
+A janela **Telemetria** agora reúne tudo em uma só (rpm, marcha, pedais, volante e o gráfico de acelerador/freio com tempo ajustável, degraus de marcha e marcas de ABS/TC). Novos: **Luz do ABS**, **Luz do TC** (estimada), **Retorno à pista** (PARE / CEDA / LIVRE com os segundos até o carro de trás chegar) e **Estratégia de pneus** (chuva x seco). Veja o [manual](docs/MANUAL.md#13-telemetria-gráfico-de-pedais-novo-na-120) e o [CHANGELOG](CHANGELOG.md).
+
+![Novos overlays](docs/imagens/overlay_novos_1_2.png)
 
 ## Estilos visuais: Glass Fumê e Sport
 
@@ -66,4 +72,4 @@ Melhorias são muito bem-vindas: abra uma *Issue* com o problema ou a ideia, ou 
 [MIT](LICENSE). Componentes de terceiros e avisos em [NOTICE.md](NOTICE.md).
 
 ---
-**English summary:** free, open-source overlay for iRacing (Windows, Python/PySide6) with 12 windows, a SimHub dash for the Simagic MagicDash 4 and a Stream Deck XL profile. Documentation is in Brazilian Portuguese; contributions in English or Portuguese are welcome.
+**English summary:** free, open-source overlay for iRacing (Windows, Python/PySide6) with 17 windows, a SimHub dash for the Simagic MagicDash 4 and a Stream Deck XL profile. Documentation is in Brazilian Portuguese; contributions in English or Portuguese are welcome.

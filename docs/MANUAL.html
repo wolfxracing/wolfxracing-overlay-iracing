@@ -1,13 +1,13 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>MANUAL - WolfxRacing</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:32px auto;padding:0 20px;line-height:1.55;color:#1b1d22;background:#fafafa}h1,h2,h3{font-family:Bahnschrift,Segoe UI,sans-serif;text-transform:uppercase;letter-spacing:.5px}h1{border-bottom:4px solid #c8102e;padding-bottom:8px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:36px}img{max-width:100%;height:auto;background:#14161a;border-radius:8px;padding:6px}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #d5d5d5;padding:6px 10px;text-align:left;vertical-align:top}th{background:#eee}code,pre{background:#eceef1;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace}pre{padding:10px;overflow:auto}blockquote{border-left:4px solid #c8102e;margin:12px 0;padding:4px 14px;background:#fff}a{color:#b3122b}</style></head><body><h1 id="manual-do-usuario-wolfxracing-overlay-para-iracing">Manual do usuário: WolfxRacing Overlay para iRacing</h1>
 <blockquote>
-<p>Versão do overlay neste pacote: <strong>Fase 20.2.2 + estilos Glass Fumê e Sport (1.1.0)</strong>. Os prints foram gerados no <strong>modo demonstração</strong> (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.</p>
+<p>Versão do overlay neste pacote: <strong>1.2.0</strong> (Fase 20.2.2 + estilos Glass Fumê e Sport + gráfico de pedais na Telemetria, Luz ABS, Luz TC, Retorno à pista e Estratégia de pneus). Os prints foram gerados no <strong>modo demonstração</strong> (dados simulados); as fontes e as medidas podem variar um pouco no seu Windows.</p>
 </blockquote>
 <h2 id="sumario">Sumário</h2>
 <ol>
-<li><a href="#1-o-que-é">O que é</a> · 2. <a href="#2-instalação-uma-única-vez">Instalação</a> · 3. <a href="#3-configurar-o-iracing">Configurar o jogo</a> · 4. <a href="#4-uso-diário">Uso diário</a> · 5. <a href="#5-as-janelas">As 12 janelas</a> · 6. <a href="#6-como-ler-os-números">Como ler os números</a> · 7. <a href="#7-dash-e-stream-deck">Dash e Stream Deck</a> · 8. <a href="#8-solução-de-problemas">Solução de problemas</a> · 9. <a href="#9-atualizar-para-uma-versão-nova">Atualizar</a> · 10. <a href="#10-limites-conhecidos">Limites</a></li>
+<li><a href="#1-o-que-é">O que é</a> · 2. <a href="#2-instalação-uma-única-vez">Instalação</a> · 3. <a href="#3-configurar-o-iracing">Configurar o jogo</a> · 4. <a href="#4-uso-diário">Uso diário</a> · 5. <a href="#5-as-janelas">As 16 janelas</a> · 6. <a href="#6-como-ler-os-números">Como ler os números</a> · 7. <a href="#7-dash-e-stream-deck">Dash e Stream Deck</a> · 8. <a href="#8-solução-de-problemas">Solução de problemas</a> · 9. <a href="#9-atualizar-para-uma-versão-nova">Atualizar</a> · 10. <a href="#10-limites-conhecidos">Limites</a></li>
 </ol>
 <h2 id="1-o-que-e">1. O que é</h2>
-<p>12 janelas independentes e transparentes, sempre por cima do jogo, que podem ser movidas, redimensionadas e ligadas/desligadas pelo menu do ícone vermelho "i" perto do relógio do Windows. Tudo roda localmente; nenhum dado seu é enviado para a internet.</p>
+<p>16 janelas independentes e transparentes, sempre por cima do jogo, que podem ser movidas, redimensionadas e ligadas/desligadas pelo menu do ícone vermelho "i" perto do relógio do Windows. Tudo roda localmente; nenhum dado seu é enviado para a internet.</p>
 <p><img alt="Visão geral" src="imagens/overlay_visao_geral.png" /></p>
 <h2 id="2-instalacao-uma-unica-vez">2. Instalação (uma única vez)</h2>
 <ol>
@@ -123,11 +123,88 @@
 <ul>
 <li>Cada anel = 1 g (alcance configurável de 2 a 5 g). Curva à esquerda leva o ponto para a esquerda; freando, o ponto desce.</li>
 </ul>
+<h3 id="13-telemetria-grafico-de-pedais-novo-na-120">13. Telemetria: gráfico de pedais (novo na 1.2.0)</h3>
+<p><img alt="Telemetria" src="imagens/overlay_telemetria_pedais.png" /></p>
+<p>A janela Telemetria (a primeira, com marcha, velocidade, rpm, barras dos pedais e volante) ganhou um gráfico melhor: o <strong>acelerador (verde) e o freio (vermelho)</strong> correm da direita para a esquerda, como um espelho de como você pilota. Não há mais uma janela Inputs separada. Não grava nada no disco.</p>
+<ul>
+<li><strong>Tempo do gráfico:</strong> de 5 a 30 segundos (padrão 12 s), em <em>bandeja &gt; Telemetria: tempo do gráfico de pedais</em>.</li>
+<li><strong>Freio por cima do acelerador:</strong> onde as duas linhas estão no alto ao mesmo tempo, você pisou os dois pedais juntos.</li>
+<li><strong>Marca do ABS (amarelo):</strong> o trecho do freio em que o ABS atuou. Se cobre a freada inteira, você freou demais. Vem ligada.</li>
+<li><strong>Marca do TC (azul):</strong> o trecho do acelerador em que as rodas patinaram. É <strong>estimada</strong> (veja a Luz do TC). Vem desligada.</li>
+<li><strong>De onde vêm os pedais:</strong> <em>como chegam ao carro</em> (padrão, já com a calibração do seu pedal), <em>cru</em> (como o pé pisa) ou <em>os dois</em> (a diferença é a calibração do pedal).</li>
+<li><strong>Degraus da marcha:</strong> uma linha cinza mostra em que marcha você estava a cada instante (liga e desliga na bandeja).</li>
+<li>Aparece pilotando; some na garagem, nos menus e nos replays (como as demais janelas no modo "aparecer sozinho").</li>
+</ul>
+<h3 id="14-luz-do-abs">14. Luz do ABS</h3>
+<p><img alt="Luz do ABS" src="imagens/overlay_luz_abs.png" /></p>
+<p>Um ícone solto, sem painel e sem texto, que <strong>acende enquanto o ABS está atuando</strong> e apaga quando ele para. No simulador você não sente o pedal vibrar; a luz mostra isso. Uma piscada curta no ponto de freada é o ABS trabalhando bem; acesa até o meio da curva, a freada passou do ponto.</p>
+<ul>
+<li><strong>Cor:</strong> dourado (padrão), vermelho ou branco. <strong>Como pisca:</strong> <em>no ritmo do ABS</em> (padrão), <em>piscada suave</em> ou <em>luz fixa</em>.</li>
+<li>Quando não atua, a janela é <strong>totalmente transparente</strong>; para vê-la apagada (cinza) marque <em>deixar visível e apagada quando não atua</em> ou use <em>Testar a Luz do ABS (5 s)</em> na bandeja, útil para posicionar.</li>
+<li>Carros sem ABS: a luz simplesmente nunca acende. Dado <strong>real</strong> do iRacing (<code>BrakeABSactive</code>).</li>
+</ul>
+<h3 id="15-luz-do-tc-perda-de-tracao">15. Luz do TC (perda de tração)</h3>
+<p><img alt="Luz do TC" src="imagens/overlay_luz_tc.png" /></p>
+<p>A luz do controle de tração na tela: <strong>acende quando as rodas patinam na aceleração</strong>. A cor padrão é o azul, de propósito diferente do dourado do ABS.</p>
+<ul>
+<li><strong>É uma estimativa.</strong> O iRacing não informa quando o controle de tração corta. O overlay deduz pela relação entre as rotações do motor e a velocidade do carro em cada marcha: se o motor sobe sem o carro andar mais, as rodas patinam. Por isso pode deixar passar uma patinada muito pequena ou avisar a mais no limite.</li>
+<li><strong>Aprende o câmbio sozinho</strong>, a cada marcha, enquanto você roda sem acelerar e sem frear forte. Marcha que ainda não aprendeu não acende a luz. Ao entrar numa sessão nova o aprendizado recomeça (o próximo carro pode ter outro câmbio).</li>
+<li><strong>Quando ela não olha:</strong> pouco acelerador, freando, embreagem pisada, quase parado, até 0,4 s depois de uma troca de marcha, limitador dos boxes e corte de giro.</li>
+<li><strong>Sensibilidade:</strong> <em>fina</em> (a partir de 3,5%), <em>normal</em> (5%, padrão) ou <em>grossa</em> (7,5%). Se a luz não para de acender, passe para grossa. Com pneus frios ela acende mais: é normal.</li>
+<li>Mesmas opções de cor, piscar, visível-apagada e teste (5 s) da Luz do ABS.</li>
+</ul>
+<h3 id="16-retorno-a-pista-pare-ceda-livre">16. Retorno à pista (PARE / CEDA / LIVRE)</h3>
+<p><img alt="Retorno à pista" src="imagens/overlay_retorno.png" /></p>
+<p>Você saiu da pista ou ficou atravessado: <strong>entro agora ou espero?</strong> O aviso diz PARE, CEDA ou LIVRE e quantos <strong>segundos faltam para o carro mais próximo que vem atrás chegar</strong> até você. Só aparece quando precisa e some sozinho.</p>
+<table>
+<thead>
+<tr>
+<th>Palavra</th>
+<th>Quando (padrão)</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PARE</strong></td>
+<td>menos de 1,5 s</td>
+<td>não entre, ele está em cima</td>
+</tr>
+<tr>
+<td><strong>CEDA</strong></td>
+<td>de 1,5 a 3,5 s</td>
+<td>pode entrar, mas deixe ele passar</td>
+</tr>
+<tr>
+<td><strong>LIVRE</strong></td>
+<td>3,5 s ou mais, ou ninguém em 30 s</td>
+<td>entre tranquilo (acima de 30 s não aparece número)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A <strong>cor</strong> desliza do vermelho ao verde conforme sobram mais segundos (verde exatamente no limite do CEDA); o texto tem borda preta para ler sobre grama e brita.</li>
+<li><strong>Limites ajustáveis</strong> na bandeja: vermelho de 1 a 12 s e laranja de 2 a 25 s. O laranja fica sempre pelo menos 0,5 s acima do vermelho; se você empurra um contra o outro, o outro se move sozinho. Ajuste ao seu carro: quanto mais tempo você leva para sair da brita e ganhar velocidade, maior deve ser o vermelho.</li>
+<li><strong>Quando aparece:</strong> fora da pista, ou na pista quase parado (abaixo de 2 m/s, uns 7 km/h). Ao voltar a andar fica mais 1,5 s. <strong>Nunca</strong> no box nem no pit lane. <em>Deixar sempre visível enquanto piloto</em> é opcional; <em>Testar o aviso de Retorno (9 s)</em> percorre os três estados.</li>
+<li><strong>Como o número é calculado (~):</strong> o overlay mede ao vivo o quanto cada carro avança na pista (não usa a média da volta, que erraria nas retas) e calcula o tempo para ele chegar onde você está. No primeiro instante, antes de conseguir medir, usa o tempo de volta estimado. Conta qualquer carro que vem atrás, também retardatário; ignora carros no pit lane, fora da pista ou praticamente parados, e o pace car.</li>
+</ul>
+<h3 id="17-estrategia-de-pneus-chuva-x-seco">17. Estratégia de pneus (chuva x seco)</h3>
+<p><img alt="Estratégia de pneus" src="imagens/overlay_estrategia.png" /></p>
+<p>Diz qual pneu vale a pena agora e, antes da corrida, com qual largar. <strong>Só lê dados</strong>: nunca pede pneus nem mexe no carro.</p>
+<ul>
+<li><strong>Linha de cima:</strong> para onde a pista vai (SECANDO, MOLHANDO, SEM CHUVA) e o pneu que você tem montado (azul = chuva, branco = seco). A tendência precisa de uns 90 s de leitura.</li>
+<li><strong>Nível da pista:</strong> os sete níveis do iRacing, de <em>Seca</em> a <em>Encharcada</em>, com barra e número.</li>
+<li><strong>O que fazer:</strong> <strong>SEGUIR</strong> (cinza), <strong>PREPARE-SE</strong> (laranja, com os minutos estimados quando a pista está secando), <strong>TROCAR</strong> (laranja, pulsando) e <strong>PEDIDO NOS BOXES</strong> (verde, quando você já pediu o pneu no menu de boxes do iRacing). O aviso só desce depois de 15 s, para não piscar.</li>
+<li><strong>Regras (padrão):</strong> com pneu de chuva, TROCAR PARA SECO quando a pista chega a <em>Quase seca</em> sem chuva; com pneu de seco, TROCAR PARA CHUVA a partir de <em>Molhada</em> (ou <em>Pouco molhada</em> com chuva forte). Se pelo menos dois pilotos da sua classe já provaram que o outro pneu rende 1 s ou mais por volta, o aviso vira TROCAR.</li>
+<li><strong>Vantagem (~):</strong> segundos por volta que o outro pneu rende, estimados com as últimas voltas limpas (sem passar pelo pit) dos pilotos da <strong>sua classe</strong> nos últimos 10 min. Sem rivais no outro pneu aparece "--". Só informação: nunca muda o aviso por si só. Também mostra quantos da sua classe já trocaram.</li>
+<li><strong>Antes da largada</strong> (corrida em espera, ou classificação parado na garagem/boxes): <em>LARGUE COM SECO ✓</em> (verde) ou <em>PARA A LARGADA: TROQUE PARA CHUVA</em> (vermelho, pulsando). Nesse momento a janela aparece também na garagem.</li>
+<li>Carro sem pneu de chuva: mostra o aviso "Este carro não tem pneu de chuva".</li>
+</ul>
 <h2 id="6-como-ler-os-numeros-real-calculado-estimado">6. Como ler os números: real, calculado, estimado</h2>
 <ul>
 <li><strong>Sem marca</strong> = <strong>real</strong>, entregue pelo iRacing (velocidade, marcha, RPM, pedais, volante, força G, combustível no tanque, clima, reparo e avisos do motor).</li>
-<li><strong>"~"</strong> = <strong>calculado ou estimado</strong> pelo overlay (consumo por volta, voltas/litros até o fim, tempos de setor, distâncias no radar, temperatura e vida dos pneus durante a corrida, lado e força dos impactos, iRating e SR projetados).</li>
-<li>O iRacing <strong>não informa</strong>: se uma volta foi invalidada, a posição lateral dos outros carros, a previsão de chuva, dano por peça e o iRating/SR oficial durante a sessão. Nada disso é inventado pelo overlay.</li>
+<li><strong>"~"</strong> = <strong>calculado ou estimado</strong> pelo overlay (consumo por volta, voltas/litros até o fim, tempos de setor, distâncias no radar, temperatura e vida dos pneus durante a corrida, lado e força dos impactos, iRating e SR projetados, <strong>Luz do TC</strong>, <strong>segundos do Retorno à pista</strong> e <strong>vantagem dos pneus</strong>).</li>
+<li>O iRacing <strong>não informa</strong>: quando o controle de tração corta (a Luz do TC é uma dedução), se uma volta foi invalidada, a posição lateral dos outros carros, a previsão de chuva, dano por peça e o iRating/SR oficial durante a sessão. Nada disso é inventado pelo overlay.</li>
 <li><strong>Delta e setores:</strong> o iRacing não diz se a volta foi invalidada; o overlay usa um critério próprio e conservador.</li>
 </ul>
 <h2 id="7-dash-e-stream-deck">7. Dash e Stream Deck</h2>
@@ -146,7 +223,7 @@
 </thead>
 <tbody>
 <tr>
-<td>"Falta o arquivo ov_nucleo.py"</td>
+<td>"Falta o arquivo ov_nucleo.py" ou "ov_v12.py"</td>
 <td>Copie <strong>todos</strong> os arquivos de <code>overlay/</code> para a mesma pasta.</td>
 </tr>
 <tr>
@@ -196,6 +273,7 @@
 <h2 id="10-limites-conhecidos">10. Limites conhecidos</h2>
 <ul>
 <li>A estimativa de temperatura e vida dos pneus é uma <strong>estimativa</strong>: antes da primeira calibração (1ª parada nos boxes) pode errar bastante; depois serve bem para comparar e acompanhar a tendência.</li>
+<li>A <strong>Luz do TC</strong> e a <strong>vantagem dos pneus</strong> são estimativas; a <strong>Estratégia de pneus</strong> usa regras simples sobre o nível de umidade do iRacing e ainda precisa de validação em chuva real. Os novos overlays não têm atalhos de teclado do Stream Deck nesta versão (use o menu da bandeja).</li>
 <li>O radar não conhece a posição lateral dos outros carros (limitação do iRacing).</li>
 <li>Em tela cheia exclusiva nenhum overlay aparece (limitação do Windows).</li>
 <li>Os testes automáticos usam dados simulados; a validação real depende do uso em sessões do iRacing (veja <code>overlay/ROTEIRO_VALIDACAO.txt</code>).</li>

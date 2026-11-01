@@ -1,9 +1,0 @@
-* text=auto
-*.bat text eol=crlf
-*.txt text eol=crlf
-*.png binary
-*.zip binary
-*.simhubdash binary
-*.streamDeckProfile binary
-*.ttf binary
-*.svg text
