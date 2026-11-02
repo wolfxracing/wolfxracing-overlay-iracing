@@ -17,11 +17,13 @@ Overlay gratuito e de código aberto para **iRacing** no Windows, com **24 janel
 | [`streamdeck/`](streamdeck) | Perfil para **Stream Deck XL**, biblioteca de ícones e gerador |
 | [`docs/`](docs) | Manual, guia do dash, guia do Stream Deck, arquitetura e histórico |
 
-## Novidades da 1.2.0: quatro overlays novos e a Telemetria unificada
+## Novidades da 1.6.0
 
-A janela **Telemetria** agora reúne tudo em uma só (rpm, marcha, pedais, volante e o gráfico de acelerador/freio com tempo ajustável, degraus de marcha e marcas de ABS/TC). Novos: **Luz do ABS**, **Luz do TC** (estimada), **Retorno à pista** (PARE / CEDA / LIVRE com os segundos até o carro de trás chegar) e **Estratégia de pneus** (chuva x seco). Veja o [manual](docs/MANUAL.md#13-telemetria-gráfico-de-pedais-novo-na-120) e o [CHANGELOG](CHANGELOG.md).
+**Central de configurações** (janela única para ligar/desligar painéis, ajustar aparência e atalhos), **Tendência de ritmo** (inclinação do ritmo, previsão da próxima volta e consistência), **Último contato**, **Entrada do pit**, minimapa rotativo mais fluido e novas janelas automáticas de bandeiras, tráfego e auxiliar.
 
-![Novos overlays](docs/imagens/overlay_novos_1_2.png)
+![Central de configurações](docs/imagens/central_inicio.png)
+
+![Janelas novas](docs/imagens/overlay_novos_1_6.png)
 
 ## Estilos visuais: Glass Fumê e Sport
 
