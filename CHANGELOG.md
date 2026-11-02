@@ -2,6 +2,14 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [SemVer](https://semver.org/lang/pt-BR/).
 
+## [1.6.1] - 2026-11-02
+
+- **Novo:** **Classificação no layout de transmissão** (arquivo novo `ov_classif_foto.py`). Barra superior com sessão (RACE...), volta atual/total (corrida por tempo: "4/∞ = 34.66" = estimativa de voltas até o fim), tempo decorrido/duração, AIR, TRACK, HUM, INC (incidentes/limite) e estado da pista (Dry/Damp/Wet/Rain). Colunas: POS, +/-, #, círculo do pneu (H/M/S/W/I/D), LIC · iR com a **variação de iRating projetada de cada piloto** (só em corrida), marca, bandeira, DRIVER, GAP, INT, BEST, LAST, PIT (paradas) e STINT (voltas desde a última parada). Seu carro em roxo. Janela de 846 px.
+- **Estimativas:** GAP e INT **na corrida** são estimados (diferença de posição na pista × tempo de volta típico da classe; "+1L" = volta(s) atrás); em treino e qualificação são a diferença das melhores voltas. A variação de iRating é uma projeção pelo mesmo modelo da janela Relativo.
+- **Configuração (opcional):** `classificacao_layout` = `"classico"` volta à janela antiga (1.6.0); `classificacao_idioma` = `"pt"` traduz os rótulos. Sem o `ov_classif_foto.py`, o overlay usa a janela antiga.
+- **Novo:** **versão EXE, sem precisar de Python.** Cada release traz `WolfxRacing_iRacing_vX.Y.Z_EXE.zip` (pasta única; config, logs, emblemas e bandeiras ficam ao lado do `.exe`). Também dá para gerar no seu PC com `overlay\gerar_exe.bat`. O EXE não tem assinatura digital paga: o Windows SmartScreen pode avisar ("Mais informações" > "Executar assim mesmo"). Os emblemas das montadoras não vão no pacote público.
+- Novos arquivos: `ov_classif_foto.py`, `wolfx_iracing.spec`, `gerar_exe.bat`, `exe_modelo/`, `wolfxracing.ico`, `tools/notas_release.py` e o fluxo `.github/workflows/release.yml`.
+
 ## [1.6.0] - 2026-11-02
 
 - **Novo:** **Central de configurações**: janela interativa (duplo clique no ícone da bandeja, ou "Abrir configurações…"). Cartões com prévia, liga/desliga, busca e filtros; "Personalizar" abre o tamanho, as opções do painel e a prévia ao vivo; páginas de Aparência e sistema e de Perfis. Usa os mesmos itens do menu: atalhos do Stream Deck e perfis continuam valendo. O menu da bandeja ficou curto (Abrir configurações, Travar posição, Todas as opções, Sair); o menu completo é o submenu "Todas as opções (avançado)".

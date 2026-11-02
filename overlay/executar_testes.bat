@@ -11,13 +11,13 @@ py -3.12 testes\teste_fase2021.py
 if errorlevel 1 goto falhou
 py -3.12 testes\teste_fase2022.py
 if errorlevel 1 goto falhou
-py -3.12 testes\teste_v12.py
+py -3.12 testes\teste_classif_foto.py
 if errorlevel 1 goto falhou
 echo.
 echo TODOS OS TESTES PASSARAM.
 goto fim
 :falhou
 echo.
-echo ALGUM TESTE FALHOU - abra uma Issue no GitHub anexando esta tela.
+echo ALGUM TESTE FALHOU - envie esta tela ao Claude.
 :fim
 pause

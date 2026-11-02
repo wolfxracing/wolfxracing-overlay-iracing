@@ -189,6 +189,19 @@ TESTE 15 - CURVAS (VERSAO 1.4.0)                                     (20 min, em
  Esperado: nada inventado; o mapa de curvas e inferido (curvas muito suaves podem nao aparecer).
  Anote: curvas faltando ou duplicadas, pista, carro e a linha do log.
 
+TESTE 16 - CLASSIFICACAO NO LAYOUT DA FOTO E VERSAO EXE (VERSAO 1.6.1)      (25 min; corrida de verdade com pelo menos 2 classes se possivel)
+ (a) Abra a Classificacao em uma CORRIDA. Compare o visual com a foto: barra superior, colunas e linha ROXA do seu carro.
+ (b) BARRA: tempo decorrido / duracao e as voltas batem com o relogio do iRacing; AIR/TRACK/HUM batem com a janela Clima; INC bate com os seus
+     incidentes e o limite da corrida (WeekendOptions); Dry/Damp/Wet acompanha a pista.
+ (c) GAP/INT: com o relativo, compare o INT do carro logo atras/na frente com o intervalo mostrado no iRacing (tolerancia de ~0,5 s, pois o overlay
+     ESTIMA pela posicao na pista). Carro uma volta atras: "+1L".
+ (d) PIT/STINT: faca uma parada: PIT passa de 0 para 1 ao sair dos boxes; STINT zera e volta a contar. Passagem sem parar (drive-through) NAO conta.
+ (e) Pneu: o circulo mostra o composto (H/M/S/W/D). Variacao de iRating (seta verde/vermelha): confira com a projecao da janela Relativo para o seu carro.
+ (f) Fora da corrida (treino/qualificacao): GAP e INT sao a diferenca das melhores voltas; sem a barra de iRating projetado.
+ (g) EXE: de dois cliques em "gerar_exe.bat" (primeira vez: 3 a 6 min). Abra "exe\WolfxRacing_iRacing\WolfxRacing_iRacing.exe" SEM o Python na frente:
+     o icone aparece perto do relogio, o config.json e o overlay_log.txt ficam ao lado do .exe e o overlay funciona dentro do iRacing como a versao normal.
+ Esperado: nada inventado; GAP/INT na corrida sao estimativas. Anote: carro, pista, linha do log, e qualquer diferenca de mais de 1 s no INT.
+
 O QUE ANEXAR NA ISSUE DO GITHUB
  - "overlay_log.txt" (e "overlay_log.txt.1" se existir)
  - "comparacao_oficial.csv" e "historico_projecoes.csv" (se existirem)

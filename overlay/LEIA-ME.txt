@@ -1,5 +1,10 @@
-OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.4.2, BASE FASE 20.2.2)
+OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.6.1, BASE FASE 20.2.2)
 ==============================================================
+
+NOVO NA 1.6.1: (1) CLASSIFICACAO NO LAYOUT DA FOTO: tabela estilo transmissao, com barra superior (sessao, voltas, tempo, ar, pista,
+umidade, incidentes e pista seca/molhada) e as colunas POS, +/-, #, pneu, LIC . iR (com a variacao de iRating projetada de cada piloto),
+marca, bandeira, DRIVER, GAP, INT, BEST, LAST, PIT e STINT. Seu carro fica em ROXO. (2) VERSAO EXE: roda sem Python instalado
+(veja "VERSAO EXE" abaixo). Config: "classificacao_layout": "classico" volta a janela antiga; "classificacao_idioma": "pt" traduz os rotulos.
 
 NOVO NA 1.4.2: radar automatico (so com carro por perto), aviso de carro ao lado mais claro, coluna +/- de posicoes ganhas/perdidas na Classificacao e barra de telemetria mais compacta.
 
@@ -15,7 +20,7 @@ Dezessete janelas independentes sobre o iRacing. Cada uma pode ser movida e liga
  1. TELEMETRIA     : marcha, velocidade, RPM, pedais, VOLANTE + grafico de acelerador e freio (~10 s)
  2. VOLTAS         : delta, tempo de volta (atual / ultima / melhor) e combustivel
  3. RELATIVO       : carros a frente e atras de voce + PROJECAO DE iRATING E SR em tempo real
- 4. CLASSIFICACAO  : posicao, carro, piloto, pais, ultima volta e melhor volta, por classe
+ 4. CLASSIFICACAO  : tabela estilo transmissao por classe: posicao, +/-, numero, pneu, licenca e iRating, marca, pais, piloto, gap, intervalo, melhor, ultima, paradas e stint
  5. MAPA           : tracado da pista (aprendido na sua 1a volta) com a posicao de todos os carros
  6. RADAR          : carros ao seu redor, visto de cima, para evitar contato
  7. PNEUS          : vida util e temperatura de cada pneu, ESTIMADAS AO VIVO (reais nos boxes)
@@ -152,21 +157,30 @@ USO
  - Teste sem o iRacing: "testar_demo.bat" (dados simulados, nomes ficticios).
  - Uso no iRacing: video em JANELA SEM BORDAS, entre em uma sessao e abra "iniciar_overlay.bat".
 
-COMO LER A CLASSIFICACAO
- Os carros ficam agrupados por classe, da classe mais rapida para a mais lenta.
- Cada classe mostra o nome, o SOF da classe e o numero de carros.
- Colunas: posicao na classe | numero | marca do carro | piloto | pais | ultima volta | melhor volta.
- - Sua linha fica em azul.
- - Melhor volta em ROXO = a mais rapida da classe.
- - Ultima volta em VERDE = igual a melhor volta daquele piloto (ele acabou de bater o proprio recorde).
- - Faixa colorida a esquerda = cor da classe.
+COMO LER A CLASSIFICACAO (LAYOUT DA FOTO, 1.6.1)
+ BARRA SUPERIOR: tipo da sessao (RACE, QUALIFY, PRACTICE...) | volta atual / total ("4/oo = 34.66": corrida por tempo; o numero
+ depois do = e a ESTIMATIVA de voltas ate o fim) | tempo decorrido / duracao ("3:14 / 45m") | AIR e TRACK (graus C) |
+ HUM (umidade) | no canto direito: INC (seus incidentes / limite da corrida; amarelo a 50 %, vermelho a 80 %) e o estado da pista
+ (Dry = seca, Damp = umida, Wet = molhada, Rain = chovendo).
+ Cada classe tem uma etiqueta colorida (nome) e o SOF; os carros ficam agrupados da classe mais rapida para a mais lenta.
+ COLUNAS: POS (posicao na classe) | +/- (seta verde = ganhou posicoes desde a largada, vermelha = perdeu) | # (numero, na cor da classe) |
+ circulo do pneu (H duro, M medio, S macio, W chuva, I intermediario, D = pneu unico "seco") | LIC . iR (licenca, iRating e, em verde/vermelho,
+ quanto cada piloto ganharia ou perderia de iRating se a corrida acabasse agora) | marca | bandeira | DRIVER |
+ GAP (para o lider da classe) | INT (para o carro a frente) | BEST | LAST | PIT (paradas completas nos boxes; BOX = esta nos boxes agora) |
+ STINT (voltas desde a ultima parada; "~" = aproximado, o overlay abriu depois da largada).
+ - Sua linha fica em ROXO.
+ - BEST em lilas = a mais rapida da classe. LAST em verde = igual a melhor daquele piloto.
+ - GAP e INT na CORRIDA sao ESTIMADOS: diferenca de posicao na pista (voltas + fracao) x tempo de volta tipico da classe. "+1L" = uma volta ou
+   mais atras. Fora da corrida (treino/qualificacao) sao a diferenca entre as melhores voltas. "--" = sem dado.
+ - A variacao de iRating (seta ao lado do iR) e uma PROJECAO pelo mesmo modelo da janela Relativo; so aparece na corrida.
+ - STINT e PIT contam so paradas em que o carro ficou parado na vaga (passagem sem parar nao conta).
  - Linha pontilhada = existem carros omitidos entre o topo e a vizinhanca da sua posicao.
  - Na sua classe aparecem o topo e os carros ao redor de voce; nas outras, os primeiros colocados.
- - Menu da bandeja > "Classificacao: mostrar todas as classes": desmarque para ver so a sua classe
-   (com mais carros na tela).
- - Pais: codigo de 3 letras (BRA, USA, ESP...) tirado do perfil do piloto no iRacing.
-   Se aparecer "---", o iRacing nao informou o pais ou o nome dele ainda nao esta na lista do overlay.
-   Nesse caso o nome fica registrado em "overlay_log.txt": envie ao mantenedor (Issues do GitHub) para incluirmos.
+ - Menu da bandeja > "Classificacao: mostrar todas as classes": desmarque para ver so a sua classe (com mais carros na tela).
+ - Pais: bandeira do perfil do piloto no iRacing. Se aparecer o codigo "---", o iRacing nao informou o pais ou o nome dele ainda nao esta
+   na lista do overlay; o nome fica registrado em "overlay_log.txt" (envie ao mantenedor nas Issues do GitHub).
+ - Janela maior que a antiga (846 px no tamanho 100 %): ao atualizar, destrave, reposicione e ajuste o tamanho se cobrir outras janelas.
+ - Voltar ao visual antigo: em config.json, "classificacao_layout": "classico". Rotulos em portugues: "classificacao_idioma": "pt".
 
 COMO LER A COLUNA CARRO (EMBLEMAS) E A BANDEIRA DO PAIS (janela Classificacao)
  - PAIS: bandeira + codigo de 3 letras. As bandeiras vem no pacote (pasta "bandeiras", cerca de 100 paises).
@@ -632,3 +646,16 @@ SE ALGO DER ERRADO
  - "Aguardando o iRacing...": o jogo precisa estar aberto e dentro de uma sessao.
  - Overlay nao aparece sobre o jogo: confirme o modo janela sem bordas.
  - Valor estranho em qualquer janela: anote qual, em que situacao (treino, corrida, carro) e envie ao mantenedor (Issues do GitHub).
+
+
+VERSAO EXE (1.6.1) - SEM PRECISAR DE PYTHON
+ - O EXE roda em qualquer PC Windows 10/11, sem instalar Python. Ele e GERADO uma unica vez, neste computador (que ja tem o Python 3.12):
+   de dois cliques em "gerar_exe.bat" (leva de 3 a 6 minutos). O resultado fica em "exe\WolfxRacing_iRacing" (e em "exe\WolfxRacing_iRacing.zip").
+ - Para usar: abra a pasta "exe\WolfxRacing_iRacing" e de dois cliques em "WolfxRacing_iRacing.exe". Teste sem o jogo: "testar_demo_exe.bat".
+   Fechar a forca: "fechar_overlay_exe.bat". Leia o "LEIA-ME_EXE.txt" dentro da pasta.
+ - config.json, logs, emblemas, bandeiras e marca ficam AO LADO do .exe. O gerar_exe.bat copia o seu config.json atual (se ainda nao houver um).
+ - Aviso do Windows SmartScreen ("O Windows protegeu seu computador"): o EXE nao tem assinatura digital paga. Clique em "Mais informacoes" >
+   "Executar assim mesmo". Se o antivirus bloquear, adicione a pasta como excecao.
+ - Nao deixe a versao EXE e a versao com Python abertas ao mesmo tempo.
+ - Na release publica do GitHub o EXE e compilado automaticamente nos servidores do GitHub (fluxo .github/workflows/release.yml).
+   O pacote publico NAO leva emblemas nem logos de jogos.

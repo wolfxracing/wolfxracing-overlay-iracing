@@ -348,3 +348,13 @@ O menu da bandeja ficou curto; todas as opções antigas estão em "Todas as op�
 - Os testes automáticos usam dados simulados; a validação real depende do uso em sessões do iRacing (veja `overlay/ROTEIRO_VALIDACAO.txt`).
 
 Mais detalhes técnicos de cada recurso: [`referencia/GUIA_ORIGINAL.txt`](referencia/GUIA_ORIGINAL.txt) (guia completo escrito durante o desenvolvimento).
+
+
+### Classificação no layout de transmissão e versão EXE (1.6.1)
+
+A janela Classificação ganhou o layout de tabela de transmissão: barra superior (sessão, volta, tempo, AIR/TRACK/HUM, incidentes/limite e estado da pista) e as colunas POS, +/-, #, pneu, LIC · iR (com a variação de iRating projetada), marca, bandeira, DRIVER, GAP, INT, BEST, LAST, PIT e STINT. Seu carro fica em roxo.
+
+- **GAP e INT na corrida são estimativas** (posição na pista × tempo de volta típico da classe); em treino e qualificação são a diferença das melhores voltas.
+- **PIT** conta paradas completas na vaga; **STINT** são as voltas desde a última parada ("~" = aproximado se o overlay abriu depois da largada).
+- Para voltar ao visual antigo, use `"classificacao_layout": "classico"` no `config.json`; para rótulos em português, `"classificacao_idioma": "pt"`.
+- **Versão EXE:** baixe `WolfxRacing_iRacing_vX.Y.Z_EXE.zip` na release, extraia e abra `WolfxRacing_iRacing.exe` (não precisa de Python). `testar_demo_exe.bat` abre em modo demonstração e `fechar_overlay_exe.bat` fecha à força. Para gerar no seu PC: `overlay\gerar_exe.bat`.

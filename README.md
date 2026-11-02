@@ -49,12 +49,14 @@ O overlay e o dash têm dois estilos. **Glass Fumê** (novo, padrão) é um vidr
 4. Dash: dê duplo clique em `dash\MagicDash4 iRacing Glass.simhubdash` (ou `...Sport.simhubdash`; o SimHub importa).
 5. Stream Deck (opcional): importe `streamdeck\Overlay iRacing.streamDeckProfile`.
 
+> **Sem Python?** A release traz também o `WolfxRacing_iRacing_vX.Y.Z_EXE.zip` (versão EXE): extraia e abra o `.exe`, sem instalar nada. O Windows pode avisar (SmartScreen) porque o EXE não tem assinatura paga: "Mais informações" > "Executar assim mesmo".
+
 Passo a passo completo e com prints: **[docs/MANUAL.md](docs/MANUAL.md)**.
 
 ## Requisitos
 
 - Windows 10/11 (64 bits).
-- Python **3.12** (64 bits) com `pyirsdk` e `PySide6-Essentials` (o `instalar.bat` faz isso).
+- Python **3.12** (64 bits) com `pyirsdk` e `PySide6-Essentials` (o `instalar.bat` faz isso), **ou** a versão EXE, que dispensa o Python.
 - iRacing em **janela sem bordas** (aba Display: desmarque *Full Screen* e *Border*). Em tela cheia exclusiva o Windows não deixa nenhum overlay aparecer.
 - Dash: SimHub (testado com 9.x) e um Simagic MagicDash 4 (ou qualquer tela 800x480 do SimHub).
 - Stream Deck: modelo XL (32 teclas).
