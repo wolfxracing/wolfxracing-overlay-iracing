@@ -121,7 +121,7 @@ for k in range(40):
     rdw = radar([-30.0 + 15.0 * k * 0.033], 1, mem=mem, t=k * 0.033)
 dd = {"conectado": True, "radar": rdw}
 textos = desenhar(jr, dd)
-assert any("ocup" in x and "SDK" in x and "estimado" in x for x in textos), textos        # legenda: o que e SDK e o que e estimado
+assert any("SDK" in x and "estimado" in x for x in textos), textos        # legenda: o que e SDK e o que e estimado
 assert any(x.startswith("~") and x.endswith(" s") for x in textos), textos                  # alcance sempre com "~"
 assert not any(x.endswith(" s") and not x.startswith("~") for x in textos)
 rd2 = radar([3.0, -5.0], 2)

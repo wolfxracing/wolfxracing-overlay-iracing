@@ -172,9 +172,22 @@ TESTE 14 - NOVOS OVERLAYS DA VERSAO 1.2.0                          (30 min; os i
  (e) ESTRATEGIA DE PNEUS, com chuva: o nivel da pista bate com o do iRacing; o aviso TROCAR vem no momento em que os rivais da sua classe trocam
      (anote a diferenca em voltas); PEDIDO NOS BOXES aparece depois de pedir o pneu no menu de boxes.
  (f) LARGADA: antes da corrida com pista molhada e pneu de seco montado deve dizer "PARA A LARGADA: TROQUE PARA CHUVA" (vermelho) e aparecer na garagem.
- (g) DESEMPENHO: com as 16 janelas abertas, veja "desempenho" no overlay_log.txt e se o FPS do jogo caiu; se sim, reduza o tempo do grafico da Telemetria ou desligue a Estrategia.
+ (g) DESEMPENHO: com as janelas abertas, veja "desempenho" no overlay_log.txt e se o FPS do jogo caiu; se sim, reduza o tempo do grafico da Telemetria ou desligue a Estrategia.
  Esperado: nada inventado: a Luz do TC e a vantagem dos pneus sao estimativas e so mostram o que o iRacing permite deduzir.
  Anote: o que falhou, carro, pista, sessao e a linha do log.
+
+TESTE 15 - CURVAS (VERSAO 1.4.0)                                     (20 min, em pista, pelo menos 5 voltas limpas)
+ Preparacao: copie TODOS os arquivos da pasta overlay (inclui o novo ov_curvas.py). "testar_demo.bat" mostra a janela com dados simulados.
+ Faca e anote PASSOU/FALHOU/DUVIDA:
+ (a) Ligue "Curvas" na bandeja. Na 1a volta valida aparece "aprendendo"; ao cruzar a linha de chegada surgem as curvas C1, C2...
+     Confira se a numeracao segue a ordem da pista e se as curvas importantes aparecem (anote as que faltam ou as que foram juntadas).
+ (b) MIN: compare a velocidade minima mostrada com a do grafico/telemetria do jogo na mesma curva (tolerancia de poucos km/h).
+ (c) BEST e DELTA: faca uma curva claramente mais rapida e outra mais lenta: DELTA fica verde / laranja ou vermelho e o BEST so sobe.
+ (d) VOLANTE: o angulo no ponto minimo bate com o volante da Telemetria; E = esquerda e D = direita.
+ (e) Volta invalida: entre nos boxes, saia da pista, rode ou pare: essa volta NAO muda o BEST. "Reiniciar o aprendizado desta pista" zera tudo.
+ (f) Troque de sessao ou de pista: tudo recomeca do zero (esperado nesta versao).
+ Esperado: nada inventado; o mapa de curvas e inferido (curvas muito suaves podem nao aparecer).
+ Anote: curvas faltando ou duplicadas, pista, carro e a linha do log.
 
 O QUE ANEXAR NA ISSUE DO GITHUB
  - "overlay_log.txt" (e "overlay_log.txt.1" se existir)

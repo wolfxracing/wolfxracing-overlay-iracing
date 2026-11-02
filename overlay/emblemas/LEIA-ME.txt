@@ -11,7 +11,11 @@ COMO COLOCAR UM EMBLEMA
     JPG, WEBP e SVG tambem funcionam). A escolha da fonte das imagens e sua.
  2. Salve nesta pasta com o nome da marca em minusculas, sem acentos e com hifen no lugar de espacos:
         porsche.png        ferrari.png        aston-martin.png        mercedes-amg.png
- 3. Nao precisa reiniciar: o overlay procura de novo a cada poucos segundos.
+ 3. Atalho (1.3.1): salve as imagens soltas, com qualquer tamanho/formato, na subpasta "novos" e de duplo clique
+    em "preparar_emblemas.bat" (na pasta principal). Ele corta as bordas, centraliza num PNG quadrado
+    transparente de 256 px, troca logos pretos por brancos (o fundo do overlay e escuro) e grava aqui
+    com o nome certo. O nome do arquivo de origem deve conter a marca (ex.: toyota.svg, Logo_Aston Martin.png).
+ 4. Nao precisa reiniciar: o overlay procura de novo a cada poucos segundos.
  Tambem vale o nome sem hifen (astonmartin.png) ou so a primeira palavra (mercedes.png).
 
 COMO SABER QUAIS MARCAS FALTAM
@@ -21,19 +25,23 @@ COMO SABER QUAIS MARCAS FALTAM
 NOMES DE ARQUIVO DAS MARCAS CONHECIDAS
    acura.png
    alfa-romeo.png
+   alpine.png
    aston-martin.png
    audi.png
    bmw.png
    buick.png
    cadillac.png
    chevrolet.png
+   corvette.png
    dallara.png
    dodge.png
    ferrari.png
    ford.png
    genesis.png
+   glickenhaus.png
    honda.png
    hyundai.png
+   isotta-fraschini.png
    kia.png
    lamborghini.png
    lexus.png
@@ -56,8 +64,10 @@ NOMES DE ARQUIVO DAS MARCAS CONHECIDAS
    subaru.png
    super-formula.png
    toyota.png
+   vanwall.png
    volkswagen.png
    williams.png
 
 Se o iRacing trouxer uma marca fora desta lista, o nome do arquivo sera a primeira palavra do
 nome do carro (veja "emblemas_faltando.txt").
+Aviso: logotipos sao marcas registradas; use so no seu computador e nao os publique.

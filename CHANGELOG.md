@@ -2,6 +2,51 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [SemVer](https://semver.org/lang/pt-BR/).
 
+## [1.6.0] - 2026-11-02
+
+- **Novo:** **Central de configurações**: janela interativa (duplo clique no ícone da bandeja, ou "Abrir configurações…"). Cartões com prévia, liga/desliga, busca e filtros; "Personalizar" abre o tamanho, as opções do painel e a prévia ao vivo; páginas de Aparência e sistema e de Perfis. Usa os mesmos itens do menu: atalhos do Stream Deck e perfis continuam valendo. O menu da bandeja ficou curto (Abrir configurações, Travar posição, Todas as opções, Sair); o menu completo é o submenu "Todas as opções (avançado)".
+- **Novo:** janela **Último contato**: quem você tocou por último (pontos 0x/1x/2x/4x do iRacing, volta, há quanto tempo e onde o piloto está agora em segundos). O contato é detectado pelo contador de incidentes e pelo pico de aceleração com um carro encostado (até 7 m): é uma estimativa.
+- **Novo:** janela **Entrada do pit**: distância até a entrada dos boxes, aviso FREIE (distância de frenagem estimada até o limite) e, na pit lane, velocidade contra o limite e distância até o seu box. A entrada é aprendida na primeira vez que você entra por pista (arquivo `pit_entradas.json`); aparece com parada pedida ou com a opção "mostrar sempre".
+- **Novo:** Classificação com colunas **SR** (licença e SR) e **iR** (iRating) de cada piloto. Janela 112 px mais larga (678 px). O LMU não tem iRating/SR.
+- Visual da Central e ícone da bandeja com a marca WolfxRacing (pasta `overlay/marca/`: logos originais, sem alteração, e imagens de cenário). A marca é identidade do projeto; veja o NOTICE.
+- **Novo:** janela **Tendência de ritmo**: últimas voltas limpas (sem boxes, sem bandeira de perigo e até 130% da melhor), ritmo médio das 5 últimas, inclinação do stint em s/volta, previsão da próxima volta e consistência, com gráfico e reta de tendência. A inclinação e a previsão (~) são estimativas por regressão linear; aparecem com 4 voltas limpas no stint.
+- **Corrigido:** **Minimapa rotativo** travando (iRacing e LMU). O desenho agora roda a 60 quadros por segundo no relógio próprio, a posição entre duas leituras do jogo é estimada pela velocidade na pista, a rotação e o zoom são aplicados pelo Qt sobre um caminho montado uma única vez (antes eram recalculados 360 pontos em Python a cada ciclo) e o rumo vem da tangente interpolada, que gira de forma contínua (antes mudava em degraus a cada trecho). No modo economia de CPU desenha a metade dos quadros.
+- 24 janelas no total. Novos arquivos: `ov_v16.py`, `ov_central.py`, pasta `marca/`.
+
+## [1.5.0] - 2026-11-02
+
+- **Novo:** **Bandeiras**: faixa com a bandeira da pista (verde por 6 s, amarela, amarela de pista inteira, azul, branca, quadriculada, preta/desclassificado, vermelha). Só aparece quando há bandeira.
+- **Novo:** **Tráfego de outras classes**: só aparece com carro de outra classe a até ~6 s, com a diferença em segundos (▼ atrás / ▲ à frente; vermelho quando uma classe mais rápida chega por trás). Os segundos são calculados pelo overlay.
+- **Novo:** **Minimapa rotativo**: trecho da pista ao redor do seu carro, girando para ele apontar sempre para cima, com os carros na cor da classe e o "N". Alcance 150/260/400 m no menu. O traçado é aprendido na primeira volta (a partir da posição na volta, como o Mapa); é uma inferência.
+- **Novo:** **Auxiliar de sessão**: etapa (grid, volta de apresentação, luzes), contagem/duração e tempo restante ao fim. Durante a sessão só aparece com "Auxiliar: também durante a sessão". No iRacing a contagem antes da largada vem marcada com ~ (estimada).
+- **Corrigido:** o radar da 1.4.2 podia piscar no modo automático (conflito com o laço principal). Todas as janelas automáticas (radar, bandeiras, tráfego, auxiliar) usam agora a mesma lógica sem piscar.
+- 21 janelas no total; sem atalhos de Stream Deck para as novas nesta versão.
+
+## [1.4.2] - 2026-11-02
+
+- **Novo:** **radar automático**: a janela só aparece com carro a até 16 m (ou carro ao lado confirmado pelo SDK) e some ~1,5 s depois. Menu da bandeja: "Radar automático"; destravado, fica sempre visível.
+- **Corrigido:** carro ao lado. Faixa vermelha de alerta (esquerda, direita ou dos dois lados), carro desenhado encostado no seu (o SDK não informa a distância lateral; o desenho não sugere mais um espaço que pode não existir), texto **AO LADO** no lugar de "<0,5 m" (que era a distância longitudinal) e luz lateral que some com fade em vez de piscar.
+- **Novo:** classificação com coluna **+/−**: posições ganhas (▲ verde) e perdidas (▼ vermelha) desde a largada, por classe, só em corrida. Janela 36 px mais larga.
+- **Melhorado:** Telemetria em barra mais compacta (620 × 88 px; 292 px sem o gráfico) com colunas de pedal finas.
+
+## [1.4.1] - 2026-11-02
+
+- **Novo:** layout opcional **em barra horizontal** para a janela Telemetria (menu da bandeja: "Layout em barra horizontal"). Uma linha só, 620 × 88 px (compacta, colunas de pedal finas): volante, marcha, velocidade, pedais com o valor numérico e gráfico. Cores: embreagem azul, freio laranja, acelerador verde. Sem o gráfico a barra tem 292 px. O painel de antes continua sendo o padrão.
+
+## [1.4.0] - 2026-11-02
+
+- **Novo:** janela **Curvas** (a 17ª): velocidade mínima em cada curva, comparada com a sua melhor passagem por ela. Mostra MIN, BEST, DELTA (verde = mais rápido que a melhor passagem, vermelho = perdeu 3 km/h ou mais) e o ângulo do volante no ponto da velocidade mínima, mais as últimas curvas da volta e o que a volta anterior ganhou e perdeu.
+- As curvas são achadas sozinhas a partir da velocidade em cada trecho da pista (a primeira volta válida cria o mapa; três voltas o refinam e ele congela). Volta válida = sem boxes, fora da pista, parada ou muito lenta. Tudo vem do carro; o mapa de curvas é uma inferência (curvas muito suaves não aparecem).
+- Valores só da sessão (sem gravar por pista); sem atalho de Stream Deck nesta versão. Menu da bandeja: ligar/desligar, escala e "reiniciar o aprendizado desta pista".
+- Inclui tudo da 1.3.1 (montadoras pelo modelo, `preparar_emblemas`, recortes).
+- Montadoras reconhecidas também: Holden, Caterham e Ginetta (somente o nome; os emblemas continuam fora do repositório).
+
+## [1.3.1] - 2026-11-02
+
+- **Novo:** `preparar_emblemas.bat` / `preparar_emblemas.py`: pega imagens soltas (PNG, JPG, WEBP, SVG) da pasta `emblemas\novos`, corta as bordas, centraliza num PNG quadrado transparente de 256 px e salva em `emblemas` com o nome certo; logos pretos viram brancos (fundo do overlay é escuro; `--nao-clarear` desliga). Para logos que vêm com o nome escrito junto, um `recortes.json` na pasta `novos` diz que parte da imagem guardar (só o símbolo) e quais marcas clarear.
+- Reconhecimento de montadora ampliado (também pelo modelo do carro; Corvette, Alpine, Glickenhaus, Vanwall e Isotta Fraschini na lista). O iRacing continua usando a primeira palavra quando nenhuma marca é reconhecida.
+- Os emblemas continuam **fora do repositório** (são marcas registradas).
+
 ## [1.3.0] - 2026-11-01
 
 - **Novo:** botões de **Stream Deck** para as quatro janelas da 1.2.0: **Luz ABS**, **Luz TC**, **Retorno** e **Estratégia** (linha de baixo da página principal, posições 3,3 a 6,3). O perfil `Overlay iRacing.streamDeckProfile` foi regenerado (30 botões na página principal) e os quatro ícones ficam na biblioteca, com as variantes "desligada".

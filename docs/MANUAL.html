@@ -4,10 +4,10 @@
 </blockquote>
 <h2 id="sumario">Sumário</h2>
 <ol>
-<li><a href="#1-o-que-é">O que é</a> · 2. <a href="#2-instalação-uma-única-vez">Instalação</a> · 3. <a href="#3-configurar-o-iracing">Configurar o jogo</a> · 4. <a href="#4-uso-diário">Uso diário</a> · 5. <a href="#5-as-janelas">As 16 janelas</a> · 6. <a href="#6-como-ler-os-números">Como ler os números</a> · 7. <a href="#7-dash-e-stream-deck">Dash e Stream Deck</a> · 8. <a href="#8-solução-de-problemas">Solução de problemas</a> · 9. <a href="#9-atualizar-para-uma-versão-nova">Atualizar</a> · 10. <a href="#10-limites-conhecidos">Limites</a></li>
+<li><a href="#1-o-que-é">O que é</a> · 2. <a href="#2-instalação-uma-única-vez">Instalação</a> · 3. <a href="#3-configurar-o-iracing">Configurar o jogo</a> · 4. <a href="#4-uso-diário">Uso diário</a> · 5. <a href="#5-as-janelas">As 24 janelas</a> · 6. <a href="#6-como-ler-os-números">Como ler os números</a> · 7. <a href="#7-dash-e-stream-deck">Dash e Stream Deck</a> · 8. <a href="#8-solução-de-problemas">Solução de problemas</a> · 9. <a href="#9-atualizar-para-uma-versão-nova">Atualizar</a> · 10. <a href="#10-limites-conhecidos">Limites</a></li>
 </ol>
 <h2 id="1-o-que-e">1. O que é</h2>
-<p>16 janelas independentes e transparentes, sempre por cima do jogo, que podem ser movidas, redimensionadas e ligadas/desligadas pelo menu do ícone vermelho "i" perto do relógio do Windows. Tudo roda localmente; nenhum dado seu é enviado para a internet.</p>
+<p>24 janelas independentes e transparentes, sempre por cima do jogo, que podem ser movidas, redimensionadas e ligadas/desligadas pelo menu do ícone vermelho "i" perto do relógio do Windows. Tudo roda localmente; nenhum dado seu é enviado para a internet.</p>
 <p><img alt="Visão geral" src="imagens/overlay_visao_geral.png" /></p>
 <h2 id="2-instalacao-uma-unica-vez">2. Instalação (uma única vez)</h2>
 <ol>
@@ -46,6 +46,8 @@
 <li>O gráfico pode ser escondido pelo menu da bandeja (a janela diminui).</li>
 <li>Barra superior = RPM em relação ao limite do carro.</li>
 </ul>
+<p><strong>Layout em barra (novo na 1.4.1):</strong> no menu da bandeja, marque "Layout em barra horizontal (na telemetria)" para trocar o painel por uma barra de uma linha só (620 × 88 px, bem compacta): volante, marcha, velocidade, pedais e gráfico lado a lado. Embreagem em <strong>azul</strong>, freio em <strong>laranja</strong> e acelerador em <strong>verde</strong>, com o valor de 0 a 100 embaixo de cada pedal (colunas finas). Desmarque o gráfico e a barra encolhe para 292 px. Desmarcando o layout, volta o painel de sempre.</p>
+<p><img alt="Telemetria em barra" src="imagens/overlay_telemetria_barra.png" /></p>
 <h3 id="2-voltas-delta-tempos-e-combustivel">2. Voltas (delta, tempos e combustível)</h3>
 <p><img alt="Voltas (delta, tempos e combustível)" src="imagens/overlay_voltas.png" /></p>
 <p>Delta para a melhor volta, tempos atual / última / melhor e uma faixa de cálculo de combustível.</p>
@@ -65,6 +67,10 @@
 <p><img alt="Classificação" src="imagens/overlay_classificacao.png" /></p>
 <p>Carros agrupados por classe (da mais rápida para a mais lenta), com SOF da classe, número, marca, piloto, país, última e melhor volta.</p>
 <ul>
+<li><strong>+/− (novo na 1.4.2):</strong> na corrida, seta <strong>verde ▲</strong> com o número de posições <strong>ganhas</strong> e seta <strong>vermelha ▼</strong> com as <strong>perdidas</strong> desde a largada (dentro da classe). Sem seta = mesma posição. A base é a ordem do grid no momento da bandeira verde; se o overlay abrir depois da largada, vale a primeira ordem vista. Fora de corrida a coluna fica vazia.</li>
+</ul>
+<p><img alt="Ganhos e perdas" src="imagens/overlay_classificacao_ganhos.png" /></p>
+<ul>
 <li>Melhor volta em <strong>roxo</strong> = a mais rápida da classe. Última volta em <strong>verde</strong> = igualou a melhor do piloto.</li>
 <li>Na sua classe aparecem o topo e os carros ao seu redor; nas outras, os primeiros. Linha pontilhada = carros omitidos.</li>
 <li>Emblemas de marcas <strong>não vêm no pacote</strong> (marcas registradas): mostra as iniciais até você colocar suas próprias imagens em <code>overlay/emblemas/</code>.</li>
@@ -82,7 +88,10 @@
 <ul>
 <li>Branco = normal; amarelo = atenção; vermelho com brilho lateral = o iRacing avisa carro ao lado.</li>
 <li>O iRacing só informa <strong>se</strong> há carro ao lado, não a posição lateral exata; o radar é para prevenir contato, não para medir centímetros.</li>
+<li><strong>Radar automático (novo na 1.4.2):</strong> a janela só aparece quando há carro a até 16 m ou o iRacing avisa carro ao lado, e some ~1,5 s depois. Desligue em <em>bandeja &gt; Radar automático</em> para deixá-la sempre à vista. Com o overlay destravado (modo mover) ela fica sempre visível.</li>
+<li><strong>Carro ao lado:</strong> faixa vermelha no topo (<em>CARRO A ESQUERDA / A DIREITA / DOS DOIS LADOS</em>) e o carro é desenhado <strong>encostado</strong> no seu, com o texto <strong>AO LADO</strong>. O iRacing não informa a distância lateral: o espaço entre os carros <strong>nunca</strong> é mostrado, e o "&lt;0,5 m" de antes (distância de para-choque a para-choque, não lateral) deixou de aparecer nessa situação.</li>
 </ul>
+<p><img alt="Carro ao lado" src="imagens/overlay_radar_ao_lado.png" /></p>
 <h3 id="7-pneus">7. Pneus</h3>
 <p><img alt="Pneus" src="imagens/overlay_pneus.png" /></p>
 <p>Vida útil e temperatura de cada pneu. O iRacing só informa valores reais com o carro parado no box; durante a corrida o overlay <strong>estima</strong>.</p>
@@ -200,6 +209,84 @@
 <li><strong>Antes da largada</strong> (corrida em espera, ou classificação parado na garagem/boxes): <em>LARGUE COM SECO ✓</em> (verde) ou <em>PARA A LARGADA: TROQUE PARA CHUVA</em> (vermelho, pulsando). Nesse momento a janela aparece também na garagem.</li>
 <li>Carro sem pneu de chuva: mostra o aviso "Este carro não tem pneu de chuva".</li>
 </ul>
+<h3 id="18-curvas-velocidade-minima-por-curva-novo-na-140">18. Curvas (velocidade mínima por curva) — novo na 1.4.0</h3>
+<p><img alt="Curvas" src="imagens/overlay_curvas.png" /></p>
+<p>Mostra, para cada curva da pista, a <strong>menor velocidade</strong> que você fez e compara com a sua <strong>melhor passagem</strong> por ela. É a janela para descobrir <strong>onde</strong> a volta está sendo perdida: em qual curva, e quanto.</p>
+<ul>
+<li><strong>Cartão grande (última curva concluída):</strong> <strong>MIN</strong> (menor velocidade nessa curva, em km/h), <strong>BEST</strong> (a maior velocidade mínima que você já fez nessa curva em voltas válidas), <strong>DELTA</strong> (MIN − BEST das voltas anteriores) e <strong>VOLANTE</strong> (graus do volante no ponto da velocidade mínima; <strong>E</strong> = esquerda, <strong>D</strong> = direita).</li>
+<li><strong>DELTA:</strong> verde = mais rápido que a sua melhor passagem; branco = praticamente igual (menos de 0,5 km/h); laranja = perdeu um pouco; vermelho = perdeu 3 km/h ou mais.</li>
+<li><strong>Linhas:</strong> as últimas 5 curvas desta volta, a mais recente em cima. <strong>Rodapé:</strong> o que a volta anterior perdeu e ganhou no total e a pior curva.</li>
+<li><strong>Como as curvas são achadas:</strong> o overlay não conhece o traçado. Ele guarda a menor velocidade em cada trecho da pista nas suas voltas e marca como curva cada queda de velocidade seguida de recuperação (numeradas C1, C2... a partir da linha de chegada). A <strong>primeira volta válida</strong> cria o mapa; as três primeiras o refinam e depois ele <strong>congela</strong>. Tudo vem do carro (velocidade, volante, posição na volta); nada é estimado, mas o <strong>mapa de curvas é uma inferência</strong>: curvas muito suaves (que quase não reduzem a velocidade) não aparecem, e uma chicane rápida pode virar uma curva só.</li>
+<li><strong>Volta válida:</strong> sem passar pelos boxes, sem sair da pista, sem parar, com a volta quase inteira medida e sem ser muito mais lenta que a melhor. Voltas inválidas não entram no BEST.</li>
+<li><strong>Valores só da sessão:</strong> o aprendizado e o BEST valem para a sessão atual; ao mudar de sessão ou pista tudo recomeça. Use "Curvas: reiniciar o aprendizado desta pista" na bandeja para zerar na mão.</li>
+<li>Fonte: o menu da bandeja liga/desliga a janela; não há atalho de Stream Deck para ela nesta versão.</li>
+</ul>
+<h3 id="janelas-automaticas-da-150-bandeiras-trafego-minimapa-e-auxiliar">Janelas automáticas da 1.5.0: Bandeiras, Tráfego, Minimapa e Auxiliar</h3>
+<p><img alt="Janelas novas da 1.5.0" src="imagens/overlay_novos_1_5.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Janela</th>
+<th>Quando aparece</th>
+<th>O que mostra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bandeiras</strong></td>
+<td>só com bandeira</td>
+<td>verde (6 s), amarela, amarela de pista inteira, azul, branca, quadriculada, preta/desclassificado, vermelha</td>
+</tr>
+<tr>
+<td><strong>Tráfego</strong></td>
+<td>só com carro de outra classe a até ~6 s</td>
+<td>classe, #número, piloto e diferença em s (▼ atrás, ▲ à frente)</td>
+</tr>
+<tr>
+<td><strong>Minimapa</strong></td>
+<td>sempre</td>
+<td>pista girando ao seu redor; carros na cor da classe; "N" = norte; alcance 150/260/400 m no menu</td>
+</tr>
+<tr>
+<td><strong>Auxiliar</strong></td>
+<td>antes da largada e no fim</td>
+<td>etapa da sessão, contagem, duração; "também durante a sessão" mostra o tempo restante</td>
+</tr>
+</tbody>
+</table>
+<p>Destravadas (modo mover), as janelas automáticas mostram um exemplo para você posicionar. Os segundos do Tráfego são calculados (velocidade e distância na pista); o traçado do Minimapa é aprendido na primeira volta.</p>
+<h3 id="central-de-configuracoes-160">Central de configurações (1.6.0)</h3>
+<p>Duplo clique no ícone da bandeja (ou "Abrir configurações…"):</p>
+<p><img alt="Central de configurações: painéis" src="imagens/central_paineis.png" /></p>
+<ul>
+<li><strong>Painéis:</strong> um cartão por janela com prévia, liga/desliga e "Personalizar"; busca e filtros por categoria.</li>
+<li><strong>Personalizar:</strong> tamanho, opções do painel e prévia ao vivo.</li>
+</ul>
+<p><img alt="Personalizar" src="imagens/central_detalhe.png" /></p>
+<ul>
+<li><strong>Aparência e sistema:</strong> opacidade, vidro, travar posição, economia de CPU, prioridade, atalhos.</li>
+<li><strong>Perfis:</strong> automático, treino, classificação ou corrida.</li>
+</ul>
+<p>O menu da bandeja ficou curto; todas as opções antigas estão em "Todas as opções (avançado)".</p>
+<h3 id="tendencia-de-ritmo-160">Tendência de ritmo (1.6.0)</h3>
+<p><img alt="Tendência de ritmo" src="imagens/janela_tendencia.png" /></p>
+<ul>
+<li><strong>Volta limpa:</strong> sem passar pelos boxes, sem bandeira amarela/vermelha durante a volta e até 130% da sua melhor volta. Só essas voltas entram na conta.</li>
+<li><strong>Ritmo (5 últ.):</strong> média das 5 últimas voltas limpas e a diferença para a sua melhor.</li>
+<li><strong>Inclinação (~):</strong> quanto o ritmo muda por volta no stint atual (negativo = melhorando; abaixo de 0,03 s/volta = estável). Precisa de 4 voltas limpas no stint. É uma estimativa (regressão linear).</li>
+<li><strong>Próxima (~):</strong> tempo esperado da próxima volta se o ritmo continuar nessa direção. Estimativa.</li>
+<li><strong>Consistência:</strong> desvio das últimas 8 voltas limpas (± segundos).</li>
+<li>No gráfico, a linha pontilhada vertical marca a passagem pelos boxes (novo stint) e a linha roxa é a sua melhor volta.</li>
+</ul>
+<h3 id="ultimo-contato-e-entrada-do-pit-160">Último contato e Entrada do pit (1.6.0)</h3>
+<p><img alt="Último contato" src="imagens/overlay_contato.png" /></p>
+<p><img alt="Entrada do pit" src="imagens/overlay_pit.png" /></p>
+<ul>
+<li><strong>Último contato:</strong> aparece depois que você toca em um carro; mostra o piloto, a volta, há quanto tempo e a diferença atual (− atrás, + à frente).</li>
+<li><strong>Entrada do pit:</strong> verde → amarelo → vermelho (<strong>FREIE</strong>) conforme a distância de frenagem até o limite; na pit lane mostra a velocidade contra o limite e a distância até o box. A frenagem usa 1,2 g: é uma estimativa. A entrada da pista é aprendida na primeira vez que você entra nos boxes.</li>
+</ul>
+<h3 id="classificacao-com-sr-e-ir-160">Classificação com SR e iR (1.6.0)</h3>
+<p><img alt="Classificação" src="imagens/overlay_classificacao_sr_ir.png" /></p>
 <h2 id="6-como-ler-os-numeros-real-calculado-estimado">6. Como ler os números: real, calculado, estimado</h2>
 <ul>
 <li><strong>Sem marca</strong> = <strong>real</strong>, entregue pelo iRacing (velocidade, marcha, RPM, pedais, volante, força G, combustível no tanque, clima, reparo e avisos do motor).</li>
