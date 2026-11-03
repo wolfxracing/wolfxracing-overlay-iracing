@@ -1,5 +1,8 @@
-OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.6.1, BASE FASE 20.2.2)
+OVERLAY IRACING - GUIA RAPIDO (VERSAO 1.6.2, BASE FASE 20.2.2)
 ==============================================================
+
+NOVO NA 1.6.2: emblema proprio da CORVETTE (corvette.png), marca DUQUEINE reconhecida e a lista emblemas_faltando.txt passa a valer so
+para a sessao atual (e apagada ao abrir o overlay).
 
 NOVO NA 1.6.1: (1) CLASSIFICACAO NO LAYOUT DA FOTO: tabela estilo transmissao, com barra superior (sessao, voltas, tempo, ar, pista,
 umidade, incidentes e pista seca/molhada) e as colunas POS, +/-, #, pneu, LIC . iR (com a variacao de iRating projetada de cada piloto),
