@@ -332,7 +332,7 @@ jx = o.JanelaForcaG(dict(cfg)); jx.show(); jx.atualizar(demo); jx.grab()
 assert o.DESEMPENHO.estatistica("pintura:forca_g")["n"] >= 1
 
 # ---------------------------------------------------------------- 12) cabecalho, prioridade
-o.registrar_cabecalho(); assert "inicio: overlay 1.6.2 (base Fase 20.2.2) | nucleo 20.2.2" in log() and "PySide6" in log()
+o.registrar_cabecalho(); assert "inicio: overlay 1.6.3 (base Fase 20.2.2) | nucleo 20.2.2" in log() and "PySide6" in log()
 assert o.definir_prioridade_baixa(True) is False              # so atua no Windows
 # ---------------------------------------------------------------- 13) orcamento: leitura e calculo com 40 carros
 N = 40
