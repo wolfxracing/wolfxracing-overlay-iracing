@@ -26,15 +26,21 @@ Cada atalho faz EXATAMENTE o mesmo que o item correspondente do menu da bandeja 
   Ctrl+Alt+F19        Travar posicao das janelas (liga/desliga)
   Ctrl+Alt+F20        Zerar o pico de G
   Ctrl+Alt+F21        Limpar as marcas de impacto
+  Ctrl+Alt+F23        Pit: PEDIR a entrada (sempre liga; serve para o botao 'Pitting In' do Stream Deck)
+  Ctrl+Alt+F24        Pit: CANCELAR o pedido de entrada
   Ctrl+Alt+F22        FECHAR o overlay (o mesmo que Sair no menu da bandeja)
   Alt+F13             Mostrar/ocultar luz do ABS
   Alt+F14             Mostrar/ocultar luz do TC (estimada)
   Alt+F15             Mostrar/ocultar retorno a pista
   Alt+F16             Mostrar/ocultar estrategia de pneus
+  Alt+F17             Mostrar/ocultar consumo por trecho (Burn Zones e Fuel Flow)
+  Alt+F18             Mostrar/ocultar Delta Trace
+  Alt+F19             Mostrar/ocultar Curvas (velocidade minima por curva)
 
 COMO USAR
  - Janelas (Ctrl+Alt+Shift+F13..F24): cada toque liga ou desliga a janela, e vale para o PERFIL ativo.
  - Janelas novas da 1.2.0 (Alt+F13..F16): Luz ABS, Luz TC, Retorno a pista e Estrategia de pneus; mesmo efeito do menu da bandeja.
+ - Telas novas da 1.7.0 (build q, Alt+F17..F19): Consumo por trecho, Delta Trace e Curvas; mesmo efeito do menu da bandeja.
  - Perfis (Ctrl+Alt+F13..F16): escolhe o perfil. "Automatico" volta a trocar sozinho pelo tipo de sessao.
  - Ctrl+Alt+F22 FECHA o overlay (o mesmo que "Sair" no menu da bandeja). Para abrir de novo: botao "Iniciar Overlay".
    Se o overlay travar e nao responder, use "fechar_overlay.bat" (fecha a forca, so o overlay).

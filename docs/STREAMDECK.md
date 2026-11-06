@@ -51,6 +51,17 @@ Isso cria `...\_ajustado.streamDeckProfile` com o seu caminho; importe esse arqu
 | `Alt+F15` | Mostrar/ocultar retorno à pista |
 | `Alt+F16` | Mostrar/ocultar estratégia de pneus |
 
+
+### Telas novas (build q)
+
+| Atalho | Ação |
+|---|---|
+| `Alt+F17` | Mostrar/ocultar Consumo |
+| `Alt+F18` | Mostrar/ocultar Delta Trace |
+| `Alt+F19` | Mostrar/ocultar Janela de curvas |
+
+No perfil, a página principal ganhou o botão **Telas novas** (posição 7,2) que abre a pasta com os três botões acima (e *Voltar* em 0,0); o botão **Pasta do overlay** foi para a pasta Suporte (4,1). Perfil validado estruturalmente; **ainda não testado no aplicativo Stream Deck real**.
+
 - A lista é gerada a partir da tabela `ATALHOS` de `overlay/ov_nucleo.py` (um teste automático avisa se divergir).
 - Os atalhos só funcionam com o **overlay aberto** e funcionam com o jogo em primeiro plano.
 - Se uma combinação já for usada por outro programa, o overlay avisa na bandeja e registra no log quais atalhos não foram registrados; os demais continuam funcionando.

@@ -10,11 +10,13 @@ for i, n in enumerate(nomes):
 PRINCIPAL.update({
  (4,1):"perfil_auto",(5,1):"perfil_treino",(6,1):"perfil_classificacao",(7,1):"perfil_corrida",
  (0,2):"ctrl_economia_cpu",(1,2):"ctrl_aparecer_sozinho",(2,2):"ctrl_travar_posicao",(3,2):"ctrl_zerar_pico_g",
- (4,2):"ctrl_limpar_impactos",(5,2):"sup_demo",(6,2):"sup_log",(7,2):"sup_pasta_overlay",
+ (4,2):"ctrl_limpar_impactos",(5,2):"ctrl_pit_pedir",(6,2):"ctrl_pit_cancelar",(7,2):"sup_telas_novas",
  (0,3):"ctrl_iniciar",(1,3):"ctrl_fechar",(2,3):"ctrl_forcar_fechamento",(7,3):"sup_pasta_suporte",
  (3,3):"janela_luz_abs",(4,3):"janela_luz_tc",(5,3):"janela_retorno",(6,3):"janela_estrategia"})
 SUP = {(0,0):"sup_voltar",(1,0):"sup_atalhos",(2,0):"sup_testes",(3,0):"sup_emblemas",(4,0):"sup_historico",
-       (5,0):"sup_guia",(6,0):"sup_roteiro",(7,0):"sup_recordes",(0,1):"sup_inicio_windows_on",(1,1):"sup_inicio_windows_off"}
+       (5,0):"sup_guia",(6,0):"sup_roteiro",(7,0):"sup_recordes",(0,1):"sup_inicio_windows_on",(1,1):"sup_inicio_windows_off",
+       (2,1):"sup_demo",(3,1):"sup_log",(4,1):"sup_pasta_overlay"}
+TELAS = {(0,0):"sup_voltar",(1,0):"janela_consumo",(2,0):"janela_delta_trace",(3,0):"janela_curvas"}
 def previa(lay, titulo, destino):
     K, G, M = 120, 14, 36
     W = 8*K + 7*G + 2*M; H = 4*K + 3*G + 2*M + 40
@@ -33,6 +35,7 @@ def previa(lay, titulo, destino):
     im.save(destino)
 previa(PRINCIPAL, "Pagina principal - Stream Deck XL (8 colunas x 4 linhas = 32 botoes)", f"{BASE}/previa_pagina_principal.png")
 previa(SUP, "Pasta Suporte (tecla 0,0 reservada para Voltar)", f"{BASE}/previa_pasta_suporte.png")
-json.dump({"principal":{f"{c},{r}":n for (c,r),n in PRINCIPAL.items()},"suporte":{f"{c},{r}":n for (c,r),n in SUP.items()}},
+previa(TELAS, "Pasta Telas novas (tecla 0,0 reservada para Voltar)", f"{BASE}/previa_pasta_telas_novas.png")
+json.dump({"principal":{f"{c},{r}":n for (c,r),n in PRINCIPAL.items()},"suporte":{f"{c},{r}":n for (c,r),n in SUP.items()},"telas":{f"{c},{r}":n for (c,r),n in TELAS.items()}},
           open(f"{BASE}/layout_proposto.json","w"), indent=1)
 print(len(PRINCIPAL), len(SUP))

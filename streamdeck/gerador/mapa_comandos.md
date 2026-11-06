@@ -1,6 +1,6 @@
 # Mapa de comandos × ícones — Overlay iRacing (Stream Deck XL)
 
-Fonte dos comandos: tabela `ATALHOS` do `ov_nucleo.py` (26 atalhos: 22 da fase 20.2.2 + 4 da v1.3.0). Nenhum comando novo foi inventado.
+Fonte dos comandos: tabela `ATALHOS` do `ov_nucleo.py` (28 atalhos: 22 da fase 20.2.2 + 4 da v1.3.0 + 2 do pit na v1.7.0). Nenhum comando novo foi inventado.
 Chave de posição no Stream Deck = **coluna,linha** (0,0 = canto superior esquerdo; XL: 0..7 × 0..3).
 
 ## 1. Janelas (16) — um único comando cada: alternar mostrar/ocultar
@@ -37,6 +37,8 @@ Chave de posição no Stream Deck = **coluna,linha** (0,0 = canto superior esque
 | 2,2 | Travar posição (alterna) | Ctrl+Alt+F19 | ctrl_travar_posicao (+ _desligado) |
 | 3,2 | Zerar pico de G | Ctrl+Alt+F20 | ctrl_zerar_pico_g |
 | 4,2 | Limpar impactos | Ctrl+Alt+F21 | ctrl_limpar_impactos |
+| 5,2 | **Pit: PEDIR a entrada** (liga o aviso de entrada dos boxes) | Ctrl+Alt+F23 | ctrl_pit_pedir |
+| 6,2 | **Pit: CANCELAR o pedido** | Ctrl+Alt+F24 | ctrl_pit_cancelar |
 | 1,3 | Fechar overlay (sair) | Ctrl+Alt+F22 | ctrl_fechar |
 
 ## 3. Ações que não usam atalho (abrem arquivos/programas do Windows)
@@ -44,16 +46,21 @@ Chave de posição no Stream Deck = **coluna,linha** (0,0 = canto superior esque
 |---|---|---|
 | 0,3 | Iniciar overlay (abre o iniciar) | ctrl_iniciar |
 | 2,3 | Forçar fechamento (`fechar_overlay.bat`) | ctrl_forcar_fechamento |
-| 5,2 | Modo Demo (iniciar em demonstração) | sup_demo |
-| 6,2 | Abrir log | sup_log |
 | 7,2 | Pasta do overlay | sup_pasta_overlay |
 | 7,3 | Pasta "Suporte" (abre a subpágina) | sup_pasta_suporte |
 
 ## 4. Pasta Suporte (tecla 0,0 reservada ao Voltar)
-sup_voltar (0,0), sup_atalhos, sup_testes, sup_emblemas, sup_historico, sup_guia, sup_roteiro, sup_recordes, sup_inicio_windows_on, sup_inicio_windows_off.
+sup_voltar (0,0), sup_demo (2,1: Modo Demo), sup_log (3,1: Abrir log), sup_atalhos, sup_testes, sup_emblemas, sup_historico, sup_guia, sup_roteiro, sup_recordes, sup_inicio_windows_on, sup_inicio_windows_off.
 
 ## 5. Opções que existem só no menu da bandeja (sem atalho)
 Sub-opções dentro de cada janela (tamanho, opacidade, modos de exibição etc.) e demais itens do menu **não têm atalho global**. Criar botões para elas exige **alterar o código do overlay** — não implementado e **não será feito sem sua aprovação**.
 
 ## 6. Padrão visual
 Fundo fibra de carbono grafite; acento âmbar (padrão), vermelho (fechar/perigo), verde (iniciar/ligado), roxo (melhor setor); traço 6 px (contorno) / 3,5 px (detalhe); rótulo em caixa alta, itálico condensado, sombra; 144×144 px. Desenhos 100% originais, inspirados apenas no estilo do pacote que você usa (nenhum arquivo do pacote foi copiado ou alterado).
+
+## 7. Pit (v1.7.0)
+Os botões **Pedir pit** e **Cancelar pit** ocupam as posições 5,2 e 6,2 da página principal; **Modo Demo** e **Abrir log** foram para a pasta Suporte (2,1 e 3,1). Para usar junto com a macro do iRacing ("Pitting In"), crie no seu perfil um **Multi Action** com 2 ações: a macro de chat do iRacing e o atalho **Ctrl+Alt+F23**. O aviso de entrada só liga quando o pedido é feito.
+
+
+## 8. Telas novas (build q)
+Pagina principal: `sup_telas_novas` em (7,2) abre a pasta **Telas novas**: `sup_voltar` (0,0), `janela_consumo` (1,0, Alt+F17), `janela_delta_trace` (2,0, Alt+F18), `janela_curvas` (3,0, Alt+F19). `sup_pasta_overlay` passou para a pasta Suporte (4,1).

@@ -199,3 +199,17 @@ finally:
     o.time.monotonic = real_mono
 
 print("\nTODOS OS TESTES DA CLASSIFICACAO (v1.6.1) PASSARAM.")
+
+# ---- 9) 1.7.0: voltas de cada pneu na classificacao (como no Relativo)
+assert all(("voltas_pneu" in l) for l in todas), "demo sem voltas_pneu"
+assert any(l["voltas_pneu_confiavel"] is False for l in todas) and any(l["voltas_pneu_confiavel"] for l in todas)
+j = cls(cfg); j.atualizar(dados); j.show(); app.processEvents(); com = j.grab().toImage(); j.close()
+sem = {k: v for k, v in dados.items()}
+cl2 = tel._demo_classificacao(40.0)
+for l in (x for c in cl2["classes"] for x in c["linhas"]):
+    l["voltas_pneu"] = None
+sem["classificacao"] = cl2
+j = cls(cfg); j.atualizar(sem); j.show(); app.processEvents(); sem_img = j.grab().toImage(); j.close()
+assert com != sem_img, "o numero de voltas nao altera a imagem"
+# nenhuma linha com dado quebra a janela quando voltas_pneu e None (sem telemetria)
+print("9) voltas do pneu na classificacao (demo, confiavel/estimado, ausencia) OK")

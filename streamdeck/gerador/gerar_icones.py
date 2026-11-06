@@ -322,10 +322,62 @@ def p_combustivel():
             f'<rect x="20" y="86" width="70" height="8" rx="3" fill="{W}"/>')
 
 
+def _pit_base():
+    """Pista de boxes (faixa tracejada) com a seta entrando no box (predio com portas)."""
+    return (f'<rect x="64" y="10" width="58" height="46" rx="6" fill="#3A3C43"/>'
+            f'<rect x="72" y="26" width="14" height="30" fill="{DK}"/><rect x="92" y="26" width="14" height="30" fill="{DK}"/>'
+            f'<path d="M64 24 H122" stroke="{W}" stroke-width="4"/>'
+            f'<path d="M14 80 H122" stroke="#8C919A" stroke-width="4" stroke-dasharray="10 8" fill="none"/>'
+            f'<path d="M20 66 H48 Q58 66 62 58 L66 52" fill="none" stroke="{A}" stroke-width="7"/>'
+            f'<path d="M56 50 L68 50 L66 62" fill="none" stroke="{A}" stroke-width="7"/>')
+
+
+def p_pit_pedir():
+    return _pit_base()
+
+
+def p_pit_cancelar():
+    return (_pit_base() + f'<g opacity=".95"><circle cx="100" cy="76" r="20" fill="#0C0C0F" opacity=".85"/>'
+            f'<circle cx="100" cy="76" r="17" fill="none" stroke="{RD}" stroke-width="6"/>'
+            f'<path d="M89 65 L111 87" stroke="{RD}" stroke-width="6"/></g>')
+
+
 def p_forca_g():
     t = "".join(f'<circle cx="72" cy="50" r="{r}" fill="none" stroke="#8C919A" stroke-width="4"/>' for r in (14, 28, 42))
     return (t + '<path d="M26 50 H118 M72 6 V94" stroke="#8C919A" stroke-width="3"/>'
             f'<path d="M72 50 Q62 70 84 74 Q106 74 98 40" fill="none" stroke="{A}" stroke-width="7"/><circle cx="98" cy="38" r="9" fill="{W}"/>')
+
+
+def p_consumo():
+    """Gota de combustivel sobre barras de consumo por trecho (a mais alta em vermelho)."""
+    barras = "".join(f'<rect x="{34 + i*18}" y="{86 - h}" width="12" height="{h}" rx="3" fill="{cor}"/>'
+                     for i, (h, cor) in enumerate(((22, GY), (34, GY), (62, RD), (30, GY), (44, A), (24, GY))))
+    return (barras + f'<path d="M72 8 q-17 22 0 30 q17 -8 0 -30" fill="{W}"/><path d="M20 90 H126" stroke="{W}" stroke-width="4"/>')
+
+
+def p_delta_trace():
+    """Grafico de area: verde acima da linha (ganhando), vermelho abaixo (perdendo) e a linha de zero."""
+    return (f'<path d="M20 38 L34 28 L50 22 L64 34 L64 38 Z" fill="{GR}"/>'
+            f'<path d="M64 38 L64 34 L80 50 L98 62 L112 56 L126 38 Z" fill="{RD}"/>'
+            f'<path d="M18 38 H128" stroke="{W}" stroke-width="3" stroke-dasharray="8 6"/>'
+            f'<path d="M20 38 L34 28 L50 22 L64 34 L80 50 L98 62 L112 56 L126 38" fill="none" stroke="{W}" stroke-width="5"/>'
+            f'<rect x="20" y="72" width="22" height="9" rx="3" fill="{RD}"/><rect x="46" y="72" width="34" height="9" rx="3" fill="{GR}"/>'
+            f'<rect x="84" y="72" width="18" height="9" rx="3" fill="{GR}"/><rect x="106" y="72" width="20" height="9" rx="3" fill="{RD}"/>')
+
+
+def p_curvas():
+    """Trecho de pista em S com a curva numerada em destaque."""
+    return (f'<path d="M22 78 C46 78 50 46 72 46 C96 46 98 16 124 16" fill="none" stroke="{W}" stroke-width="14"/>'
+            f'<path d="M22 78 C46 78 50 46 72 46 C96 46 98 16 124 16" fill="none" stroke="{DK}" stroke-width="8"/>'
+            f'<path d="M52 66 C58 52 62 48 72 46 C82 46 88 40 92 32" fill="none" stroke="{A}" stroke-width="8"/>'
+            f'<circle cx="72" cy="46" r="15" fill="{A}"/>' + letra("7", 22, 72, 46, DK, 0.9))
+
+
+def p_telas_novas():
+    """Pasta com estrela: o grupo das telas novas (consumo, delta trace e curvas)."""
+    return (f'<path d="M22 22 H56 L66 32 H122 V86 H22 Z" fill="{A}"/><rect x="22" y="40" width="100" height="46" rx="4" fill="{AM2}"/>'
+            f'<rect x="22" y="40" width="100" height="6" fill="{W}"/>'
+            f'<path d="M72 50 L77 62 L90 63 L80 71 L84 83 L72 76 L60 83 L64 71 L54 63 L67 62 Z" fill="{W}"/>')
 
 
 # ------------------------------------------------------------------ catalogo
@@ -339,6 +391,8 @@ JANELAS = [
     ("janela_combustivel", ["COMBUSTÍVEL"], p_combustivel), ("janela_forca_g", ["FORÇA G"], p_forca_g),
     ("janela_luz_abs", ["LUZ ABS"], p_luz_abs), ("janela_luz_tc", ["LUZ TC"], p_luz_tc),
     ("janela_retorno", ["RETORNO"], p_retorno), ("janela_estrategia", ["ESTRATÉGIA"], p_estrategia),
+    ("janela_consumo", ["CONSUMO"], p_consumo), ("janela_delta_trace", ["DELTA", "TRACE"], p_delta_trace),   # build q
+    ("janela_curvas", ["CURVAS"], p_curvas),
 ]
 CONTROLES = [  # (arquivo, rotulo, pictograma, tem_variante_apagada)
     ("ctrl_iniciar", ["INICIAR", "OVERLAY"], p_play, False), ("ctrl_fechar", ["FECHAR", "OVERLAY"], p_fechar, False),
@@ -349,6 +403,7 @@ CONTROLES = [  # (arquivo, rotulo, pictograma, tem_variante_apagada)
     ("perfil_corrida", ["PERFIL", "CORRIDA"], lambda: p_selo_letra("R"), False),
     ("ctrl_economia_cpu", ["ECONOMIA", "DE CPU"], p_chip, True), ("ctrl_travar_posicao", ["TRAVAR", "POSIÇÃO"], p_cadeado, True),
     ("ctrl_aparecer_sozinho", ["APARECER", "SOZINHO"], p_olho, True),
+    ("ctrl_pit_pedir", ["PEDIR", "PIT"], p_pit_pedir, False), ("ctrl_pit_cancelar", ["CANCELAR", "PIT"], p_pit_cancelar, False),
     ("ctrl_zerar_pico_g", ["ZERAR", "PICO DE G"], p_zerar_g, False), ("ctrl_limpar_impactos", ["LIMPAR", "IMPACTOS"], p_borracha, False),
 ]
 SUPORTE = [
@@ -360,6 +415,7 @@ SUPORTE = [
     ("sup_inicio_windows_on", ["INICIAR C/", "WINDOWS"], lambda: p_power(GR, True)),
     ("sup_inicio_windows_off", ["DESATIVAR", "INÍCIO"], lambda: p_power(RD, True, True)),
     ("sup_recordes", ["RECORDES", "PESSOAIS"], p_trofeu), ("sup_voltar", ["VOLTAR"], p_voltar),
+    ("sup_telas_novas", ["TELAS", "NOVAS"], p_telas_novas),
 ]
 
 
