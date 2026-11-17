@@ -394,6 +394,10 @@ JANELAS = [
     ("janela_consumo", ["CONSUMO"], p_consumo), ("janela_delta_trace", ["DELTA", "TRACE"], p_delta_trace),   # build q
     ("janela_curvas", ["CURVAS"], p_curvas),
 ]
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location("icones_v18", os.path.join(os.path.dirname(os.path.abspath(__file__)), "icones_v18.py"))
+_m18 = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m18)
+JANELAS += _m18.pictogramas(A, W, DK, GY, RD, GR, AM2, letra)          # 1.8.0: vazao, marcha, destino, digiflag, ultrapassagem, calendario, hibrido, sessao
 CONTROLES = [  # (arquivo, rotulo, pictograma, tem_variante_apagada)
     ("ctrl_iniciar", ["INICIAR", "OVERLAY"], p_play, False), ("ctrl_fechar", ["FECHAR", "OVERLAY"], p_fechar, False),
     ("ctrl_forcar_fechamento", ["FORÇAR", "FECHAMENTO"], p_forcar, False),

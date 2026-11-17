@@ -6,7 +6,7 @@ DEVICE_UUID, MODEL = "@(1)[4057/143/A00NA6053I6336]", "20GAT9902"       # Stream
 BIB, PACOTE, OUT_DIR = sys.argv[1], sys.argv[2], sys.argv[3]
 sys.path.insert(0, PACOTE)
 import ov_nucleo as nu
-BASE = r"C:\WolfxRacing\wolfxracing-overlay-iracing\overlay"
+BASE = os.environ.get("WOLFX_BASE") or r"C:\WolfxRacing\wolfxracing-overlay-iracing\overlay"      # WOLFX_BASE: pasta de instalacao deste PC
 LAY = json.load(open(f"{BIB}/layout_proposto.json"))
 
 # icone -> (tipo, alvo)
@@ -27,7 +27,8 @@ ACAO = {
  "sup_recordes": ("abrir", "recordes_pessoais.json"),
 }
 for n in ("telemetria","voltas","relativo","classificacao","mapa","radar","pneus","setores","clima","danos","combustivel","forca_g",
-          "luz_abs","luz_tc","retorno","estrategia","consumo","delta_trace","curvas"):
+          "luz_abs","luz_tc","retorno","estrategia","consumo","delta_trace","curvas",
+          "vazao","marcha","destino","digiflag","ultrapassagem","calendario","hibrido","sessao"):
     ACAO[f"janela_{n}"] = ("tecla", f"janela_{n}")
 
 def rid(): return "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(26)) + "Z"
@@ -76,11 +77,11 @@ def main():
     ms = pagina(LAY["suporte"], raiz, filha, arq)
     mt = pagina(LAY["telas"], raiz, telas, arq)
     vazio = {"Controllers": [{"Actions": None, "Type": "Keypad"}], "Icon": "", "Name": ""}
-    mprof = {"Device": {"Model": MODEL, "UUID": DEVICE_UUID}, "Name": "Overlay iRacing", "Pages": {"Current": pg.lower(), "Default": padrao.lower(), "Pages": [pg.lower()]}, "Version": "3.0"}
+    mprof = {"Device": {"Model": MODEL, "UUID": DEVICE_UUID}, "Name": os.environ.get("WOLFX_PERFIL") or "Overlay iRacing", "Pages": {"Current": pg.lower(), "Default": padrao.lower(), "Pages": [pg.lower()]}, "Version": "3.0"}
     pac = {"AppVersion": "7.4.2.22730", "DeviceModel": MODEL, "DeviceSettings": None, "FormatVersion": 1, "OSType": "Windows", "OSVersion": "10.0.26200",
            "RequiredPlugins": ["com.elgato.streamdeck.system.open", "com.elgato.streamdeck.system.hotkey", "com.elgato.streamdeck.profile.openchild", "com.elgato.streamdeck.profile.backtoparent"]}
     os.makedirs(OUT_DIR, exist_ok=True)
-    saida = os.path.join(OUT_DIR, "Overlay iRacing.streamDeckProfile")
+    saida = os.path.join(OUT_DIR, (os.environ.get("WOLFX_PERFIL") or "Overlay iRacing") + ".streamDeckProfile")
     dump = lambda o: json.dumps(o, separators=(",", ":"))
     with zipfile.ZipFile(saida, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("package.json", dump(pac)); z.writestr(f"{raiz}/manifest.json", dump(mprof))

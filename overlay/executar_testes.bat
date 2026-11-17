@@ -27,6 +27,22 @@ py -3.12 testes\teste_v170_central_real.py
 py -3.12 testes\teste_v170_estados_vazios.py
 py -3.12 testes\teste_v170_coach_ciclo_real.py
 py -3.12 testes\teste_v170_ritmo_ideal.py
+py -3.12 testes\teste_v170_previa_opcoes.py
+if errorlevel 1 goto falhou
+py -3.12 testes\teste_v18_logica.py
+if errorlevel 1 goto falhou
+py -3.12 testes\teste_v18_integracao.py
+if errorlevel 1 goto falhou
+py -3.12 testes\teste_v18_fov.py
+py -3.12 testes\teste_v18_atalhos.py
+py -3.12 testes\teste_v18_danos.py
+py -3.12 testes\teste_v18_alertas.py
+py -3.12 testes\teste_v18_cronograma.py
+py -3.12 testes\teste_v18_cronograma_importar.py
+py -3.12 testes\teste_v18_classif_bandeira.py
+py -3.12 testes\teste_v18_icone.py
+py -3.12 testes\teste_v18_coach_pedais.py
+py -3.12 testes\teste_v18_i18n.py
 if errorlevel 1 goto falhou
 py -3.12 testes\teste_v170_coach_real.py
 if errorlevel 1 goto falhou

@@ -64,3 +64,17 @@ Os botões **Pedir pit** e **Cancelar pit** ocupam as posições 5,2 e 6,2 da p�
 
 ## 8. Telas novas (build q)
 Pagina principal: `sup_telas_novas` em (7,2) abre a pasta **Telas novas**: `sup_voltar` (0,0), `janela_consumo` (1,0, Alt+F17), `janela_delta_trace` (2,0, Alt+F18), `janela_curvas` (3,0, Alt+F19). `sup_pasta_overlay` passou para a pasta Suporte (4,1).
+
+## 9. Paineis da 1.8 (build ae)
+Pasta **Telas novas** (abre por `sup_telas_novas` em (7,2)): alem de voltar e das 3 telas do item 8, tem os 8 paineis da 1.8.
+| Posicao | Icone | Atalho (iRacing) |
+|---|---|---|
+| (4,0) | `janela_vazao` | Ctrl+F13 |
+| (5,0) | `janela_marcha` | Ctrl+F14 |
+| (6,0) | `janela_destino` | Ctrl+F15 |
+| (7,0) | `janela_digiflag` | Ctrl+F16 |
+| (0,1) | `janela_ultrapassagem` | Ctrl+F17 |
+| (1,1) | `janela_calendario` | Ctrl+F18 |
+| (2,1) | `janela_hibrido` | Ctrl+F19 |
+| (3,1) | `janela_sessao` | Ctrl+F20 |
+Gerar o perfil com a pasta de instalacao do seu PC: defina `WOLFX_BASE` (pasta do overlay) e, se quiser outro nome, `WOLFX_PERFIL` antes de rodar `gerar_perfil_v3.py`.
