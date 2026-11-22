@@ -2,11 +2,13 @@
 """Cronograma de corridas (build ah): cadencias, semanas, filtros, janela de horario, alerta, painel e tela de filtros. Sem o jogo."""
 import os, sys, json, tempfile, datetime as dt
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-os.environ["TZ"] = "America/Sao_Paulo"          # build an: os horarios seguem o fuso do computador; os testes simulam um PC em Brasilia
-try:
-    import time as _t; _t.tzset()
-except AttributeError:
-    pass
+import time as _t
+# build an: os horarios seguem o fuso do computador; os testes simulam um PC em Brasilia.
+# build az: no Windows nao existe time.tzset() nem nomes de fuso IANA no TZ; usa-se o fuso fixo POSIX "BRT3" (UTC-3, sem horario de verao),
+# igual a Brasilia desde 2019, definido antes de qualquer uso de hora local.
+os.environ["TZ"] = "America/Sao_Paulo" if hasattr(_t, "tzset") else "BRT3"
+if hasattr(_t, "tzset"):
+    _t.tzset()
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ov_cronograma as cr
 falhas, _ok = [], 0
@@ -66,23 +68,27 @@ confere(v["series"] == [] and v["classes"] == ["D"] and v["antecedencia_min"] ==
 confere(cr.carregar("/nao/existe.json")[0] is None and "nao encontrado" in cr.carregar("/nao/existe.json")[1], "arquivo ausente: aviso")
 S = tempfile.mkdtemp(); bad = os.path.join(S, "b.json"); open(bad, "w").write("{nao json"); confere(cr.carregar(bad)[0] is None, "json corrompido: aviso sem erro")
 # ---- dados reais (cronograma.json do PDF 2026 S4)
-# SEM_DADO: o cronograma.json (dado do usuario, importado do PDF) nao e distribuido; sem ele este teste nao se aplica
-if not os.path.isfile(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cronograma.json")):
-    print("teste_v18_cronograma: sem cronograma.json (importe o PDF Season Schedule); teste ignorado"); sys.exit(0)
-real, av = cr.carregar(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cronograma.json"))
-confere(real is not None and len(real["series"]) >= 150, "cronograma.json real carregado")
-sc = next(s for s in real["series"] if s["serie"].startswith("Stock Car Brasil"))
-confere(all(x.get("classe_serie") in cr.CLASSES for x in real["series"]), "toda serie real tem classe da serie (R/D/C/B/A)")
-gs = next(x for x in real["series"] if x["serie"].startswith("GT Sprint")); confere(cr.letra_classe(gs) == "B" and gs["classe"].startswith("C"), "GT Sprint: classe B (secao) com licenca exigida C")
-confere(sc["cadencia"]["passo_min"] == 120 and sc["cadencia"]["minutos"] == [45] and any("Lime Rock" in w["pista"] for w in sc["semanas"]), "Stock Car Brasil: a cada 2h aos :45, com Lime Rock")
-confere(len(cr.sem_horario(real)) < 30 and not any("Class Series" in s["serie"] for s in real["series"]), "titulos corretos; poucas series sem horario")
+CAM_REAL = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cronograma.json")
+real, av = cr.carregar(CAM_REAL)
+SEM_REAL = real is None and not os.path.isfile(CAM_REAL)
+if SEM_REAL:   # build az: cronograma.json e dado do usuario (importado do PDF), nao versionado; sem ele estas verificacoes sao puladas, e as demais usam os dados sinteticos
+    print("PULADO (build az): cronograma.json real ausente; verificacoes com os dados reais nao executadas")
+    real = D; sc = D["series"][0]
+if not SEM_REAL:
+    confere(real is not None and len(real["series"]) >= 150, "cronograma.json real carregado")
+    sc = next(s for s in real["series"] if s["serie"].startswith("Stock Car Brasil"))
+    confere(all(x.get("classe_serie") in cr.CLASSES for x in real["series"]), "toda serie real tem classe da serie (R/D/C/B/A)")
+    gs = next(x for x in real["series"] if x["serie"].startswith("GT Sprint")); confere(cr.letra_classe(gs) == "B" and gs["classe"].startswith("C"), "GT Sprint: classe B (secao) com licenca exigida C")
+    confere(sc["cadencia"]["passo_min"] == 120 and sc["cadencia"]["minutos"] == [45] and any("Lime Rock" in w["pista"] for w in sc["semanas"]), "Stock Car Brasil: a cada 2h aos :45, com Lime Rock")
+    confere(len(cr.sem_horario(real)) < 30 and not any("Class Series" in s["serie"] for s in real["series"]), "titulos corretos; poucas series sem horario")
 ag = dt.datetime(2026, 11, 16, 23, 0, tzinfo=U)
-r = cr.proximas(real, {"series": [sc["serie"]], "antecedencia_min": 30}, ag, 3); confere(len(r) == 3 and r[0]["pista"], "Stock Car Brasil proximas corridas no dado real")
-r = cr.proximas(real, {"classes": ["B", "A"], "carros": ["gt3"], "janela": True, "ini": "19:00", "fim": "23:59"}, ag, 8, horizonte_h=120)
-r = cr.proximas(real, {"classes": ["B"], "carros": ["gt3"]}, ag, 400, horizonte_h=120)
-confere(len(r) > 0 and all(i["classe"] == "B" and "gt3" in cr._norm(i["carro"]) for i in r), f"consulta combinada (classe B + carro GT3) no dado real ({len(r)} corridas)")
-r = cr.proximas(real, {"classes": ["B", "A"], "carros": ["gt3"], "janela": True, "ini": "19:00", "fim": "23:59"}, ag, 400, horizonte_h=120)
-confere(len(r) > 0 and all(i["classe"] in ("A", "B") and 19 * 60 <= i["inicio"].hour * 60 + i["inicio"].minute <= 1439 for i in r), "classe + carro + janela no dado real (o texto do item mostra so os 2 primeiros carros)")
+if not SEM_REAL:
+    r = cr.proximas(real, {"series": [sc["serie"]], "antecedencia_min": 30}, ag, 3); confere(len(r) == 3 and r[0]["pista"], "Stock Car Brasil proximas corridas no dado real")
+    r = cr.proximas(real, {"classes": ["B", "A"], "carros": ["gt3"], "janela": True, "ini": "19:00", "fim": "23:59"}, ag, 8, horizonte_h=120)
+    r = cr.proximas(real, {"classes": ["B"], "carros": ["gt3"]}, ag, 400, horizonte_h=120)
+    confere(len(r) > 0 and all(i["classe"] == "B" and "gt3" in cr._norm(i["carro"]) for i in r), f"consulta combinada (classe B + carro GT3) no dado real ({len(r)} corridas)")
+    r = cr.proximas(real, {"classes": ["B", "A"], "carros": ["gt3"], "janela": True, "ini": "19:00", "fim": "23:59"}, ag, 400, horizonte_h=120)
+    confere(len(r) > 0 and all(i["classe"] in ("A", "B") and 19 * 60 <= i["inicio"].hour * 60 + i["inicio"].minute <= 1439 for i in r), "classe + carro + janela no dado real (o texto do item mostra so os 2 primeiros carros)")
 # ---- auditoria build aj: GMT, paridade, minutos semanais
 import importar_cronograma as imp
 for txt, esperado in (("Races every 2 hours at :45", (120, 45)), ("Races every 2 hours at :45 GMT", (120, 45)), ("Races every hour at :15 GMT", (60, 15)),
@@ -126,7 +132,11 @@ o.ARQ_CONFIG = o.Path(S) / "c.json"; o.ARQ_LOG = o.Path(S) / "l.txt"
 cfg = o.carregar_config()
 confere(cfg.get("cronograma_ativo") is False and cfg.get("cronograma_filtros") == {}, "config padrao do cronograma")
 import ov_v18
-sv = ov_v18.Servico(o.Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+PASTA_CRON = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if SEM_REAL:   # build az: sem o cronograma real, o servico le uma copia dos dados sinteticos numa pasta temporaria
+    PASTA_CRON = os.path.join(S, "cron_sintetico"); os.makedirs(PASTA_CRON, exist_ok=True)
+    json.dump(D, open(os.path.join(PASTA_CRON, "cronograma.json"), "w", encoding="utf-8"))
+sv = ov_v18.Servico(o.Path(PASTA_CRON))
 cfg["cronograma_ativo"] = True
 cfg["cronograma_filtros"] = {"series": [sc["serie"]], "antecedencia_min": 600}
 r = sv.montar({}, {}, cfg, 100.0)

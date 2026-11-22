@@ -168,6 +168,10 @@ Círculo de G lateral e longitudinal com rastro, G atual e pico, nome e temperat
 - Cada anel = 1 g (alcance configurável de 2 a 5 g). Curva à esquerda leva o ponto para a esquerda; freando, o ponto desce.
 
 
+### Telemetria: ordem dos itens (build as)
+
+Em **Central > Telemetria > ORDEM DOS ITENS DA TELEMETRIA** use as setas ◀ ▶ para mudar a posição de cada item (volante, marcha, velocidade, pedais e gráfico na barra; marcha, velocidade, pedais e volante no painel). Exemplo: volante à direita e pedais entre a marcha e o volante. Cada layout tem a sua ordem e o botão **Ordem original** restaura tudo.
+
 ### 13. Telemetria: gráfico de pedais (novo na 1.2.0)
 
 ![Telemetria](imagens/overlay_telemetria_pedais.png)
