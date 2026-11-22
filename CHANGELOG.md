@@ -146,6 +146,13 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e
 - **Executor de testes:** rodar_todos_os_testes.py com codigo de saida por suite e --plataforma windows|offscreen; testes de cronograma portateis para o Windows (az).
 - Validado com testes automaticos e dados simulados; a homologacao em simulador real segue pendente. Detalhes por build acima.
 
+### O que foi validado de fato (build az)
+- **Windows Server 2025, Python 3.12.10, PySide6/Qt 6.12.0, Qt nativo (`windows`), via GitHub Actions: 57/57 suites com codigo de saida 0.**
+- Linux, Python 3.13, Qt 6.12.0, `offscreen`: 57/57 suites com codigo de saida 0.
+- Windows com `offscreen` (informativo): falham verificacoes de largura/corte que dependem de fontes (Central, "opcoes cabem na coluna"; JanelaConsumo); nao ocorrem no Qt nativo nem no Linux.
+- Comparacao visual com a referencia congelada da build au: sem diferenca na aparencia padrao.
+- Dados sinteticos e modo demo. **Simulador real: NAO homologado**; a validacao com o jogo e com o Stream Deck reais segue pendente.
+
 ## [1.8.0] - 2026-11-17
 
 ### Resumo da versão 1.8.0 (build ar)
