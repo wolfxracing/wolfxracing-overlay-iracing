@@ -2,11 +2,11 @@
 """Build al: importar novo cronograma (PDF/TXT), filtros ao vivo na tela, previa da Central com o cronograma real. Sem o jogo."""
 import os, sys, json, shutil, tempfile, time, datetime as dt
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-os.environ["TZ"] = "America/Sao_Paulo"          # build an: os horarios seguem o fuso do computador; os testes simulam um PC em Brasilia
-try:
-    import time as _t; _t.tzset()
-except AttributeError:
-    pass
+import time as _t
+# build az: sem time.tzset() (Windows) usa o fuso fixo POSIX "BRT3" (UTC-3), igual a Brasilia desde 2019.
+os.environ["TZ"] = "America/Sao_Paulo" if hasattr(_t, "tzset") else "BRT3"
+if hasattr(_t, "tzset"):
+    _t.tzset()
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import ov_cronograma as cr
@@ -143,23 +143,26 @@ if real:
 
 # ---------------------------------------------------------------- fuso horario do Windows (build an)
 import time as _tm
-def local_de(tz, filtros, quando):
-    os.environ["TZ"] = tz; _tm.tzset()
-    return cr.proximas(D, dict({"series": ["S2"]}, **filtros), quando, 1)[0]["inicio"], cr.fuso_txt(cr.filtros_validos(filtros), quando)
-q = dt.datetime(2026, 11, 17, 12, 0, tzinfo=U)
-ini_sp, txt_sp = local_de("America/Sao_Paulo", {}, q); confere(ini_sp.hour == 8 and ini_sp.minute == 45 and txt_sp == "UTC-03:00", f"fuso do Windows = Brasilia (-3): 11:45 UTC vira 08:45 ({ini_sp}, {txt_sp})")
-ini_t, txt_t = local_de("Asia/Tokyo", {}, q); confere(ini_t.hour == 20 and txt_t == "UTC+09:00", f"fuso do Windows = Toquio (+9) ({ini_t}, {txt_t})")
-os.environ["TZ"] = "Europe/London"; _tm.tzset()
-txt_i = cr.fuso_txt(cr.filtros_validos({}), dt.datetime(2026, 7, 14, 12, 0, tzinfo=U)); txt_i2 = cr.fuso_txt(cr.filtros_validos({}), dt.datetime(2026, 12, 15, 12, 0, tzinfo=U))
-confere(txt_i == "UTC+01:00" and txt_i2 == "UTC+00:00", f"horario de verao acompanha o Windows (Londres: julho {txt_i}, dezembro {txt_i2})")
-ini_m, txt_m = local_de("Asia/Tokyo", {"fuso_auto": False, "fuso_h": -3}, q); confere(ini_m.hour == 8 and txt_m == "UTC-03:00", "fuso fixo manual ignora o Windows")
-confere(cr.filtros_validos({})["fuso_auto"] is True and cr.filtros_validos({"fuso_h": -3})["fuso_auto"] is True, "padrao e usar o fuso do Windows (config antiga tambem)")
-os.environ["TZ"] = "America/Sao_Paulo"; _tm.tzset()
-# janela de horario usa o fuso do Windows
-os.environ["TZ"] = "Asia/Tokyo"; _tm.tzset()
-r = cr.proximas(D, {"series": ["S2"], "janela": True, "ini": "20:00", "fim": "23:00"}, q, 30, horizonte_h=48)
-confere(r and all(20 <= i["inicio"].hour <= 23 for i in r), "janela de horario no fuso do Windows (Toquio)")
-os.environ["TZ"] = "America/Sao_Paulo"; _tm.tzset()
+if hasattr(_tm, "tzset"):
+    def local_de(tz, filtros, quando):
+        os.environ["TZ"] = tz; _tm.tzset()
+        return cr.proximas(D, dict({"series": ["S2"]}, **filtros), quando, 1)[0]["inicio"], cr.fuso_txt(cr.filtros_validos(filtros), quando)
+    q = dt.datetime(2026, 11, 17, 12, 0, tzinfo=U)
+    ini_sp, txt_sp = local_de("America/Sao_Paulo", {}, q); confere(ini_sp.hour == 8 and ini_sp.minute == 45 and txt_sp == "UTC-03:00", f"fuso do Windows = Brasilia (-3): 11:45 UTC vira 08:45 ({ini_sp}, {txt_sp})")
+    ini_t, txt_t = local_de("Asia/Tokyo", {}, q); confere(ini_t.hour == 20 and txt_t == "UTC+09:00", f"fuso do Windows = Toquio (+9) ({ini_t}, {txt_t})")
+    os.environ["TZ"] = "Europe/London"; _tm.tzset()
+    txt_i = cr.fuso_txt(cr.filtros_validos({}), dt.datetime(2026, 7, 14, 12, 0, tzinfo=U)); txt_i2 = cr.fuso_txt(cr.filtros_validos({}), dt.datetime(2026, 12, 15, 12, 0, tzinfo=U))
+    confere(txt_i == "UTC+01:00" and txt_i2 == "UTC+00:00", f"horario de verao acompanha o Windows (Londres: julho {txt_i}, dezembro {txt_i2})")
+    ini_m, txt_m = local_de("Asia/Tokyo", {"fuso_auto": False, "fuso_h": -3}, q); confere(ini_m.hour == 8 and txt_m == "UTC-03:00", "fuso fixo manual ignora o Windows")
+    confere(cr.filtros_validos({})["fuso_auto"] is True and cr.filtros_validos({"fuso_h": -3})["fuso_auto"] is True, "padrao e usar o fuso do Windows (config antiga tambem)")
+    os.environ["TZ"] = "America/Sao_Paulo"; _tm.tzset()
+    # janela de horario usa o fuso do Windows
+    os.environ["TZ"] = "Asia/Tokyo"; _tm.tzset()
+    r = cr.proximas(D, {"series": ["S2"], "janela": True, "ini": "20:00", "fim": "23:00"}, q, 30, horizonte_h=48)
+    confere(r and all(20 <= i["inicio"].hour <= 23 for i in r), "janela de horario no fuso do Windows (Toquio)")
+    os.environ["TZ"] = "America/Sao_Paulo"; _tm.tzset()
+else:
+    print("PULADO (build az): verificacoes de fuso/horario de verao dependem de time.tzset(), indisponivel neste Windows; cobertas no Linux/macOS")
 
 # ---------------------------------------------------------------- previa da Central com o cronograma real
 import overlay_iracing as o
@@ -324,7 +327,10 @@ confere(d_ is not None and [s["serie"] for s in d_["series"]] == ["Boa", "Cad Ru
 confere(set(cr.sem_horario(d_)) == {"Cad Ruim", "Cad Ruim 2"}, "P2: cadencia invalida vira 'desconhecida' (sem aviso, sem erro)")
 confere(cr.proximas(d_, {"series": ["Cad Ruim", "Cad Ruim 2"]}, dt.datetime.now(U), 5) == [] and cr.proximas(d_, {"series": ["Boa"]}, dt.datetime.now(U), 5), "P2: consulta ignora as invalidas e atende as validas")
 confere(cr.carregar(grava({"series": [{"serie": "A", "semanas": [W], "cadencia": {"tipo": "semanal", "horarios": [[5, 19], [6, 14, 30]]}}]}, "s.json"))[0]["series"][0]["cadencia"]["horarios"] == [[5, 19, 0], [6, 14, 30]], "P2: formato antigo de horarios semanais continua aceito")
-confere(cr.carregar(os.path.join(RAIZ, "cronograma.json"))[0] is not None and cr.carregar(os.path.join(RAIZ, "cronograma.json"))[0]["_descartadas"] == 0, "P2: o cronograma real (162 series) passa na validacao sem descartes")
+if os.path.isfile(os.path.join(RAIZ, "cronograma.json")):
+    confere(cr.carregar(os.path.join(RAIZ, "cronograma.json"))[0] is not None and cr.carregar(os.path.join(RAIZ, "cronograma.json"))[0]["_descartadas"] == 0, "P2: o cronograma real (162 series) passa na validacao sem descartes")
+else:
+    print("PULADO (build az): cronograma.json real ausente (dado do usuario, nao versionado); validacao do cronograma real nao executada")
 confere(cr.carregar(grava("{nao json", "j.json"))[0] is None and cr.carregar(os.path.join(S, "nao_existe.json"))[0] is None, "P2: json corrompido/ausente continua com aviso")
 
 print("ok" if not falhas else "FALHAS", _ok); sys.exit(1 if falhas else 0)
