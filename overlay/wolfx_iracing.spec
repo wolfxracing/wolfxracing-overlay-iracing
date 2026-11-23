@@ -5,7 +5,7 @@ a = Analysis(
     ['overlay_iracing.py'],
     pathex=['.'],
     binaries=[],
-    datas=[],
+    datas=[('fontes', 'fontes')],     # fontes de corrida (OFL) + LICENCAS_OFL.txt: o carregador procura em _MEIPASS/fontes e ao lado do .exe
     hiddenimports=[],
     hookspath=[],
     runtime_hooks=[],
